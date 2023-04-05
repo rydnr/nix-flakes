@@ -11,7 +11,7 @@
     aiohttp-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
     tiktoken-flake.url =
-      "github:rydnr/nix-flakes?dir=langchain/dependencies/tiktoker-0.3.3";
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/tiktoken-0.3.3";
   };
 
   outputs = { self, nixpkgs, flake-utils, tenacity-flake, blis-flake

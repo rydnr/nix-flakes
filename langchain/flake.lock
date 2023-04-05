@@ -102,6 +102,21 @@
         "type": "github"
       }
     },
+    "flake-utils_5": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1680588688,
@@ -166,13 +181,30 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1680588688,
+        "narHash": "sha256-SW95w50Pdw3nivgTuCebtbbPqaCTp9ctnFMNj24vdck=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3e01f83884b8ed7cbafa784727fb343f1876d56f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aiohttp-flake": "aiohttp-flake",
         "blis-flake": "blis-flake",
         "flake-utils": "flake-utils_3",
         "nixpkgs": "nixpkgs_3",
-        "tenacity-flake": "tenacity-flake"
+        "tenacity-flake": "tenacity-flake",
+        "tiktoken-flake": "tiktoken-flake"
       }
     },
     "tenacity-flake": {
@@ -191,6 +223,27 @@
       },
       "original": {
         "dir": "langchain/dependencies/tenacity-8.2.2",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    },
+    "tiktoken-flake": {
+      "inputs": {
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "dir": "langchain/dependencies/tiktoken-0.3.3",
+        "lastModified": 1680712637,
+        "narHash": "sha256-944lz/bmR4eYyASfb+hcGmUlhcPfbqagJiQqRBGsprk=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "9ab7aa30ff75e59d8134a91c4eb580c7d575a206",
+        "type": "github"
+      },
+      "original": {
+        "dir": "langchain/dependencies/tiktoken-0.3.3",
         "owner": "rydnr",
         "repo": "nix-flakes",
         "type": "github"
