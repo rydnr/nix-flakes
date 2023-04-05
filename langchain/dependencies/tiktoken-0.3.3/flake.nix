@@ -19,8 +19,10 @@
         pythonPackages = python.pkgs;
       in rec {
         packages.tiktoken-0_3_3 = (import ./tiktoken-0.3.3.nix) {
-          inherit (pythonPackages) buildPythonPackage fetchPypi regex requests;
-          inherit (pkgs) lib;
+          inherit (pythonPackages)
+            buildPythonPackage fetchPypi regex requests semantic-version
+            typing-extensions;
+          inherit (pkgs) cargo lib rustc;
           blobfile = blobfile-flake.packages.${system}.blobfile-2_0_1;
           setuptools-rust =
             setuptools-rust-flake.packages.${system}.setuptools-rust-1_5_2;

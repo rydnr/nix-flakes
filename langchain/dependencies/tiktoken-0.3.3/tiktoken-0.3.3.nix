@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, regex, requests, blobfile, setuptools-rust
-}:
+{ blobfile, buildPythonPackage, cargo, fetchPypi, lib, regex, requests, rustc
+, semantic-version, setuptools-rust, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "tiktoken";
@@ -11,7 +11,15 @@ buildPythonPackage rec {
     hash = "sha256-l7WLe/2pRXkeyFXlPRZujsIMY3iUK5OFGmyRnd+dBJY=";
   };
 
-  propagatedBuildInputs = [ regex requests blobfile setuptools-rust ];
+  nativeBuildInputs = [ cargo rustc ];
+  propagatedBuildInputs = [
+    blobfile
+    regex
+    requests
+    semantic-version
+    setuptools-rust
+    typing-extensions
+  ];
 
   meta = with lib; {
     description = "Fast BPE tokeniser for use with OpenAI's models.";
