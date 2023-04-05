@@ -20,5 +20,8 @@
           inherit (pkgs) lib;
         };
         packages.default = packages.tenacity-8_2_2;
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs.python3Packages; [ packages.tenacity-8_2_2 ];
+        };
       });
 }
