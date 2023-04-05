@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, regex, requests, blobfile }:
+{ lib, buildPythonPackage, fetchPypi, regex, requests, blobfile, urllib3 }:
 
 buildPythonPackage rec {
   pname = "tiktoken";
@@ -10,7 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-l7WLe/2pRXkeyFXlPRZujsIMY3iUK5OFGmyRnd+dBJY=";
   };
 
-  nativeBuildInputs = [ regex requests blobfile ];
+  propagatedBuildInputs = [ regex requests blobfile urllib3 ];
 
   meta = with lib; {
     description = "Fast BPE tokeniser for use with OpenAI's models.";

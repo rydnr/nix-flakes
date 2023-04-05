@@ -19,7 +19,11 @@
           inherit (pythonPackages) buildPythonPackage fetchPypi regex requests;
           inherit (pkgs) lib;
           blobfile = blobfile-flake.packages.${system}.blobfile-2_0_1;
+          urllib3 = pythonPackages.urllib3;
         };
         packages.default = packages.tiktoken-0_3_3;
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs.python3Packages; [ packages.tiktoken-0_3_3 ];
+        };
       });
 }
