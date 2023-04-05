@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, regex, requests, blobfile, urllib3 }:
+{ lib, buildPythonPackage, fetchPypi, regex, requests, blobfile, setuptools-rust
+}:
 
 buildPythonPackage rec {
   pname = "tiktoken";
@@ -10,7 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-l7WLe/2pRXkeyFXlPRZujsIMY3iUK5OFGmyRnd+dBJY=";
   };
 
-  propagatedBuildInputs = [ regex requests blobfile urllib3 ];
+  propagatedBuildInputs = [ regex requests blobfile setuptools-rust ];
 
   meta = with lib; {
     description = "Fast BPE tokeniser for use with OpenAI's models.";

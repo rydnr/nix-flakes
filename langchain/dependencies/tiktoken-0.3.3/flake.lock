@@ -7,11 +7,11 @@
       },
       "locked": {
         "dir": "langchain/dependencies/blobfile-2.0.1",
-        "lastModified": 1680717935,
-        "narHash": "sha256-aL0pi6vXkROHMKL1uxjDGhyB6OiYV9GZ+2hUz3h0mDo=",
+        "lastModified": 1680718117,
+        "narHash": "sha256-5dowRhRH6XKRWWvdq9j+G8Fy4pehBFTIOh4W0YoHwn4=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "46e3622ba8bfab0be4da2b3a934a00996cffc2bd",
+        "rev": "fa959650f3c42c006d27e34ea1b218d735646783",
         "type": "github"
       },
       "original": {
@@ -129,11 +129,11 @@
       },
       "locked": {
         "dir": "langchain/dependencies/setuptools-rust-1.5.2",
-        "lastModified": 1680717935,
-        "narHash": "sha256-aL0pi6vXkROHMKL1uxjDGhyB6OiYV9GZ+2hUz3h0mDo=",
+        "lastModified": 1680718117,
+        "narHash": "sha256-5dowRhRH6XKRWWvdq9j+G8Fy4pehBFTIOh4W0YoHwn4=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "46e3622ba8bfab0be4da2b3a934a00996cffc2bd",
+        "rev": "fa959650f3c42c006d27e34ea1b218d735646783",
         "type": "github"
       },
       "original": {
