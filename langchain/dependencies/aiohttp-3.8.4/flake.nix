@@ -27,5 +27,8 @@
           inherit (pkgs) lib stdenv;
         };
         packages.default = packages.aiohttp-3_8_4;
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs.python3Packages; [ packages.aiohttp-3_8_4 ];
+        };
       });
 }
