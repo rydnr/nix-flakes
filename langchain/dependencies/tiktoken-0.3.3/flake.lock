@@ -7,11 +7,11 @@
       },
       "locked": {
         "dir": "langchain/dependencies/blobfile-2.0.1",
-        "lastModified": 1680713578,
-        "narHash": "sha256-BVaBddIhlanOVFi6gzkXEXgbiuaDAxhPOEYMXCzS1kc=",
+        "lastModified": 1680716038,
+        "narHash": "sha256-RnUwI41pIRRZSQWfl3lsp3t9x7zkM3bSSEDqvnkPCd8=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "c2aff04d0d3ec6761b80e626e2b5a11e648f5bb7",
+        "rev": "7b0981eb23ba7a45381464db8f6369a154601096",
         "type": "github"
       },
       "original": {
