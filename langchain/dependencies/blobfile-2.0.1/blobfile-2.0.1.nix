@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchFromGitHub, astor }:
+{ lib, buildPythonPackage, fetchFromGitHub, astor, filelock, urllib3 }:
 
 buildPythonPackage rec {
   pname = "blobfile";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "sha256-EUU/ZORqri3EIUUAho6cNdRgH+we13AgHyTjsY6tCWg=";
   };
 
-  nativeBuildInputs = [ astor ];
+  nativeBuildInputs = [ astor urllib3 ];
 
   meta = with lib; {
     description = "Python-like interface for reading local and remote files.";

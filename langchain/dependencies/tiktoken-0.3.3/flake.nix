@@ -13,7 +13,7 @@
       let
         blobfileOverlay = self: super: {
           python3Packages = super.python3Packages // {
-            tenacity = blobfile-flake.packages.${system}.blobfile-2_0_1;
+            blobfile = blobfile-flake.packages.${system}.blobfile-2_0_1;
           };
         };
         pkgs = import nixpkgs {
