@@ -11,22 +11,14 @@
   outputs = { self, nixpkgs, flake-utils, blobfile-flake }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        blobfileOverlay = self: super: {
-          python3Packages = super.python3Packages // {
-            blobfile = blobfile-flake.packages.${system}.blobfile-2_0_1;
-          };
-        };
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ blobfileOverlay ];
-        };
+        pkgs = nixpkgs.legacyPackages.${system};
         python = pkgs.python3;
         pythonPackages = python.pkgs;
       in rec {
         packages.tiktoken-0_3_3 = (import ./tiktoken-0.3.3.nix) {
-          inherit (pythonPackages)
-            buildPythonPackage fetchPypi regex requests blobfile;
+          inherit (pythonPackages) buildPythonPackage fetchPypi regex requests;
           inherit (pkgs) lib;
+          blobfile = blobfile-flake.packages.${system}.blobfile-2_0_1;
         };
         packages.default = packages.tiktoken-0_3_3;
       });

@@ -13,6 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-EUU/ZORqri3EIUUAho6cNdRgH+we13AgHyTjsY6tCWg=";
   };
 
+  nativeBuildInputs = [ urllib3 ];
   propagatedBuildInputs = [ astor filelock lxml pycryptodomex urllib3 ];
   checkInputs = [ av imageio pytest tensorflow xmltodict ];
 
