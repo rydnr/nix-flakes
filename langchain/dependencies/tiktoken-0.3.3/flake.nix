@@ -4,12 +4,22 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    blobfile-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/blobfile-2.0.1";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, blobfile-flake }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        blobfileOverlay = self: super: {
+          python3Packages = super.python3Packages // {
+            tenacity = blobfile-flake.packages.${system}.blobfile-2_0_1;
+          };
+        };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ blobfileOverlay ];
+        };
         python = pkgs.python3;
         pythonPackages = python.pkgs;
       in rec {

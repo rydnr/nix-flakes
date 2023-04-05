@@ -5,10 +5,7 @@ buildPythonPackage rec {
   version = "0.3.3";
   format = "setuptools";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "";
-  };
+  src = fetchPypi { inherit pname version; };
 
   nativeBuildInputs = [ regex requests ];
 
