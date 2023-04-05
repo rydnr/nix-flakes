@@ -20,5 +20,8 @@
           inherit (pkgs) lib;
         };
         packages.default = packages.blis-0_7_9;
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs.python3Packages; [ packages.blis-0_7_9 ];
+        };
       });
 }
