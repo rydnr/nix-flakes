@@ -1,5 +1,47 @@
 {
   "nodes": {
+    "aiohttp-flake": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "dir": "langchain/dependencies/aiohttp-3.8.4",
+        "lastModified": 1680711101,
+        "narHash": "sha256-LFdRPTlQ3me/1jsbXTGqhk9aBeHCb8wNw7kiAUWyWbA=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "e31ad51c42b229949a67ee61174c2dd8f0d4921c",
+        "type": "github"
+      },
+      "original": {
+        "dir": "langchain/dependencies/aiohttp-3.8.4",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    },
+    "blis-flake": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "dir": "langchain/dependencies/blis-0.7.9",
+        "lastModified": 1680709187,
+        "narHash": "sha256-K2A2eYvF7qKZHLAQfUucGvOyeTP7r5sk05HUW8u8OuI=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "b711a6bfba1b1289bf41dc12e47c96bee1cd51e5",
+        "type": "github"
+      },
+      "original": {
+        "dir": "langchain/dependencies/blis-0.7.9",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1678901627,
@@ -16,6 +58,36 @@
       }
     },
     "flake-utils_2": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
       "locked": {
         "lastModified": 1678901627,
         "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
@@ -62,17 +134,51 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1680588688,
+        "narHash": "sha256-SW95w50Pdw3nivgTuCebtbbPqaCTp9ctnFMNj24vdck=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3e01f83884b8ed7cbafa784727fb343f1876d56f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1680588688,
+        "narHash": "sha256-SW95w50Pdw3nivgTuCebtbbPqaCTp9ctnFMNj24vdck=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3e01f83884b8ed7cbafa784727fb343f1876d56f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
+        "aiohttp-flake": "aiohttp-flake",
+        "blis-flake": "blis-flake",
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_3",
         "tenacity-flake": "tenacity-flake"
       }
     },
     "tenacity-flake": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2"
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "dir": "langchain/dependencies/tenacity-8.2.2",

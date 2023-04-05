@@ -6,9 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
     tenacity-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/tenacity-8.2.2";
+    blis-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/blis-0.7.9";
+    aiohttp-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
   };
 
-  outputs = { self, nixpkgs, flake-utils, tenacity-flake }:
+  outputs =
+    { self, nixpkgs, flake-utils, tenacity-flake, blis-flake, aiohttp-flake }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         tenacityOverlay = self: super: {
@@ -17,9 +22,21 @@
           };
         };
 
+        blisOverlay = self: super: {
+          python3Packages = super.python3Packages // {
+            blis = blis-flake.packages.${system}.blis-0_7_9;
+          };
+        };
+
+        aiohttpOverlay = self: super: {
+          python3Packages = super.python3Packages // {
+            aiohttp = aiohttp-flake.packages.${system}.aiohttp-3_8_4;
+          };
+        };
+
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ tenacityOverlay ];
+          overlays = [ tenacityOverlay blisOverlay aiohttpOverlay ];
         };
 
         langchainPackage = let python = pkgs.python310;
@@ -41,6 +58,7 @@
 
           propagatedBuildInputs = let
             requiredDeps = with pkgs.python3Packages; [
+              aiohttp
               pydantic
               sqlalchemy
               requests
@@ -51,7 +69,7 @@
             optionalDeps = with pkgs.python3Packages; [
               faiss
               redis
-              spacy
+              #              spacy
               nltk
               beautifulsoup4
               pytorch
@@ -71,7 +89,10 @@
             maintainers = with maintainers; [ breakds ];
           };
         };
-      in {
+      in rec {
+        packages.langchain = langchainPackage;
+        packages.default = packages.langchain;
+
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [
             python
