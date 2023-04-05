@@ -10,10 +10,12 @@
       "github:rydnr/nix-flakes?dir=langchain/dependencies/blis-0.7.9";
     aiohttp-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
+    tiktoken-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/tiktoker-0.3.3";
   };
 
-  outputs =
-    { self, nixpkgs, flake-utils, tenacity-flake, blis-flake, aiohttp-flake }:
+  outputs = { self, nixpkgs, flake-utils, tenacity-flake, blis-flake
+    , aiohttp-flake, tiktoken-flake }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         tenacityOverlay = self: super: {
@@ -34,9 +36,16 @@
           };
         };
 
+        tiktokenOverlay = self: super: {
+          python3Packages = super.python3Packages // {
+            tiktoken = tiktoken-flake.packages.${system}.tiktoken-0_3_3;
+          };
+        };
+
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ tenacityOverlay blisOverlay aiohttpOverlay ];
+          overlays =
+            [ tenacityOverlay blisOverlay aiohttpOverlay tiktokenOverlay ];
         };
 
         langchainPackage = let python = pkgs.python310;
@@ -58,6 +67,14 @@
 
           propagatedBuildInputs = let
             requiredDeps = with pkgs.python3Packages; [
+              absl-py
+              aiodns
+              pycares
+              aiofiles
+              aiosignal
+              #              aiohttp-retry
+              google-api-python-client
+
               aiohttp
               pydantic
               sqlalchemy
@@ -66,19 +83,60 @@
               numpy
               blis
             ];
-            optionalDeps = with pkgs.python3Packages; [
-              faiss
-              redis
-              #              spacy
+            coredDeps = with pkgs.python3Packages; [
+              pydantic
+              sqlalchemy
+              requests
+              pyyaml
+              numpy
+              spacy
               nltk
+              huggingface-hub
+              transformers
               beautifulsoup4
               pytorch
               jinja2
-              google-api-python-client
               dataclasses-json
               tenacity
+              aiohttp
             ];
-          in requiredDeps ++ optionalDeps;
+            optionalDeps = {
+              utils = with pkgs.python3Packages; [
+                faiss
+                elasticsearch
+                # opensearch-py
+                redis
+                # manifest-ml
+                tiktoken
+                # tensorflow-text
+                # sentence-transformers
+                # pypdf
+                networkx
+                # deeplake
+                # pgvector
+                psycopg2
+                boto3
+              ];
+
+              apis = with pkgs.python3Packages; [
+                # wikipedia
+                # pinecone-client
+                # weaviate-client
+                google-api-python-client
+                # anthropic
+                # qdrant-client
+                wolframalpha
+                # cohere
+                openai
+                # nlpcloud
+                # google-search-results
+                # aleph-alpha-client
+                # jina
+                pyowm # open street map
+              ];
+            };
+          in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
+          #         in requiredDeps ++ optionalDeps;
 
           pythonImportsCheck = [ "langchain" ];
           meta = with pkgs.lib; {
