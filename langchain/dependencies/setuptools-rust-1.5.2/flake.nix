@@ -13,16 +13,16 @@
         python = pkgs.python3;
         pythonPackages = python.pkgs;
       in rec {
-        packages.setuptools_rust-1_5_2 = (import ./setuptools-rust-1.5.2.nix) {
+        packages.setuptools-rust-1_5_2 = (import ./setuptools-rust-1.5.2.nix) {
           inherit (pythonPackages)
             buildPythonPackage fetchPypi pythonOlder semantic-version
             typing-extensions;
           inherit (pkgs) lib;
         };
-        packages.default = packages.setuptools_rust-1_5_2;
+        packages.default = packages.setuptools-rust-1_5_2;
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages;
-            [ packages.setuptools_rust-1_5_2 ];
+            [ packages.setuptools-rust-1_5_2 ];
         };
       });
 }
