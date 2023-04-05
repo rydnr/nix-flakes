@@ -20,5 +20,9 @@
           inherit (pkgs) lib fetchFromGitHub;
         };
         packages.default = packages.blobfile-2_0_1;
+
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs.python3Packages; [ packages.blobfile-2_0_1 ];
+        };
       });
 }
