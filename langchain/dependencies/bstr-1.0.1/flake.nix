@@ -31,22 +31,24 @@
           overlays = [ cargo2nix.overlays.default ];
         };
 
+        workspace = pkgs.fetchFromGitHub {
+          owner = "BurntSushi";
+          repo = "bstr";
+          rev = "1.0.1";
+          sha256 = "sha256-Yhf9lFZMXCGLvkq1yQBzjquSDzACkveRnoLgp8e6Xew=";
+        };
+
         # create the workspace & dependencies package set
         rustPkgs = pkgs.rustBuilder.makePackageSet {
           rustVersion = "1.61.0";
           packageFun = import ./Cargo.nix;
-          workspaceSrc = pkgs.fetchFromGitHub {
-            owner = "BurntSushi";
-            repo = "bstr";
-            rev = "1.0.1";
-            sha256 = "sha256-Yhf9lFZMXCGLvkq1yQBzjquSDzACkveRnoLgp8e6Xew=";
-          };
+          workspaceSrc = workspace;
         };
 
       in rec {
         packages = {
-          bstr-1_0_1-src = (rustPkgs.workspace.bstr { });
-          bstr-1_0_1 = packages.bstr-1_0_1-src.bin;
+          bstr-1_0_1-src = workspace;
+          bstr-1_0_1 = (rustPkgs.workspace.bstr { }).bin;
 
           bstr-src = packages.bstr-1_0_1-src;
           bstr = packages.bstr-1_0_1;
