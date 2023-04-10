@@ -23,6 +23,13 @@
           };
           blis = packages.blis-0_7_9;
           default = packages.blis;
+          meta = with lib; {
+            description = "BLAS-like linear algebra library";
+            homepage = "https://github.com/explosion/cython-blis";
+            license = licenses.bsd3;
+            maintainers = with maintainers; [ ];
+            platforms = platforms.all;
+          };
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
