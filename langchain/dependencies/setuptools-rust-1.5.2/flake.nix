@@ -22,7 +22,7 @@
             inherit (pkgs) lib;
           };
           setuptools-rust = packages.setuptools-rust-1_5_2;
-          default = packages.setuptools-rust-1_5_2;
+          default = packages.setuptools-rust;
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
