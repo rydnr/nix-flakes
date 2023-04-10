@@ -6,22 +6,29 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = inputs:
+    with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         python = pkgs.python3;
         pythonPackages = python.pkgs;
       in rec {
-        packages.blis-0_7_9 = (import ./blis-0.7.9.nix) {
-          inherit (pythonPackages)
-            buildPythonPackage cython fetchPypi hypothesis numpy pytest
-            pythonOlder;
-          inherit (pkgs) lib;
+        packages = {
+          blis-0_7_9 = (import ./blis-0.7.9.nix) {
+            inherit (pythonPackages)
+              buildPythonPackage cython fetchPypi hypothesis numpy pytest
+              pythonOlder;
+            inherit (pkgs) lib;
+          };
+          blis = packages.blis-0_7_9;
+          default = packages.blis;
         };
-        packages.default = packages.blis-0_7_9;
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs.python3Packages; [ packages.blis-0_7_9 ];
+          buildInputs = with pkgs.python3Packages; [ packages.default ];
+        };
+        shell = flake-utils.lib.mkShell {
+          packages = system: [ self.packages.${system}.default ];
         };
       });
 }
