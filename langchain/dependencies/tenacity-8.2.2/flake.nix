@@ -23,6 +23,12 @@
           };
           tenacity = packages.tenacity-8_2_2;
           default = packages.tenacity;
+          meta = with lib; {
+            homepage = "https://github.com/jd/tenacity";
+            description = "Retrying library for Python";
+            license = licenses.asl20;
+            maintainers = with maintainers; [ jakewaksbaum ];
+          };
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
