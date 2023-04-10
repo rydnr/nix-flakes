@@ -45,8 +45,12 @@
 
       in rec {
         packages = {
-          bstr-1_0_1 = (rustPkgs.workspace.bstr { }).bin;
+          bstr-1_0_1-src = (rustPkgs.workspace.bstr { });
+          bstr-1_0_1 = packages.bstr-1_0_1-src.bin;
+
+          bstr-src = packages.bstr-1_0_1-src;
           bstr = packages.bstr-1_0_1;
+          default-src = packages.bstr-src;
           default = packages.bstr;
         };
         devShell =
