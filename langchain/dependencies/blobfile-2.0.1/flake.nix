@@ -23,6 +23,14 @@
           };
           blobfile = packages.blobfile-2_0_1;
           default = packages.blobfile;
+          meta = with lib; {
+            description =
+              "Python-like interface for reading local and remote files.";
+            homepage = "https://github.com/christopher-hesse/blobfile";
+            license = licenses.unlicense;
+            maintainers = with maintainers; [ ];
+            platforms = platforms.all;
+          };
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
