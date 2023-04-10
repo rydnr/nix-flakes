@@ -30,6 +30,13 @@
           };
           aiohttp = packages.aiohttp-3_8_4;
           default = packages.aiohttp;
+          meta = with lib; {
+            description =
+              "Asynchronous HTTP Client/Server for Python and asyncio";
+            license = licenses.asl20;
+            homepage = "https://github.com/aio-libs/aiohttp";
+            maintainers = with maintainers; [ dotlambda ];
+          };
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
