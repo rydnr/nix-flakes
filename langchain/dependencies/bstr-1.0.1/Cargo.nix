@@ -40,7 +40,7 @@ in
   cargo2nixVersion = "0.11.0";
   workspace = {
     bstr-bench = rustPackages.unknown.bstr-bench."0.0.1";
-    bstr = rustPackages.unknown.bstr."1.4.0";
+    bstr = rustPackages.unknown.bstr."1.0.1";
   };
   "registry+https://github.com/rust-lang/crates.io-index".atty."0.2.14" = overridableMkRustCrate (profileName: rec {
     name = "atty";
@@ -71,9 +71,9 @@ in
     ];
   });
   
-  "unknown".bstr."1.4.0" = overridableMkRustCrate (profileName: rec {
+  "unknown".bstr."1.0.1" = overridableMkRustCrate (profileName: rec {
     name = "bstr";
-    version = "1.4.0";
+    version = "1.0.1";
     registry = "unknown";
     src = fetchCrateLocal workspaceSrc;
     features = builtins.concatLists [
@@ -102,7 +102,7 @@ in
     registry = "unknown";
     src = fetchCrateLocal (workspaceSrc + "/bench");
     dependencies = {
-      bstr = rustPackages."unknown".bstr."1.4.0" { inherit profileName; };
+      bstr = rustPackages."unknown".bstr."1.0.1" { inherit profileName; };
       criterion = rustPackages."registry+https://github.com/rust-lang/crates.io-index".criterion."0.3.6" { inherit profileName; };
       unicode_segmentation = rustPackages."registry+https://github.com/rust-lang/crates.io-index".unicode-segmentation."1.10.1" { inherit profileName; };
     };

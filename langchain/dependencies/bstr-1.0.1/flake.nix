@@ -2,11 +2,15 @@
   description = "A Nix flake for bstr 1.0.1 Rust package";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    flake-utils.url = "github:numtide/flake-utils";
     cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.11.0";
-    flake-utils.follows = "cargo2nix/flake-utils";
-    nixpkgs.follows = "cargo2nix/nixpkgs";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-22.11";
+      follows = "cargo2nix/nixpkgs";
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      follows = "cargo2nix/flake-utils";
+    };
   };
 
   outputs = inputs:
@@ -40,13 +44,13 @@
         };
 
       in rec {
-        # the packages in `nix build .#packages.<system>.<name>`
         packages = {
           bstr-1_0_1 = (rustPkgs.workspace.bstr { }).bin;
           bstr = packages.bstr-1_0_1;
-          default = packages.bstr-1_0_1;
+          default = packages.bstr;
         };
-        devShell = pkgs.mkShell { buildInputs = [ packages.default ]; };
+        devShell =
+          pkgs.mkShell { buildInputs = [ packages.${system}.default ]; };
         shell = flake-utils.lib.mkShell {
           packages = system: [ self.packages.${system}.default ];
         };
