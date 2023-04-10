@@ -55,6 +55,14 @@
           default-src = packages.bstr-src;
           default = packages.bstr;
         };
+        meta = with lib; {
+          description =
+            "This crate provides extension traits for &[u8] and Vec<u8> that enable their use as byte strings, where byte strings are conventionally UTF-8";
+          homepage = "https://github.com/BurntSushi/bstr";
+          license = licenses.mit;
+          maintainers = with maintainers; [ ];
+          platforms = platforms.all;
+        };
         devShell =
           pkgs.mkShell { buildInputs = [ packages.${system}.default ]; };
         shell = flake-utils.lib.mkShell {
