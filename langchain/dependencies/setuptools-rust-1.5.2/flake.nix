@@ -23,6 +23,14 @@
           };
           setuptools-rust = packages.setuptools-rust-1_5_2;
           default = packages.setuptools-rust;
+          meta = with lib; {
+            description =
+              "plugin for setuptools to build Rust Python extensions implemented with PyO3 or rust-cpython";
+            homepage = "https://github.com/PyO3/setuptools-rust";
+            license = licenses.mit;
+            maintainers = with maintainers; [ ];
+            platforms = platforms.all;
+          };
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs.python3Packages; [ packages.default ];
