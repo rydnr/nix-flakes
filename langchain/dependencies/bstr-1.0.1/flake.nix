@@ -1,5 +1,5 @@
 {
-  description = "A Nix flake for bstr 1.4.0 Rust package";
+  description = "A Nix flake for bstr 1.0.1 Rust package";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
@@ -34,21 +34,21 @@
           workspaceSrc = pkgs.fetchFromGitHub {
             owner = "BurntSushi";
             repo = "bstr";
-            rev = "1.4.0";
-            sha256 = "sha256-BLbnF/p12YPH2JxHS1SJaA+BXGI07HU1s44YpLHBMDc=";
+            rev = "1.0.1";
+            sha256 = "sha256-Yhf9lFZMXCGLvkq1yQBzjquSDzACkveRnoLgp8e6Xew=";
           };
         };
 
       in rec {
         # the packages in `nix build .#packages.<system>.<name>`
         packages = {
-          bstr-1_4_0 = (rustPkgs.workspace.bstr { }).bin;
-          # nix build
-          default = packages.bstr-1_4_0; # rec
+          bstr-1_0_1 = (rustPkgs.workspace.bstr { }).bin;
+          bstr = packages.bstr-1_0_1;
+          default = packages.bstr-1_0_1;
         };
         devShell = pkgs.mkShell { buildInputs = [ packages.default ]; };
         shell = flake-utils.lib.mkShell {
-          packages = system: [ self.packages.${system}.bstr-1_4_0 ];
+          packages = system: [ self.packages.${system}.default ];
         };
       });
 }
