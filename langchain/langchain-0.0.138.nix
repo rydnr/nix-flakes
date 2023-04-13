@@ -1,5 +1,6 @@
-{ aiohttp, blis, buildPythonPackage, fetchPypi, lib, poetry, pythonPackages
-, tenacity, tiktoken, wolframalpha }:
+{ aiohttp, blis, buildPythonPackage, fetchPypi, lib, openapi-schema-pydantic
+, poetry, poetry2nix, python, pythonPackages, tenacity, tiktoken, wolframalpha
+}:
 
 buildPythonPackage rec {
   pname = "langchain";
@@ -8,89 +9,15 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "";
+    sha256 = "sha256-RPPz0IGfzgVf2FlkDK/Yr4HMZJfa68JyHR/PMwJvvfY=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools setuptools-scm ];
+  nativeBuildInputs = [ poetry2nix ];
 
-  propagatedBuildInputs = [ ];
+  buildInputs = [ poetry ];
 
-  format = "pyproject";
-
-  buildInputs = [ pkgs.poetry ];
-
-  propagatedBuildInputs = let
-    requiredDeps = with pythonPackages; [
-      absl-py
-      aiodns
-      pycares
-      aiofiles
-      aiosignal
-      #              aiohttp-retry
-      google-api-python-client
-
-      aiohttp
-      pydantic
-      sqlalchemy
-      requests
-      pyyaml
-      numpy
-      blis
-    ];
-    coredDeps = with python3Packages; [
-      pydantic
-      sqlalchemy
-      requests
-      pyyaml
-      numpy
-      spacy
-      nltk
-      huggingface-hub
-      transformers
-      beautifulsoup4
-      pytorch
-      jinja2
-      dataclasses-json
-      tenacity
-      aiohttp
-    ];
-    optionalDeps = {
-      utils = with python3Packages; [
-        faiss
-        elasticsearch
-        # opensearch-py
-        redis
-        # manifest-ml
-        tiktoken
-        # tensorflow-text
-        # sentence-transformers
-        # pypdf
-        networkx
-        # deeplake
-        # pgvector
-        psycopg2
-        boto3
-      ];
-
-      apis = with python3Packages; [
-        # wikipedia
-        # pinecone-client
-        # weaviate-client
-        google-api-python-client
-        # anthropic
-        # qdrant-client
-        wolframalpha
-        # cohere
-        openai
-        # nlpcloud
-        # google-search-results
-        # aleph-alpha-client
-        # jina
-        pyowm # open street map
-      ];
-    };
-  in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
-  #         in requiredDeps ++ optionalDeps;
+  # Use poetry2nix's mkPoetryEnv to create a Python environment with the project's dependencies
+  propagatedBuildInputs = (poetry2nix.mkPoetryEnv { py = python; }).inputs;
 
   pythonImportsCheck = [ "langchain" ];
 

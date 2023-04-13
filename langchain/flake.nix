@@ -4,12 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
-    tenacity-flake.url =
-      "github:rydnr/nix-flakes?dir=langchain/dependencies/tenacity-8.2.2";
-    blis-flake.url =
-      "github:rydnr/nix-flakes?dir=langchain/dependencies/blis-0.7.9";
     aiohttp-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
+    blis-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/blis-0.7.9";
+    openapi-schema-pydantic-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/openapi-schema-pydantic-1.2.4";
+    tenacity-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/tenacity-8.2.2";
     tiktoken-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/tiktoken-0.3.3";
     wolframalpha-flake.url =
@@ -28,12 +30,16 @@
           langchain-0_0_138 = (import ./langchain-0.0.138.nix) {
             inherit (pythonPackages) buildPythonPackage fetchPypi;
             pythonPackages = pythonPackages;
+            python = python;
             inherit (pkgs) lib poetry;
-            tenacity = tenacity-flake.packages.${system}.tenacity;
-            blis = blis-flake.packages.${system}.blis;
+            poetry2nix = pkgs.poetry2nix;
             aiohttp = aiohttp-flake.packages.${system}.aiohttp;
+            blis = blis-flake.packages.${system}.blis;
+            openapi-schema-pydantic =
+              openapi-schema-pydantic-flake.packages.${system}.openapi-schema-pydantic;
+            tenacity = tenacity-flake.packages.${system}.tenacity;
             tiktoken = tiktoken-flake.packages.${system}.tiktoken;
-            wolframalpha = tiktoken-flake.packages.${system}.wolframalpha;
+            wolframalpha = wolframalpha-flake.packages.${system}.wolframalpha;
           };
           langchain = packages.langchain-0_0_138;
           default = packages.langchain;
