@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    pmxbot-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/pmxbot-1122.14.2";
   };
 
   outputs = inputs:
@@ -15,12 +17,14 @@
         pythonPackages = python.pkgs;
       in rec {
         packages = {
-          aiohttp-3_8_4 = (import ./wolframalpha-5.0.0.nix) {
-            inherit (pythonPackages) buildPythonPackage fetchPypi;
-            inherit (pkgs) lib stdenv;
+          wolframalpha-3_8_4 = (import ./wolframalpha-5.0.0.nix) {
+            inherit (pythonPackages)
+              buildPythonPackage fetchPypi setuptools setuptools-scm xmltodict;
+            inherit (pkgs) lib;
+            pmxbot = pmxbot-flake.packages.${system}.pmxbot;
           };
-          aiohttp = packages.aiohttp-3_8_4;
-          default = packages.aiohttp;
+          wolframalpha = packages.wolframalpha-3_8_4;
+          default = packages.wolframalpha;
           meta = with lib; {
             description =
               "Python Client built against the Wolfram|Alpha v2.0 API";
