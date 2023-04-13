@@ -1,4 +1,6 @@
-{ buildPythonPackage, fetchPypi, lib, python, setuptools, stdenv }:
+{ buildPythonPackage, fetchPypi, jaraco_collections, jaraco_itertools
+, jaraco_logging, jaraco_services, jaraco_ui, lib, pymongo, python
+, python-dateutil, pytimeparse, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco.mongodb";
@@ -7,12 +9,23 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "";
+    sha256 = "sha256-a24xfOwDMhAdcvKnJy/1FR3EJxdTw5QjqO/zUEap4Ak=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  pythonNamespaces = [ "jaraco" ];
 
-  propagatedBuildInputs = [ ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
+
+  propagatedBuildInputs = [
+    jaraco_collections
+    jaraco_itertools
+    jaraco_logging
+    jaraco_services
+    jaraco_ui
+    pymongo
+    python-dateutil
+    pytimeparse
+  ];
 
   meta = with lib; {
     description =

@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    jaraco_services-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/jaraco_services-3.1.0";
+    jaraco_ui-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/jaraco_ui-2.3.0";
   };
 
   outputs = inputs:
@@ -16,8 +20,14 @@
       in rec {
         packages = {
           jaraco_mongodb-11_2_1 = (import ./jaraco_mongodb-11.2.1.nix) {
-            inherit (pythonPackages) buildPythonPackage fetchPypi python;
-            inherit (pkgs) lib stdenv;
+            inherit (pythonPackages)
+              buildPythonPackage fetchPypi jaraco_collections jaraco_itertools
+              jaraco_logging pymongo python python-dateutil pytimeparse
+              setuptools setuptools-scm;
+            inherit (pkgs) lib;
+            jaraco_services =
+              jaraco_services-flake.packages.${system}.jaraco_services;
+            jaraco_ui = jaraco_ui-flake.packages.${system}.jaraco_ui;
           };
           jaraco_mongodb = packages.jaraco_mongodb-11_2_1;
           default = packages.jaraco_mongodb;
@@ -29,8 +39,12 @@
             maintainers = with maintainers; [ ];
           };
         };
+        defaultPackage = packages.default;
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs.python3Packages; [ packages.default ];
+          buildInputs = [
+            pythonPackages.build
+            jaraco_services-flake.packages.${system}.jaraco_services
+          ];
         };
         shell = flake-utils.lib.mkShell {
           packages = system: [ self.packages.${system}.default ];
