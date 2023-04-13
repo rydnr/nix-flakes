@@ -1,17 +1,35 @@
-{ buildPythonApplication, fetchFromGitHub, lib, stdenv }:
+{ beautifulsoup4, buildPythonPackage, feedparser, fetchPypi, importlib-metadata
+, importlib-resources, jaraco-context, jaraco_functools, jaraco_itertools
+, jaraco_mongodb, lib, python, python-dateutil, pytz, pyyaml, requests
+, setuptools, wordnik-py3 }:
 
-buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "pmxbot";
   version = "1122.14.2";
+  format = "pyproject";
 
-  src = fetchFromGitHub {
-    owner = "pmxbot";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-WUJsuA9yFIxckMDhNl10zBUeqdZRK46jT+GSNqOJVnQ=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-PWRvXnDLQXs63NdqaKZkvruUobKx7JWpVhoF994DLJ0=";
   };
 
-  pythonImportsCheck = [ "pmxbot" ];
+  nativeBuildInputs = [ setuptools ];
+
+  propagatedBuildInputs = [
+    beautifulsoup4
+    feedparser
+    importlib-metadata
+    importlib-resources
+    jaraco-context
+    jaraco_functools
+    jaraco_itertools
+    jaraco_mongodb
+    python-dateutil
+    pytz
+    pyyaml
+    requests
+    wordnik-py3
+  ];
 
   meta = with lib; {
     description = "pmxbot is bot for IRC and Slack written in Python.";

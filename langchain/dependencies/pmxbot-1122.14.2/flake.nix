@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    jaraco_mongodb-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/jaraco_mongodb-11.2.1";
+    wordnik-py3-flake.url =
+      "github:rydnr/nix-flakes?dir=langchain/dependencies/wordnik-py3-2.1.2";
   };
 
   outputs = inputs:
@@ -16,8 +20,15 @@
       in rec {
         packages = {
           pmxbot-1122_14_2 = (import ./pmxbot-1122.14.2.nix) {
-            inherit (pythonPackages) buildPythonApplication;
-            inherit (pkgs) fetchFromGitHub lib stdenv;
+            inherit (pythonPackages)
+              beautifulsoup4 buildPythonPackage feedparser fetchPypi
+              importlib-metadata importlib-resources jaraco-context
+              jaraco_functools jaraco_itertools python python-dateutil pytz
+              pyyaml requests setuptools;
+            inherit (pkgs) lib;
+            jaraco_mongodb =
+              jaraco_mongodb-flake.packages.${system}.jaraco_mongodb;
+            wordnik-py3 = wordnik-py3-flake.packages.${system}.wordnik-py3;
           };
           pmxbot = packages.pmxbot-1122_14_2;
           default = packages.pmxbot;
