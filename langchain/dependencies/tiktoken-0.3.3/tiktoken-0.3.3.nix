@@ -17,7 +17,6 @@ buildPythonPackage rec {
     cp ${tiktoken-rust.out}/lib/lib_tiktoken.so tiktoken/_tiktoken.so
     substituteInPlace setup.py \
           --replace "path/to/your/prebuilt/rust/extension" "${tiktoken-rust.out}/lib"
-    cat setup.py
   '';
 
   postPatch = ''
