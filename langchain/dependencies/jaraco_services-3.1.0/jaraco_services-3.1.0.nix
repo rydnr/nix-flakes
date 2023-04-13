@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, jaraco_classes, lib, path, portend, python
-, setuptools, stdenv }:
+{ buildPythonPackage, fetchPypi, jaraco_classes, lib, path, portend, setuptools
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco.services";
@@ -11,7 +11,9 @@ buildPythonPackage rec {
     sha256 = "sha256-P854FzJWtUeUa0P78zinu3FOktA1XWx2hqL+9q11Zec=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  pythonNamespaces = [ "jaraco" ];
+
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = [ jaraco_classes path portend ];
 

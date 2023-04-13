@@ -17,9 +17,9 @@
         packages = {
           jaraco_services-3_1_0 = (import ./jaraco_services-3.1.0.nix) {
             inherit (pythonPackages)
-              buildPythonPackage fetchPypi jaraco_classes path portend python
-              setuptools;
-            inherit (pkgs) lib stdenv;
+              buildPythonPackage fetchPypi jaraco_classes path portend
+              setuptools setuptools-scm;
+            inherit (pkgs) lib;
           };
           jaraco_services = packages.jaraco_services-3_1_0;
           default = packages.jaraco_services;
