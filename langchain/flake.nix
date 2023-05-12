@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    poetry2nix.url = "github:nix-community/poetry2nix";
     aiohttp-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
     blis-flake.url =
@@ -32,7 +33,7 @@
             pythonPackages = pythonPackages;
             python = python;
             inherit (pkgs) lib poetry;
-            poetry2nix = pkgs.poetry2nix;
+            inherit (poetry2nix.legacyPackages.${system}) mkPoetryEnv;
             aiohttp = aiohttp-flake.packages.${system}.aiohttp;
             blis = blis-flake.packages.${system}.blis;
             openapi-schema-pydantic =

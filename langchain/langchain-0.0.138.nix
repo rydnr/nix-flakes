@@ -1,5 +1,5 @@
 { aiohttp, blis, buildPythonPackage, fetchPypi, lib, openapi-schema-pydantic
-, poetry, poetry2nix, python, pythonPackages, tenacity, tiktoken, wolframalpha
+, poetry, python, pythonPackages, mkPoetryEnv, tenacity, tiktoken, wolframalpha
 }:
 
 buildPythonPackage rec {
@@ -12,15 +12,21 @@ buildPythonPackage rec {
     sha256 = "sha256-RPPz0IGfzgVf2FlkDK/Yr4HMZJfa68JyHR/PMwJvvfY=";
   };
 
-  nativeBuildInputs = [ poetry2nix ];
+  nativeBuildInputs = [ ]; # poetry2nix ];
 
   buildInputs = [ poetry ];
 
   # Use poetry2nix's mkPoetryEnv to create a Python environment with the project's dependencies
-  propagatedBuildInputs = (poetry2nix.mkPoetryEnv { py = python; }).inputs;
+  propagatedBuildInputs = (mkPoetryEnv { py = python; }).inputs;
 
   pythonImportsCheck = [ "langchain" ];
 
+  preBuild = ''
+    echo "Printing poetryEnv: ''${propagatedBuildInputs[@]}";
+    for input in "''${propagatedBuildInputs[@]}"; do
+      echo "  - $input";
+    done
+  '';
   meta = with lib; {
     description = "Building applications with LLMs through composability";
     license = licenses.mit;
