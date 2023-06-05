@@ -5,8 +5,8 @@
   inputs = rec {
     nixos.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    flit-scm = {
-      url = "github:rydnr/nix-flakes/flit-scm-1.7.0?dir=flit-scm";
+    flit = {
+      url = "github:rydnr/nix-flakes/flit-3.9.0?dir=flit";
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -31,10 +31,16 @@
             src = pkgs.fetchgit {
               url = "https://gitlab.com/WillDaSilva/flit_scm";
               rev = "1.7.0";
-              sha256 = "";
+              sha256 = "sha256-2nx9kWq/2TzauOW+c67g9a3JZ2dhBM4QzKyK/sqWOPo=";
             };
             format = "pyproject";
-
+            nativeBuildInputs = [
+              flit.packages.${system}.flit-core
+              pythonPackages.setuptools_scm
+              pythonPackages.tomli
+              pythonPackages.wheel
+            ];
+            SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
             doCheck = false;
 
             meta = with pkgs.lib; {
