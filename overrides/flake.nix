@@ -20,7 +20,7 @@
         maintainers = with pkgs.lib.maintainers; [ ];
       in rec {
         packages = {
-          argilla = pythonPackages.buildPythonPackage rec {
+          overrides = pythonPackages.buildPythonPackage rec {
             pname = "overrides";
             version = "7.3.1";
             src = pythonPackages.fetchPypi {
@@ -33,7 +33,7 @@
               inherit description license homepage maintainers;
             };
           };
-          default = packages.argilla;
+          default = packages.overrides;
           meta = with lib; {
             inherit description license homepage maintainers;
           };
