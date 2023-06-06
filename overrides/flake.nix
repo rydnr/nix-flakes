@@ -16,10 +16,11 @@
         license = pkgs.lib.licenses.asl20;
         homepage = "https://github.com/mkorpela/overrides";
         maintainers = with pkgs.lib.maintainers; [ ];
-        shellHook-for = package: ''
+        shellHook-for = { package, python }: ''
           export PNAME="${package.pname}";
           export PVERSION="${package.version}";
-          export PS1="\[\033[01;32m\][\$PNAME-\$PVERSION]\[\033[00m\] \[\033[01;34m\]\W \$\[\033[00m\] "
+          export PYVERSION="${python.name}";
+          export PS1="\033[37m[\[\033[01;33m\]\$PNAME-\$PVERSION\033[01;37m|\033[01;32m\]\$PYVERSION\]\033[37m|\[\033[00m\]\[\033[01;34m\]\W\033[37m]\033[31m\$\[\033[00m\] "
         '';
 
         overrides-7_3_1-for = python:
@@ -42,37 +43,49 @@
           overrides-7_3_1-python38 = overrides-7_3_1-for pkgs.python38;
           overrides-7_3_1-python39 = overrides-7_3_1-for pkgs.python39;
           overrides-7_3_1-python310 = overrides-7_3_1-for pkgs.python310;
-          latest-python37 = packages.overrides-7_3_1-python37;
-          latest-python38 = packages.overrides-7_3_1-python38;
-          latest-python39 = packages.overrides-7_3_1-python39;
-          latest-python310 = packages.overrides-7_3_1-python310;
-          latest = packages.latest-python310;
-          default = packages.latest;
+          overrides-latest-python37 = packages.overrides-7_3_1-python37;
+          overrides-latest-python38 = packages.overrides-7_3_1-python38;
+          overrides-latest-python39 = packages.overrides-7_3_1-python39;
+          overrides-latest-python310 = packages.overrides-7_3_1-python310;
+          overrides-latest = packages.overrides-latest-python310;
+          default = packages.overrides-latest;
         };
         defaultPackage = packages.default;
         devShells = {
           overrides-7_3_1-python37 = pkgs.mkShell {
             buildInputs = [ packages.overrides-7_3_1-python37 ];
-            shellHook = shellHook-for packages.latest-python37;
+            shellHook = shellHook-for {
+              package = packages.overrides-7_3_1-python37;
+              python = pkgs.python37;
+            };
           };
           overrides-7_3_1-python38 = pkgs.mkShell {
             buildInputs = [ packages.overrides-7_3_1-python38 ];
-            shellHook = shellHook-for packages.latest-python38;
+            shellHook = shellHook-for {
+              package = packages.overrides-7_3_1-python38;
+              python = pkgs.python38;
+            };
           };
           overrides-7_3_1-python39 = pkgs.mkShell {
             buildInputs = [ packages.overrides-7_3_1-python39 ];
-            shellHook = shellHook-for packages.latest-python39;
+            shellHook = shellHook-for {
+              package = packages.overrides-7_3_1-python39;
+              python = pkgs.python39;
+            };
           };
           overrides-7_3_1-python310 = pkgs.mkShell {
             buildInputs = [ packages.overrides-7_3_1-python310 ];
-            shellHook = shellHook-for packages.latest-python310;
+            shellHook = shellHook-for {
+              package = packages.overrides-7_3_1-python310;
+              python = pkgs.python310;
+            };
           };
-          latest-python37 = devShells.overrides-7_3_1-python37;
-          latest-python38 = devShells.overrides-7_3_1-python38;
-          latest-python39 = devShells.overrides-7_3_1-python39;
-          latest-python310 = devShells.overrides-7_3_1-python310;
-          latest = devShells.latest-python310;
-          default = devShells.latest;
+          overrides-latest-python37 = devShells.overrides-7_3_1-python37;
+          overrides-latest-python38 = devShells.overrides-7_3_1-python38;
+          overrides-latest-python39 = devShells.overrides-7_3_1-python39;
+          overrides-latest-python310 = devShells.overrides-7_3_1-python310;
+          overrides-latest = devShells.overrides-latest-python310;
+          default = devShells.overrides-latest;
         };
       });
 }
