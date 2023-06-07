@@ -52,11 +52,32 @@
         "type": "path"
       }
     },
+    "pympler": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-sWsus7uZnVyXG2M/N9/TmQtilCN+lvfOA19asvJ9j3I=",
+        "path": "./pympler",
+        "type": "path"
+      },
+      "original": {
+        "path": "./pympler",
+        "type": "path"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixos": "nixos",
-        "overrides": "overrides"
+        "overrides": "overrides",
+        "pympler": "pympler"
       }
     }
   },

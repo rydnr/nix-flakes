@@ -9,6 +9,11 @@
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
     };
+    pympler = {
+      url = "path:./pympler";
+      inputs.nixos.follows = "nixos";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = { self, ... }@inputs:
     with inputs;
@@ -20,9 +25,10 @@
         homepage = "https://github.com/rydnr/nix-flakes";
         maintainers = with pkgs.lib.maintainers; [ ];
       in rec {
-        packages = overrides.packages.${system};
+        packages = overrides.packages.${system} // pympler.packages.${system};
         defaultPackage =
           overrides.packages.${system}.overrides-latest-python310;
-        devShells = overrides.devShells.${system};
+        devShells = overrides.devShells.${system}
+          // pympler.devShells.${system};
       });
 }
