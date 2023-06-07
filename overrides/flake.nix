@@ -36,6 +36,11 @@
           echo "you can do it here: https://patreon.com/rydnr";
           echo;
         '';
+        devShell-for = { package, python }:
+          pkgs.mkShell {
+            buildInputs = [ package ];
+            shellHook = shellHook-for { inherit package python; };
+          };
         overrides-7_3_1-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "overrides";
@@ -52,53 +57,48 @@
           };
       in rec {
         packages = {
-          overrides-7_3_1-python37 = overrides-7_3_1-for pkgs.python37;
           overrides-7_3_1-python38 = overrides-7_3_1-for pkgs.python38;
           overrides-7_3_1-python39 = overrides-7_3_1-for pkgs.python39;
           overrides-7_3_1-python310 = overrides-7_3_1-for pkgs.python310;
-          overrides-latest-python37 = packages.overrides-7_3_1-python37;
+          overrides-7_3_1-python311 = overrides-7_3_1-for pkgs.python311;
+          overrides-7_3_1-python312 = overrides-7_3_1-for pkgs.python312;
           overrides-latest-python38 = packages.overrides-7_3_1-python38;
           overrides-latest-python39 = packages.overrides-7_3_1-python39;
           overrides-latest-python310 = packages.overrides-7_3_1-python310;
-          overrides-latest = packages.overrides-latest-python310;
+          overrides-latest-python311 = packages.overrides-7_3_1-python311;
+          overrides-latest-python312 = packages.overrides-7_3_1-python312;
+          overrides-latest = packages.overrides-latest-python312;
           default = packages.overrides-latest;
         };
         defaultPackage = packages.default;
-        devShells = {
-          overrides-7_3_1-python37 = pkgs.mkShell {
-            buildInputs = [ packages.overrides-7_3_1-python37 ];
-            shellHook = shellHook-for {
-              package = packages.overrides-7_3_1-python37;
-              python = pkgs.python37;
-            };
+        devShells = with packages; rec {
+          overrides-7_3_1-python38 = devShell-for {
+            package = overrides-7_3_1-python38;
+            python = pkgs.python38;
           };
-          overrides-7_3_1-python38 = pkgs.mkShell {
-            buildInputs = [ packages.overrides-7_3_1-python38 ];
-            shellHook = shellHook-for {
-              package = packages.overrides-7_3_1-python38;
-              python = pkgs.python38;
-            };
+          overrides-7_3_1-python39 = devShell-for {
+            package = overrides-7_3_1-python39;
+            python = pkgs.python39;
           };
-          overrides-7_3_1-python39 = pkgs.mkShell {
-            buildInputs = [ packages.overrides-7_3_1-python39 ];
-            shellHook = shellHook-for {
-              package = packages.overrides-7_3_1-python39;
-              python = pkgs.python39;
-            };
+          overrides-7_3_1-python310 = devShell-for {
+            package = overrides-7_3_1-python310;
+            python = pkgs.python310;
           };
-          overrides-7_3_1-python310 = pkgs.mkShell {
-            buildInputs = [ packages.overrides-7_3_1-python310 ];
-            shellHook = shellHook-for {
-              package = packages.overrides-7_3_1-python310;
-              python = pkgs.python310;
-            };
+          overrides-7_3_1-python311 = devShell-for {
+            package = overrides-7_3_1-python311;
+            python = pkgs.python311;
           };
-          overrides-latest-python37 = devShells.overrides-7_3_1-python37;
-          overrides-latest-python38 = devShells.overrides-7_3_1-python38;
-          overrides-latest-python39 = devShells.overrides-7_3_1-python39;
-          overrides-latest-python310 = devShells.overrides-7_3_1-python310;
-          overrides-latest = devShells.overrides-latest-python310;
-          default = devShells.overrides-latest;
+          overrides-7_3_1-python312 = devShell-for {
+            package = overrides-7_3_1-python312;
+            python = pkgs.python312;
+          };
+          overrides-latest-python38 = overrides-7_3_1-python38;
+          overrides-latest-python39 = overrides-7_3_1-python39;
+          overrides-latest-python310 = overrides-7_3_1-python310;
+          overrides-latest-python311 = overrides-7_3_1-python311;
+          overrides-latest-python312 = overrides-7_3_1-python312;
+          overrides-latest = overrides-latest-python312;
+          default = overrides-latest;
         };
       });
 }
