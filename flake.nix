@@ -14,6 +14,11 @@
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
     };
+    trove-classifiers = {
+      url = "path:./trove-classifiers";
+      inputs.nixos.follows = "nixos";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = { self, ... }@inputs:
     with inputs;
@@ -25,10 +30,11 @@
         homepage = "https://github.com/rydnr/nix-flakes";
         maintainers = with pkgs.lib.maintainers; [ ];
       in rec {
-        packages = overrides.packages.${system} // pympler.packages.${system};
+        packages = overrides.packages.${system} // pympler.packages.${system}
+          // trove-classifiers.packages.${system};
         defaultPackage =
           overrides.packages.${system}.overrides-latest-python310;
-        devShells = overrides.devShells.${system}
-          // pympler.devShells.${system};
+        devShells = overrides.devShells.${system} // pympler.devShells.${system}
+          // trove-classifiers.devShells.${system};
       });
 }

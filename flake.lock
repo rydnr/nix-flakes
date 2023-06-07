@@ -77,7 +77,28 @@
         "flake-utils": "flake-utils",
         "nixos": "nixos",
         "overrides": "overrides",
-        "pympler": "pympler"
+        "pympler": "pympler",
+        "trove-classifiers": "trove-classifiers"
+      }
+    },
+    "trove-classifiers": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-w6DV4fC9YrlqLquA4JP26hWO6F/3SjDnkDoWhAG0a/s=",
+        "path": "./trove-classifiers",
+        "type": "path"
+      },
+      "original": {
+        "path": "./trove-classifiers",
+        "type": "path"
       }
     }
   },
