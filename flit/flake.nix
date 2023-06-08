@@ -22,7 +22,7 @@
         homepage = "https://github.com/pypa/flit";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
+        shared = import ../shared.nix;
         flit-core-3_9_0-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "flit";

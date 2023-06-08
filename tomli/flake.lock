@@ -28,7 +28,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-cCgKVEO756pZODgGNlEknWOZ2RL/fVdN9B+7h6ZSqaw=",
+        "narHash": "sha256-bOi1QXteyhSXZLgeoAgmUql3sYJoUtoDmaikGDufS2U=",
         "path": "../flit",
         "type": "path"
       },

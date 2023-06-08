@@ -10,6 +10,12 @@
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
     };
+    tomli = {
+      url = "path:../tomli";
+      inputs.nixos.follows = "nixos";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.flit.follows = "flit";
+    };
   };
   outputs = inputs:
     with inputs;
@@ -22,8 +28,8 @@
         homepage = "https://gitlab.com/WillDaSilva/flit_scm";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
-        flit-scm-1_7_0-for = { flit-core, python }:
+        shared = import ../shared.nix;
+        flit-scm-1_7_0-for = { flit-core, tomli, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "flit-scm";
             version = "1.7.0";
@@ -33,12 +39,8 @@
               sha256 = "sha256-2nx9kWq/2TzauOW+c67g9a3JZ2dhBM4QzKyK/sqWOPo=";
             };
             format = "pyproject";
-            nativeBuildInputs = [
-              flit-core
-              python.pkgs.setuptools_scm
-              python.pkgs.tomli
-              python.pkgs.wheel
-            ];
+            nativeBuildInputs =
+              [ flit-core python.pkgs.setuptools_scm tomli python.pkgs.wheel ];
             SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
             doCheck = false;
 
@@ -50,18 +52,22 @@
         packages = {
           flit-scm-1_7_0-python38 = flit-scm-1_7_0-for {
             flit-core = flit.packages.${system}.flit-core-3_9_0-python38;
+            tomli = tomly.packages.${system}.tomli-2_0_1-python38;
             python = pkgs.python38;
           };
           flit-scm-1_7_0-python39 = flit-scm-1_7_0-for {
             flit-core = flit.packages.${system}.flit-core-3_9_0-python39;
+            tomli = tomli.packages.${system}.tomli-2_0_1-python39;
             python = pkgs.python39;
           };
           flit-scm-1_7_0-python310 = flit-scm-1_7_0-for {
             flit-core = flit.packages.${system}.flit-core-3_9_0-python310;
+            tomli = tomli.packages.${system}.tomli-2_0_1-python310;
             python = pkgs.python310;
           };
           flit-scm-1_7_0-python311 = flit-scm-1_7_0-for {
             flit-core = flit.packages.${system}.flit-core-3_9_0-python311;
+            tomli = tomli.packages.${system}.tomli-2_0_1-python311;
             python = pkgs.python311;
           };
           flit-scm-latest-python38 = packages.flit-scm-1_7_0-python38;

@@ -20,7 +20,7 @@
         homepage = "https://hatch.pypa.io/latest/";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
+        shared = import ../shared.nix;
         hatchling-1_17_1-for = { trove-classifiers, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "hatchling";

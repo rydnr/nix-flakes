@@ -4,10 +4,6 @@
   inputs = rec {
     nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    python-on-nix = {
-      url = "github:on-nix/python/d8a7fa21b76ac3b8a1a3fedb41e86352769b09ed";
-      inputs.nixpkgs.follows = "nixos";
-    };
     exceptiongroup = {
       url = "path:./exceptiongroup";
       inputs.nixos.follows = "nixos";
@@ -70,18 +66,12 @@
         homepage = "https://github.com/rydnr/nix-flakes";
         maintainers = with pkgs.lib.maintainers; [ ];
       in rec {
-        packages = exceptiongroup.packages.${system};
-        bla = flit.packages.${system} // flit-scm.packages.${system}
-          // hatchling.packages.${system} // overrides.packages.${system}
-          // pluggy.packages.${system} // pympler.packages.${system}
-          // trove-classifiers.packages.${system} // tomli.packages.${system}
-          // python-on-nix.packages.${system};
+        packages = exceptiongroup.packages.${system} // flit.packages.${system}
+          // flit-scm.packages.${system} // hatchling.packages.${system}
+          // overrides.packages.${system} // pluggy.packages.${system}
+          // pympler.packages.${system} // trove-classifiers.packages.${system}
+          // tomli.packages.${system};
         defaultPackage =
           exceptiongroup.packages.${system}.exceptiongroup-latest-python310;
-        devShells = exceptiongroup.devShells.${system}
-          // flit.devShells.${system} // flit-scm.devShells.${system}
-          // hatchling.devShells.${system} // overrides.devShells.${system}
-          // pluggy.devShells.${system} // pympler.devShells.${system}
-          // trove-classifiers.devShells.${system} // tomli.devShells.${system};
       });
 }

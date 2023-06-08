@@ -28,7 +28,7 @@
         homepage = "https://github.com/agronholm/exceptiongroup";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
+        shared = import ../shared.nix;
         exceptiongroup-1_1_1-for = { flit, flit-scm, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "exceptiongroup";

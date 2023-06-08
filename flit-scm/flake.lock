@@ -28,7 +28,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-cCgKVEO756pZODgGNlEknWOZ2RL/fVdN9B+7h6ZSqaw=",
+        "narHash": "sha256-bOi1QXteyhSXZLgeoAgmUql3sYJoUtoDmaikGDufS2U=",
         "path": "../flit",
         "type": "path"
       },
@@ -57,7 +57,31 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "flit": "flit",
-        "nixos": "nixos"
+        "nixos": "nixos",
+        "tomli": "tomli"
+      }
+    },
+    "tomli": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "flit": [
+          "flit"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-sv4qQXos6b0EVNOSP9xfX4milwskdCkvpgwCknMBaJs=",
+        "path": "../tomli",
+        "type": "path"
+      },
+      "original": {
+        "path": "../tomli",
+        "type": "path"
       }
     },
     "trove-classifiers": {

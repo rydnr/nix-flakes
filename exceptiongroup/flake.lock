@@ -28,7 +28,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-59IkaCJ/W3lxNRWWRfT+xAeqKuWVzv0EH4zeCq92bhw=",
+        "narHash": "sha256-bOi1QXteyhSXZLgeoAgmUql3sYJoUtoDmaikGDufS2U=",
         "path": "../flit",
         "type": "path"
       },
@@ -47,11 +47,12 @@
         ],
         "nixos": [
           "nixos"
-        ]
+        ],
+        "tomli": "tomli"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-tkoluAAsEr4/l6ZnjulMdtaCZ4E7dWuLXFHxj7/tnP4=",
+        "narHash": "sha256-OPwrHLvqB001FCmgn/H8Mlbnytj5vDyDf+/Fr/61kd4=",
         "path": "../flit-scm",
         "type": "path"
       },
@@ -82,6 +83,32 @@
         "flit": "flit",
         "flit-scm": "flit-scm",
         "nixos": "nixos"
+      }
+    },
+    "tomli": {
+      "inputs": {
+        "flake-utils": [
+          "flit-scm",
+          "flake-utils"
+        ],
+        "flit": [
+          "flit-scm",
+          "flit"
+        ],
+        "nixos": [
+          "flit-scm",
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-sv4qQXos6b0EVNOSP9xfX4milwskdCkvpgwCknMBaJs=",
+        "path": "../tomli",
+        "type": "path"
+      },
+      "original": {
+        "path": "../tomli",
+        "type": "path"
       }
     },
     "trove-classifiers": {

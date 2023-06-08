@@ -15,7 +15,7 @@
         homepage = "https://github.com/pypa/trove-classifiers";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
+        shared = import ../shared.nix;
         trove-classifiers-2023_5_24-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "trove-classifiers";

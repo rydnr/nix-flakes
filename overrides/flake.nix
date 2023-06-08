@@ -17,7 +17,7 @@
         homepage = "https://github.com/mkorpela/overrides";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ./shared.nix;
+        shared = import ../shared.nix;
         overrides-7_3_1-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "overrides";

@@ -50,7 +50,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-G4/GxaOB+h0kOAD2cvEOL6lCu46YQXyHNgoKqB922uk=",
+        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
         "path": "../trove-classifiers",
         "type": "path"
       },
