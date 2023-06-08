@@ -18,16 +18,16 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1685883127,
-        "narHash": "sha256-zPDaPNrAtBnO24rNqjHLINHsqTdRbgWy1c/TL3EdwlM=",
+        "lastModified": 1686059680,
+        "narHash": "sha256-sp0WlCIeVczzB0G8f8iyRg3IYW7KG31mI66z7HIZwrI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d4a9ff82fc18723219b60c66fb2ccb0734c460eb",
+        "rev": "a558f7ac29f50c4b937fb5c102f587678ae1c9fb",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-22.11",
+        "ref": "nixos-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -49,20 +49,14 @@
         ]
       },
       "locked": {
-        "dir": "trove-classifiers",
-        "lastModified": 1685905654,
-        "narHash": "sha256-+tm65GN8JsN2pHhsr4onRIV0cGZapaVJR090M24BKA8=",
-        "owner": "rydnr",
-        "repo": "nix-flakes",
-        "rev": "7ffdcfccbc56f7333cc6a2d6c0c4d6c6c7a98b52",
-        "type": "github"
+        "lastModified": 1,
+        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
+        "path": "../trove-classifiers",
+        "type": "path"
       },
       "original": {
-        "dir": "trove-classifiers",
-        "owner": "rydnr",
-        "ref": "trove-classifiers-2023.5.24",
-        "repo": "nix-flakes",
-        "type": "github"
+        "path": "../trove-classifiers",
+        "type": "path"
       }
     }
   },

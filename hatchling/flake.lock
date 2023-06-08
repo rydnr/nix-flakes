@@ -18,16 +18,16 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1686035213,
-        "narHash": "sha256-hRcXUoVWWuLqFzQ1QVQx4ewvbnst1NkCxoZhmpzrilA=",
+        "lastModified": 1686059680,
+        "narHash": "sha256-sp0WlCIeVczzB0G8f8iyRg3IYW7KG31mI66z7HIZwrI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d83945caa7624015f11b152bf5c6c4363ffe9f7c",
+        "rev": "a558f7ac29f50c4b937fb5c102f587678ae1c9fb",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-22.11",
+        "ref": "nixos-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -50,7 +50,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
+        "narHash": "sha256-G4/GxaOB+h0kOAD2cvEOL6lCu46YQXyHNgoKqB922uk=",
         "path": "../trove-classifiers",
         "type": "path"
       },

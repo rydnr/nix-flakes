@@ -22,7 +22,7 @@
         homepage = "https://gitlab.com/WillDaSilva/flit_scm";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         flit-scm-1_7_0-for = { flit-core, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "flit-scm";

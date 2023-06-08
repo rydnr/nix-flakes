@@ -2,7 +2,7 @@
   description = "Hatch is a modern, extensible Python project manager.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     trove-classifiers = {
       url = "path:../trove-classifiers";
@@ -20,7 +20,7 @@
         homepage = "https://hatch.pypa.io/latest/";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         hatchling-1_17_1-for = { trove-classifiers, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "hatchling";

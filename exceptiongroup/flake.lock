@@ -28,7 +28,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-cCgKVEO756pZODgGNlEknWOZ2RL/fVdN9B+7h6ZSqaw=",
+        "narHash": "sha256-59IkaCJ/W3lxNRWWRfT+xAeqKuWVzv0EH4zeCq92bhw=",
         "path": "../flit",
         "type": "path"
       },
@@ -51,7 +51,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-ixgrYQ9yxqZ1eC8CFgx2ytyc+FwSiqhHZKJI7MBNzf0=",
+        "narHash": "sha256-tkoluAAsEr4/l6ZnjulMdtaCZ4E7dWuLXFHxj7/tnP4=",
         "path": "../flit-scm",
         "type": "path"
       },

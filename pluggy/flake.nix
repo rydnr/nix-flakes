@@ -15,7 +15,7 @@
         homepage = "https://github.com/pytest-dev/pluggy";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         pluggy-1_0_0-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "pluggy";

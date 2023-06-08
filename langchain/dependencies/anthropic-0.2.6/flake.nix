@@ -47,6 +47,7 @@ python examples/basic_sync.py
 python examples/basic_stream.py
 python examples/count_tokens.py
 ```
+
 '';
             license = licenses.mit;
             homepage = "None";

@@ -1,19 +1,74 @@
-{ buildPythonPackage, fetchPypi, lib, python, setuptools }:
+{ pkgs, fetchgit, lib, mkPoetryApplication, poetry, python, pip, wheel, packaging, jinja2, markupsafe, aiofiles, chalice, dill, flake8, moto, PyGithub, pytest, typing, tomli, requests, sphinx, tox, aiobotocore, cryptography, cffi }:
 
-buildPythonPackage rec {
-  pname = "aioboto3";
-  version = "10.4.0";
-  format = "pyproject";
-
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "6d0f0bf6af0168c27828e108f1a24182669a6ea6939437c27638caf06a693403";
+let
+  project = fetchgit {
+    url = "https://github.com/terrycain/aioboto3";
+    rev = "v10.4.0";
+    sha256 = "a50a5ab6d992f5598edd92105059fae9acfc192981e08bd88534c2167e92526a";
   };
 
-  nativeBuildInputs = [ setuptools ];
+in mkPoetryApplication {
+  projectDir = project;
+  pname = "aioboto3";
+  version = "10.4.0";
+  pyModule = "aioboto3";
+  python = python;
 
-  propagatedBuildInputs = [ ];
+  overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
+    pip = pkgs.python3Packages.pip;
+    wheel = pkgs.python3Packages.wheel;
+    packaging = pkgs.python3Packages.packaging;
+    jinja2 = pkgs.python3Packages.jinja2;
+    markupsafe = pkgs.python3Packages.markupsafe;
+    aiofiles = pkgs.python3Packages.aiofiles;
+    chalice = pkgs.python3Packages.chalice;
+    dill = pkgs.python3Packages.dill;
+    flake8 = pkgs.python3Packages.flake8;
+    moto = pkgs.python3Packages.moto;
+    PyGithub = pkgs.python3Packages.PyGithub;
+    pytest = pkgs.python3Packages.pytest;
+    typing = pkgs.python3Packages.typing;
+    tomli = pkgs.python3Packages.tomli;
+    requests = pkgs.python3Packages.requests;
+    sphinx = pkgs.python3Packages.sphinx;
+    tox = pkgs.python3Packages.tox;
+    aiobotocore = pkgs.python3Packages.aiobotocore;
+    cryptography = pkgs.python3Packages.cryptography;
+    cffi = pkgs.python3Packages.cffi;
+  });
 
+  nativeBuildInputs = with python.pkgs; [
+    pip
+    wheel
+    packaging
+    jinja2
+    markupsafe
+    aiofiles
+    chalice
+    dill
+    flake8
+    moto
+    PyGithub
+    pytest
+    typing
+    tomli
+    requests
+    sphinx
+    tox
+    aiobotocore
+    cryptography
+    cffi
+  ];
+
+  propagatedBuildInputs = with python.pkgs; [
+    
+  ];
+
+  buildInputs = with python.pkgs; [
+    
+  ];
+
+  pythonImportsCheck = [ "aioboto3" ];
   meta = with lib; {
     description = ''
 ========================

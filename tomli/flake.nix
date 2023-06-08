@@ -20,7 +20,7 @@
         homepage = "https://github.com/hukkin/tomli";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         tomli-2_0_1-for = { flit-core, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "tomli";

@@ -7,33 +7,33 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "bf4b69a9d25d573162accbe8aa9e022331c67a82519250ac30573ad506a1f663";
+    sha256 = "253dca8484bca13eab08afa6b1e1d3f3451d6b65cc2be31c5cd4dac1a49a03f7";
   };
 
-  nativeBuildInputs = [ setuptools  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [  ];
+  propagatedBuildInputs = [ ];
 
-  buildInputs = [  ];
+  buildInputs = [ ];
 
   meta = with lib; {
     description = ''
-# Anthropic Python SDK
+      # Anthropic Python SDK
 
-This python repo provides access to Anthropic's safety-first language model APIs.
+      This python repo provides access to Anthropic's safety-first language model APIs.
 
-For more information on our APIs, please check out [Anthropic's documentation](https://console.anthropic.com/docs).
+      For more information on our APIs, please check out [Anthropic's documentation](https://console.anthropic.com/docs).
 
-## How to use
+      ## How to use
 
-```
-pip install .
-export ANTHROPIC_API_KEY=<insert token here>
-python examples/basic_sync.py
-python examples/basic_stream.py
-python examples/count_tokens.py
-```
-'';
+      ```
+      pip install .
+      export ANTHROPIC_API_KEY=<insert token here>
+      python examples/basic_sync.py
+      python examples/basic_stream.py
+      python examples/count_tokens.py
+      ```
+    '';
     license = licenses.mit;
     homepage = "None";
     maintainers = with maintainers; [ ];

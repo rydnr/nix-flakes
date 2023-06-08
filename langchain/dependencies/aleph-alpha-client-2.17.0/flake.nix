@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+
+
+
   };
 
   outputs = inputs:
@@ -18,6 +21,12 @@
           aleph-alpha-client-2_17_0 = (import ./aleph-alpha-client-2.17.0.nix) {
             inherit (pythonPackages) buildPythonPackage fetchPypi setuptools;
             inherit (pkgs) lib;
+            
+            
+            
+            
+            
+            
           };
           aleph-alpha-client = packages.aleph-alpha-client-2_17_0;
           default = packages.aleph-alpha-client;

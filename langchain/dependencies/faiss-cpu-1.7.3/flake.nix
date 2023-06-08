@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+
+
+
   };
 
   outputs = inputs:
@@ -16,8 +19,14 @@
       in rec {
         packages = {
           faiss-cpu-1_7_3 = (import ./faiss-cpu-1.7.3.nix) {
-            inherit (pythonPackages) buildPythonPackage fetchPypi;
-            inherit (pkgs) lib setuptools;
+            inherit (pythonPackages) buildPythonPackage fetchPypi setuptools;
+            inherit (pkgs) lib;
+            
+            
+            
+            
+            
+            
           };
           faiss-cpu = packages.faiss-cpu-1_7_3;
           default = packages.faiss-cpu;

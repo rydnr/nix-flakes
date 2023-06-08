@@ -3,7 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
   };
 
   outputs = inputs:
@@ -16,9 +23,31 @@
       in rec {
         packages = {
           aioboto3-10_4_0 = (import ./aioboto3-10.4.0.nix) {
-            inherit (pythonPackages)
-              buildPythonPackage fetchPypi
-             inherit (pkgs) lib;
+            python = python;
+            pkgs = pkgs;
+            inherit (pkgs) lib poetry fetchgit;
+            inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
+            pip = pkgs.python3Packages.pip;
+            wheel = pkgs.python3Packages.wheel;
+            packaging = pkgs.python3Packages.packaging;
+            jinja2 = pkgs.python3Packages.jinja2;
+            markupsafe = pkgs.python3Packages.markupsafe;
+            aiofiles = pkgs.python3Packages.aiofiles;
+            chalice = pkgs.python3Packages.chalice;
+            dill = pkgs.python3Packages.dill;
+            flake8 = pkgs.python3Packages.flake8;
+            moto = pkgs.python3Packages.moto;
+            PyGithub = pkgs.python3Packages.PyGithub;
+            pytest = pkgs.python3Packages.pytest;
+            typing = pkgs.python3Packages.typing;
+            tomli = pkgs.python3Packages.tomli;
+            requests = pkgs.python3Packages.requests;
+            sphinx = pkgs.python3Packages.sphinx;
+            tox = pkgs.python3Packages.tox;
+            aiobotocore = pkgs.python3Packages.aiobotocore;
+            cryptography = pkgs.python3Packages.cryptography;
+            cffi = pkgs.python3Packages.cffi;
+            
           };
           aioboto3 = packages.aioboto3-10_4_0;
           default = packages.aioboto3;

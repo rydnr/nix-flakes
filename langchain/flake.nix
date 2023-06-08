@@ -29,11 +29,10 @@
       in rec {
         packages = {
           langchain-0_0_138 = (import ./langchain-0.0.138.nix) {
-            inherit (pythonPackages) buildPythonPackage fetchPypi;
-            pythonPackages = pythonPackages;
             python = python;
-            inherit (pkgs) lib poetry;
-            inherit (poetry2nix.legacyPackages.${system}) mkPoetryEnv;
+            inherit (pkgs) lib poetry fetchFromGitHub;
+            inherit (pythonPackages) setuptools;
+            inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
             aiohttp = aiohttp-flake.packages.${system}.aiohttp;
             blis = blis-flake.packages.${system}.blis;
             openapi-schema-pydantic =

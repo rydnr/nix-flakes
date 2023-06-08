@@ -1,5 +1,31 @@
 {
   "nodes": {
+    "exceptiongroup": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "flit": [
+          "flit"
+        ],
+        "flit-scm": [
+          "flit-scm"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-pybDX1Ev0oBaUfpVF4DV5ceS2P3cIop3Oqpnrno4XMo=",
+        "path": "./exceptiongroup",
+        "type": "path"
+      },
+      "original": {
+        "path": "./exceptiongroup",
+        "type": "path"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1652776076,
@@ -13,6 +39,111 @@
         "owner": "numtide",
         "ref": "v1.0.0",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flakeUtils": {
+      "locked": {
+        "lastModified": 1634851050,
+        "narHash": "sha256-N83GlSGPJJdcqhUxSCS/WwW5pksYf3VP1M13cDRTSVA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c91f3de5adaf1de973b797ef7485e441a65b8935",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flit": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ],
+        "trove-classifiers": [
+          "trove-classifiers"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-59IkaCJ/W3lxNRWWRfT+xAeqKuWVzv0EH4zeCq92bhw=",
+        "path": "./flit",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flit",
+        "type": "path"
+      }
+    },
+    "flit-scm": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "flit": [
+          "flit"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-tkoluAAsEr4/l6ZnjulMdtaCZ4E7dWuLXFHxj7/tnP4=",
+        "path": "./flit-scm",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flit-scm",
+        "type": "path"
+      }
+    },
+    "hatchling": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ],
+        "trove-classifiers": [
+          "trove-classifiers"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-Hzk/qUvvCbj89iix4UQnMXFjbMWjdJ4tdrqGyit6gIA=",
+        "path": "./hatchling",
+        "type": "path"
+      },
+      "original": {
+        "path": "./hatchling",
+        "type": "path"
+      }
+    },
+    "makes": {
+      "inputs": {
+        "nixpkgs": [
+          "python-on-nix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1634846450,
+        "narHash": "sha256-zgI1NpOMYeP154DoL7ko1SjaGR8mjuYhVPsD56g9l7Q=",
+        "owner": "fluidattacks",
+        "repo": "makes",
+        "rev": "27f7fdb09400295a4fa58f2a9ccdac97c8f26d8c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fluidattacks",
+        "repo": "makes",
         "type": "github"
       }
     },
@@ -43,12 +174,32 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-iI023MCm3m0QMPK4wXoNEJ9jxFz8t4ofecO+FJipJMk=",
+        "narHash": "sha256-xvAsgAKJu4xMqY9NA4AQXdQ0lujjosZzexKevm0bZgw=",
         "path": "./overrides",
         "type": "path"
       },
       "original": {
         "path": "./overrides",
+        "type": "path"
+      }
+    },
+    "pluggy": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-vro3Lnftz9UwA72oPWfOJ/UqA2x1NNZUG9SDXYP8Sus=",
+        "path": "./pluggy",
+        "type": "path"
+      },
+      "original": {
+        "path": "./pluggy",
         "type": "path"
       }
     },
@@ -63,7 +214,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-sWsus7uZnVyXG2M/N9/TmQtilCN+lvfOA19asvJ9j3I=",
+        "narHash": "sha256-LCsW4PUU/FLUpDyw0/Do6RkN2sdZATuWqu9zGL4XKe4=",
         "path": "./pympler",
         "type": "path"
       },
@@ -72,13 +223,66 @@
         "type": "path"
       }
     },
+    "python-on-nix": {
+      "inputs": {
+        "flakeUtils": "flakeUtils",
+        "makes": "makes",
+        "nixpkgs": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1650392480,
+        "narHash": "sha256-Rez823RcoKNIaVm82X9P6FAx5UJLFsJJISgE7P3JwwQ=",
+        "owner": "on-nix",
+        "repo": "python",
+        "rev": "d8a7fa21b76ac3b8a1a3fedb41e86352769b09ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "on-nix",
+        "repo": "python",
+        "rev": "d8a7fa21b76ac3b8a1a3fedb41e86352769b09ed",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "exceptiongroup": "exceptiongroup",
         "flake-utils": "flake-utils",
+        "flit": "flit",
+        "flit-scm": "flit-scm",
+        "hatchling": "hatchling",
         "nixos": "nixos",
         "overrides": "overrides",
+        "pluggy": "pluggy",
         "pympler": "pympler",
+        "python-on-nix": "python-on-nix",
+        "tomli": "tomli",
         "trove-classifiers": "trove-classifiers"
+      }
+    },
+    "tomli": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "flit": [
+          "flit"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-w8B2k9Ra6C3QSc7wTba0AnDtxGy2WNGA2oaaMpv+8Kw=",
+        "path": "./tomli",
+        "type": "path"
+      },
+      "original": {
+        "path": "./tomli",
+        "type": "path"
       }
     },
     "trove-classifiers": {
@@ -92,7 +296,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-w6DV4fC9YrlqLquA4JP26hWO6F/3SjDnkDoWhAG0a/s=",
+        "narHash": "sha256-G4/GxaOB+h0kOAD2cvEOL6lCu46YQXyHNgoKqB922uk=",
         "path": "./trove-classifiers",
         "type": "path"
       },

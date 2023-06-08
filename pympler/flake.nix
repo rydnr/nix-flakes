@@ -17,7 +17,7 @@
         homepage = "https://github.com/pympler/pympler";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         pympler-1_0_1-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "Pympler";

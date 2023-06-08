@@ -17,7 +17,7 @@
         homepage = "https://github.com/mkorpela/overrides";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
-        shared = import ../shared.nix;
+        shared = import ./shared.nix;
         overrides-7_3_1-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "overrides";
@@ -33,17 +33,17 @@
             };
           };
       in rec {
-        packages = {
+        packages = rec {
           overrides-7_3_1-python38 = overrides-7_3_1-for pkgs.python38;
           overrides-7_3_1-python39 = overrides-7_3_1-for pkgs.python39;
           overrides-7_3_1-python310 = overrides-7_3_1-for pkgs.python310;
           overrides-7_3_1-python311 = overrides-7_3_1-for pkgs.python311;
-          overrides-latest-python38 = packages.overrides-7_3_1-python38;
-          overrides-latest-python39 = packages.overrides-7_3_1-python39;
-          overrides-latest-python310 = packages.overrides-7_3_1-python310;
-          overrides-latest-python311 = packages.overrides-7_3_1-python311;
-          overrides-latest = packages.overrides-latest-python311;
-          default = packages.overrides-latest;
+          overrides-latest-python38 = overrides-7_3_1-python38;
+          overrides-latest-python39 = overrides-7_3_1-python39;
+          overrides-latest-python310 = overrides-7_3_1-python310;
+          overrides-latest-python311 = overrides-7_3_1-python311;
+          overrides-latest = overrides-latest-python311;
+          default = overrides-latest;
         };
         defaultPackage = packages.default;
         devShells = rec {
