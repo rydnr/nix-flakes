@@ -1,0 +1,62 @@
+{
+  "nodes": {
+    "extraterm-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686947146,
+        "narHash": "sha256-cyx8FfNB81xvxKHjy0u43546JLpqt/ucUcvauHP2mIo=",
+        "owner": "sedwards2009",
+        "repo": "extraterm",
+        "rev": "5e4b12ed6fa0463ad9c67b2c5b81bbc4a38b1d2d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sedwards2009",
+        "ref": "5e4b12e",
+        "repo": "extraterm",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "v1.0.0",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixos": {
+      "locked": {
+        "lastModified": 1686921029,
+        "narHash": "sha256-J1bX9plPCFhTSh6E3TWn9XSxggBh/zDD4xigyaIQBy8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c7ff1b9b95620ce8728c0d7bd501c458e6da9e04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "extraterm-src": "extraterm-src",
+        "flake-utils": "flake-utils",
+        "nixos": "nixos"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
