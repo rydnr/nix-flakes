@@ -25,6 +25,7 @@
               rev = "master";
               sha256 = "sha256-j/T6bIkQu0Ij6Ly9yZcByR49ekZpzNZDTEWLGMGIAaQ=";
             };
+            format = "setuptools";
 
             doCheck = false;
             meta = with lib; {
