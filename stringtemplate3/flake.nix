@@ -19,9 +19,11 @@
           python.pkgs.buildPythonPackage rec {
             pname = "stringtemplate3";
             version = "3.1";
-            src = python.pkgs.fetchPypi {
-              inherit pname version;
-              sha256 = "sha256-Ywv4qKbsHXAlH1UskpG1CBFncbvoxhBAX1g+JpMo7qs=";
+            src = pkgs.fetchFromGitHub {
+              owner = "fcarne";
+              repo = "stringtemplate3-python3-runtime";
+              rev = "master";
+              sha256 = "sha256-j/T6bIkQu0Ij6Ly9yZcByR49ekZpzNZDTEWLGMGIAaQ=";
             };
 
             doCheck = false;
