@@ -17,7 +17,7 @@
         nixpkgsRelease = "nixos-23.05";
         stringtemplate3-for = { python }:
           python.pkgs.buildPythonPackage rec {
-            pname = "stringtemplate3";
+            pname = "stringtemplate3b";
             version = "3.1";
             src = pkgs.fetchFromGitHub {
               owner = "fcarne";
