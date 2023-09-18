@@ -12,10 +12,11 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = jupyterlab-python310;
+          default = jupyterlab-python311;
           jupyterlab-python38 = pkgs.python38.pkgs.jupyterlab;
           jupyterlab-python39 = pkgs.python39.pkgs.jupyterlab;
           jupyterlab-python310 = pkgs.python310.pkgs.jupyterlab;
+          jupyterlab-python311 = pkgs.python311.pkgs.jupyterlab;
         };
       });
 }
