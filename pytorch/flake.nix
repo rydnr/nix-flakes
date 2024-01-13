@@ -36,7 +36,7 @@
         pythonNonCudaOverlay = final: prev: {
           python = prev.python.override {
             packageOverrides = pySelf: pySuper: rec {
-              torch = pySuper.torch.overridePythonAttrs
+              pytorch = pySuper.pytorch.overridePythonAttrs
                 (oldAttrs: { cudaSupport = false; });
             };
           };
@@ -44,7 +44,7 @@
         pythonCudaOverlay = final: prev: {
           python = prev.python.override {
             packageOverrides = pySelf: pySuper: rec {
-              torch = pySuper.torch.overridePythonAttrs
+              pytorch = pySuper.pytorch.overridePythonAttrs
                 (oldAttrs: { cudaSupport = true; });
             };
           };
