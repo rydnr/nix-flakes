@@ -66,16 +66,18 @@
         defaultPackage = packages.default;
         packages = rec {
           default = rydnr-nix-flakes-pytorch-python310-cuda;
-          rydnr-nix-flakes-pytorch-python38 = pkgsNonCuda.python38.pkgs.pytorch;
+          rydnr-nix-flakes-pytorch-python38 =
+            pkgsNonCuda.python38.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python38-cuda =
-            pkgsCuda.python38.pkgs.pytorch;
-          rydnr-nix-flakes-pytorch-python39 = pkgsNonCuda.python39.pkgs.pytorch;
+            pkgsCuda.python38.pkgs.pytorchWithCuda;
+          rydnr-nix-flakes-pytorch-python39 =
+            pkgsNonCuda.python39.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python39-cuda =
-            pkgsCuda.python39.pkgs.pytorch;
+            pkgsCuda.python39.pkgs.pytorchWithCuda;
           rydnr-nix-flakes-pytorch-python310 =
-            pkgsNonCuda.python310.pkgs.pytorch;
+            pkgsNonCuda.python310.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python310-cuda =
-            pkgsCuda.python310.pkgs.pytorch;
+            pkgsCuda.python310.pkgs.pytorchWithCuda;
         };
       });
 }
