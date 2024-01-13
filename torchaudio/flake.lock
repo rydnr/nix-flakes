@@ -1,0 +1,71 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "v1.0.0",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixos": {
+      "locked": {
+        "lastModified": 1685566663,
+        "narHash": "sha256-btHN1czJ6rzteeCuE/PNrdssqYD2nIA4w48miQAFloM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4ecab3273592f27479a583fb6d975d4aba3486fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixos": "nixos",
+        "rydnr-nix-flakes-torch": "rydnr-nix-flakes-torch"
+      }
+    },
+    "rydnr-nix-flakes-torch": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "dir": "torch",
+        "lastModified": 1705138620,
+        "narHash": "sha256-4Cag3+ESZRkjgsbPA3cMdHJie1gRO1VpokoZpMe2Mrk=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "1ebed5dffc704bb5ec27ff6562b1226cd370038a",
+        "type": "github"
+      },
+      "original": {
+        "dir": "torch",
+        "owner": "rydnr",
+        "ref": "torch-2.0.1",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
