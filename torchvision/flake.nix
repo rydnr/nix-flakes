@@ -65,22 +65,122 @@
           overlays = [ pythonCudaOverlay ];
           inherit system;
         };
+        rydnr-nix-flakes-torchvision-for =
+          { pkgs, python, rydnr-nix-flakes-pytorch }:
+          let
+            inherit (rydnr-nix-flakes-pytorch)
+              cudaCapabilities cudaPackages cudaSupport;
+            inherit (cudaPackages) backendStdenv;
+
+            pname = "torchvision";
+            version = "0.16.2";
+          in python.pkgs.buildPythonPackage {
+            inherit pname version;
+
+            src = pkgs.fetchFromGitHub {
+              owner = "pytorch";
+              repo = "vision";
+              rev = "refs/tags/v${version}";
+              hash = "sha256-fSFoMZbF0bYqonvgoNAE8ZzwCsjhCdVo2BJ0pOC2zd0=";
+            };
+
+            nativeBuildInputs = with pkgs;
+              [ libpng ninja which ]
+              ++ pkgs.lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ];
+
+            buildInputs = with pkgs; [
+              libjpeg_turbo
+              libpng
+              # rydnr-nix-flakes-pytorch.cxxdev
+            ];
+
+            propagatedBuildInputs = with python.pkgs; [
+              numpy
+              pillow
+              rydnr-nix-flakes-pytorch
+              scipy
+            ];
+
+            preConfigure = ''
+              export TORCHVISION_INCLUDE="${pkgs.libjpeg_turbo.dev}/include/"
+              export TORCHVISION_LIBRARY="${pkgs.libjpeg_turbo}/lib/"
+            ''
+              # NOTE: We essentially override the compilers provided by stdenv because we don't have a hook
+              #   for cudaPackages to swap in compilers supported by NVCC.
+              + pkgs.lib.optionalString cudaSupport ''
+                export CC=${backendStdenv.cc}/bin/cc
+                export CXX=${backendStdenv.cc}/bin/c++
+                export TORCH_CUDA_ARCH_LIST="${
+                  pkgs.lib.concatStringsSep ";" cudaCapabilities
+                }"
+                export FORCE_CUDA=1
+              '';
+
+            # tries to download many datasets for tests
+            doCheck = false;
+
+            pythonImportsCheck = [ "torchvision" ];
+            checkPhase = ''
+              HOME=$TMPDIR py.test test --ignore=test/test_datasets_download.py
+            '';
+
+            nativeCheckInputs = [ pytest ];
+
+            meta = with pkgs.lib; {
+              description = "PyTorch vision library";
+              homepage = "https://pytorch.org/";
+              license = licenses.bsd3;
+              platforms = with platforms;
+                linux ++ pkgs.lib.optionals (!cudaSupport) darwin;
+              maintainers = with maintainers; [ ericsagnes ];
+            };
+          };
       in rec {
         defaultPackage = packages.default;
         packages = rec {
           default = rydnr-nix-flakes-torchvision-python310-cuda;
           rydnr-nix-flakes-torchvision-python38 =
-            pkgsNonCuda.python38.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsNonCuda;
+              python = pkgsNonCuda.python38;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python38;
+            };
           rydnr-nix-flakes-torchvision-python38-cuda =
-            pkgsCuda.python38.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsCuda;
+              python = pkgsCuda.python38;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python38-cuda;
+            };
           rydnr-nix-flakes-torchvision-python39 =
-            pkgsNonCuda.python39.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsNonCuda;
+              python = pkgsNonCuda.python39;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python39;
+            };
           rydnr-nix-flakes-torchvision-python39-cuda =
-            pkgsCuda.python39.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsCuda;
+              python = pkgsCuda.python39;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python39-cuda;
+            };
           rydnr-nix-flakes-torchvision-python310 =
-            pkgsNonCuda.python310.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsNonCuda;
+              python = pkgsNonCuda.python310;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python310;
+            };
           rydnr-nix-flakes-torchvision-python310-cuda =
-            pkgsCuda.python310.pkgs.torchvision;
+            rydnr-nix-flakes-torchvision-for {
+              pkgs = pkgsCuda;
+              python = pkgsCuda.python310;
+              rydnr-nix-flakes-pytorch =
+                rydnr-nix-flakes-pytorch.packages.${system}.rydnr-nix-flakes-pytorch-python310-cuda;
+            };
         };
       });
 }
