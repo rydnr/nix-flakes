@@ -71,7 +71,7 @@
             inherit (rydnr-nix-flakes-pytorch)
               cudaCapabilities cudaPackages cudaSupport;
             inherit (cudaPackages) backendStdenv;
-
+            boolToString = b: if b then "true" else "false";
             pname = "torchvision";
             version = "0.16.2";
           in python.pkgs.buildPythonPackage {
@@ -85,14 +85,16 @@
             };
 
             nativeBuildInputs = with pkgs;
-              [ libpng ninja which ]
-              ++ pkgs.lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ];
+              [ libpng ninja which ] ++ pkgs.lib.optionals cudaSupport [
+                cudaPackages.cuda_nvcc
+                cudaPackages.cudatoolkit
+              ];
 
-            buildInputs = with pkgs; [
-              libjpeg_turbo
-              libpng
-              # rydnr-nix-flakes-pytorch.cxxdev
-            ];
+            buildInputs = with pkgs;
+              [ libjpeg_turbo libpng ] ++ pkgs.lib.optionals cudaSupport [
+                cudaPackages.cuda_nvcc
+                cudaPackages.cudatoolkit
+              ];
 
             propagatedBuildInputs = with python.pkgs; [
               numpy
