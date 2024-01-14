@@ -22,10 +22,10 @@
   inputs = rec {
     nixos.url = "github:NixOS/nixpkgs/23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    rydnr-nix-flakes-torch = {
+    rydnr-nix-flakes-pytorch = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/torch-2.0.1?dir=torch";
+      url = "github:rydnr/nix-flakes/pytorch-2.0.1-1?dir=pytorch";
     };
   };
   outputs = inputs:
@@ -41,14 +41,14 @@
         pythonCudaOverlay = final: prev: {
           python = prev.python.override {
             packageOverrides = pySelf: pySuper: {
-              torch = rydnr-nix-flakes-torch;
+              pytorch = rydnr-nix-flakes-pytorch;
             };
           };
         };
         pythonNonCudaOverlay = final: prev: {
           python = prev.python.override {
             packageOverrides = pySelf: pySuper: rec {
-              torch = rydnr-nix-flakes-torch-nocuda;
+              pytorch = rydnr-nix-flakes-pytorch-nocuda;
             };
           };
         };

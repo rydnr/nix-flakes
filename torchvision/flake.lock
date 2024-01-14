@@ -36,10 +36,10 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixos": "nixos",
-        "rydnr-nix-flakes-torch": "rydnr-nix-flakes-torch"
+        "rydnr-nix-flakes-pytorch": "rydnr-nix-flakes-pytorch"
       }
     },
-    "rydnr-nix-flakes-torch": {
+    "rydnr-nix-flakes-pytorch": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -49,18 +49,18 @@
         ]
       },
       "locked": {
-        "dir": "torch",
-        "lastModified": 1705138620,
-        "narHash": "sha256-4Cag3+ESZRkjgsbPA3cMdHJie1gRO1VpokoZpMe2Mrk=",
+        "dir": "pytorch",
+        "lastModified": 1705141520,
+        "narHash": "sha256-it/efdgQthmr+LOfKcw9ZQbp1GETQftx5mwkciX15hE=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "1ebed5dffc704bb5ec27ff6562b1226cd370038a",
+        "rev": "c1a3a4c35cb41717069dfaf99df5a88fd838b6fa",
         "type": "github"
       },
       "original": {
-        "dir": "torch",
+        "dir": "pytorch",
         "owner": "rydnr",
-        "ref": "torch-2.0.1",
+        "ref": "pytorch-2.0.1-1",
         "repo": "nix-flakes",
         "type": "github"
       }
