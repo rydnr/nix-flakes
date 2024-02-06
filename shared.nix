@@ -21,4 +21,8 @@ rec {
       buildInputs = [ package ];
       shellHook = shellHook-for { inherit package python nixpkgsRelease; };
     };
+  app-for = { package, entrypoint }: {
+    type = "app";
+    program = "${package}/bin/${entrypoint}";
+  };
 }
