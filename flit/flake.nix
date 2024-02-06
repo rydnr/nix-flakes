@@ -23,7 +23,7 @@
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
         shared = import ../shared.nix;
-        flit-core-3_9_0-for = python:
+        flit-core-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "flit";
             version = "3.9.0";
@@ -42,7 +42,7 @@
               inherit description license homepage maintainers;
             };
           };
-        flit-3_9_0-for = { flit-core, python }:
+        flit-for = { flit-core, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "flit";
             version = "3.9.0";
@@ -68,91 +68,71 @@
           };
       in rec {
         packages = {
-          flit-core-3_9_0-python38 = flit-core-3_9_0-for pkgs.python38;
-          flit-core-3_9_0-python39 = flit-core-3_9_0-for pkgs.python39;
-          flit-core-3_9_0-python310 = flit-core-3_9_0-for pkgs.python310;
-          flit-core-3_9_0-python311 = flit-core-3_9_0-for pkgs.python311;
-          flit-core-latest-python38 = packages.flit-core-3_9_0-python38;
-          flit-core-latest-python39 = packages.flit-core-3_9_0-python39;
-          flit-core-latest-python310 = packages.flit-core-3_9_0-python310;
-          flit-core-latest-python311 = packages.flit-core-3_9_0-python311;
-          flit-core-latest = packages.flit-core-latest-python311;
-          flit-3_9_0-python38 = flit-3_9_0-for {
-            flit-core = packages.flit-core-3_9_0-python38;
+          default = packages.flit-python311;
+          flit-core-python38 = flit-core-for pkgs.python38;
+          flit-core-python39 = flit-core-for pkgs.python39;
+          flit-core-python310 = flit-core-for pkgs.python310;
+          flit-core-python311 = flit-core-for pkgs.python311;
+          flit-python38 = flit-for {
+            flit-core = packages.flit-core-python38;
             python = pkgs.python38;
           };
-          flit-3_9_0-python39 = flit-3_9_0-for {
-            flit-core = packages.flit-core-3_9_0-python39;
+          flit-python39 = flit-for {
+            flit-core = packages.flit-core-python39;
             python = pkgs.python39;
           };
-          flit-3_9_0-python310 = flit-3_9_0-for {
-            flit-core = packages.flit-core-3_9_0-python310;
+          flit-python310 = flit-for {
+            flit-core = packages.flit-core-python310;
             python = pkgs.python310;
           };
-          flit-3_9_0-python311 = flit-3_9_0-for {
-            flit-core = packages.flit-core-3_9_0-python311;
+          flit-python311 = flit-for {
+            flit-core = packages.flit-core-python311;
             python = pkgs.python311;
           };
-          flit-latest-python38 = packages.flit-3_9_0-python38;
-          flit-latest-python39 = packages.flit-3_9_0-python39;
-          flit-latest-python310 = packages.flit-3_9_0-python310;
-          flit-latest-python311 = packages.flit-3_9_0-python311;
-          flit-latest = packages.flit-latest-python311;
-          default = packages.flit-latest;
         };
         defaultPackage = packages.default;
         devShells = rec {
-          flit-core-3_9_0-python38 = shared.devShell-for {
-            package = packages.flit-core-3_9_0-python38;
+          default = flit-python311;
+          flit-core-python38 = shared.devShell-for {
+            package = packages.flit-core-python38;
             python = pkgs.python38;
             inherit pkgs nixpkgsRelease;
           };
-          flit-core-3_9_0-python39 = shared.devShell-for {
-            package = packages.flit-core-3_9_0-python39;
+          flit-core-python39 = shared.devShell-for {
+            package = packages.flit-core-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          flit-core-3_9_0-python310 = shared.devShell-for {
-            package = packages.flit-core-3_9_0-python310;
+          flit-core-python310 = shared.devShell-for {
+            package = packages.flit-core-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          flit-core-3_9_0-python311 = shared.devShell-for {
-            package = packages.flit-core-3_9_0-python311;
+          flit-core-python311 = shared.devShell-for {
+            package = packages.flit-core-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          flit-core-latest-python38 = flit-core-3_9_0-python38;
-          flit-core-latest-python39 = flit-core-3_9_0-python39;
-          flit-core-latest-python310 = flit-core-3_9_0-python310;
-          flit-core-latest-python311 = flit-core-3_9_0-python311;
-          flit-core-latest = flit-core-latest-python311;
-          flit-3_9_0-python38 = shared.devShell-for {
-            package = packages.flit-3_9_0-python38;
+          flit-python38 = shared.devShell-for {
+            package = packages.flit-python38;
             python = pkgs.python38;
             inherit pkgs nixpkgsRelease;
           };
-          flit-3_9_0-python39 = shared.devShell-for {
-            package = packages.flit-3_9_0-python39;
+          flit-python39 = shared.devShell-for {
+            package = packages.flit-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          flit-3_9_0-python310 = shared.devShell-for {
-            package = packages.flit-3_9_0-python310;
+          flit-python310 = shared.devShell-for {
+            package = packages.flit-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          flit-3_9_0-python311 = shared.devShell-for {
-            package = packages.flit-3_9_0-python311;
+          flit-python311 = shared.devShell-for {
+            package = packages.flit-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          flit-latest-python38 = flit-3_9_0-python38;
-          flit-latest-python39 = flit-3_9_0-python39;
-          flit-latest-python310 = flit-3_9_0-python310;
-          flit-latest-python311 = flit-3_9_0-python311;
-          flit-latest = flit-latest-python311;
-          default = flit-latest;
         };
       });
 }
