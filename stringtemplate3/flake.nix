@@ -1,8 +1,8 @@
 {
-  description = "Python port of Stringtemplate3 template enginge.";
+  description = "Flake for Stringtemplate3 Python.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/nixos-24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
@@ -14,7 +14,7 @@
         license = pkgs.lib.licenses.bsd3;
         homepage = "https://github.com/antlr/stringtemplate3";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixos-24.05";
         stringtemplate3-for = { python }:
           python.pkgs.buildPythonPackage rec {
             pname = "stringtemplate3b";
@@ -22,7 +22,7 @@
             src = pkgs.fetchFromGitHub {
               owner = "fcarne";
               repo = "stringtemplate3-python3-runtime";
-              rev = "master";
+              rev = "cf31a2d";
               sha256 = "sha256-j/T6bIkQu0Ij6Ly9yZcByR49ekZpzNZDTEWLGMGIAaQ=";
             };
             format = "setuptools";
