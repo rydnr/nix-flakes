@@ -35,7 +35,7 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = stringtemplate3-python311;
+          default = stringtemplate3-python312;
           stringtemplate3-python38 =
             stringtemplate3-for { python = pkgs.python38; };
           stringtemplate3-python39 =
@@ -44,6 +44,8 @@
             stringtemplate3-for { python = pkgs.python310; };
           stringtemplate3-python311 =
             stringtemplate3-for { python = pkgs.python311; };
+          stringtemplate3-python312 =
+            stringtemplate3-for { python = pkgs.python312; };
         };
       });
 }
