@@ -1,13 +1,13 @@
 {
-  description = "A lil' TOML parser";
+  description = "Nix flake for hukkin/tomli";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
-      url = "path:../flit";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
+      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
     };
   };
   outputs = inputs:
@@ -19,9 +19,9 @@
         license = pkgs.lib.licenses.mit;
         homepage = "https://github.com/hukkin/tomli";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixos-24.05";
         shared = import ../shared.nix;
-        tomli-2_0_1-for = { flit-core, python }:
+        tomli-for = { flit-core, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "tomli";
             version = "2.0.1";
@@ -38,58 +38,57 @@
             };
           };
       in rec {
-        packages = rec {
-          tomli-2_0_1-python38 = tomli-2_0_1-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python38;
-            python = pkgs.python38;
-          };
-          tomli-2_0_1-python39 = tomli-2_0_1-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python39;
-            python = pkgs.python39;
-          };
-          tomli-2_0_1-python310 = tomli-2_0_1-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python310;
-            python = pkgs.python310;
-          };
-          tomli-2_0_1-python311 = tomli-2_0_1-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python311;
-            python = pkgs.python311;
-          };
-          tomli-latest-python38 = tomli-2_0_1-python38;
-          tomli-latest-python39 = tomli-2_0_1-python39;
-          tomli-latest-python310 = tomli-2_0_1-python310;
-          tomli-latest-python311 = tomli-2_0_1-python311;
-          tomli-latest = tomli-latest-python311;
-          default = packages.tomli-latest;
-        };
         defaultPackage = packages.default;
         devShells = rec {
-          tomli-2_0_1-python38 = shared.devShell-for {
-            package = packages.tomli-2_0_1-python38;
+          default = tomli-python312;
+          tomli-python38 = shared.devShell-for {
+            package = packages.tomli-python38;
             python = pkgs.python38;
             inherit pkgs nixpkgsRelease;
           };
-          tomli-2_0_1-python39 = shared.devShell-for {
-            package = packages.tomli-2_0_1-python39;
+          tomli-python39 = shared.devShell-for {
+            package = packages.tomli-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          tomli-2_0_1-python310 = shared.devShell-for {
-            package = packages.tomli-2_0_1-python310;
+          tomli-python310 = shared.devShell-for {
+            package = packages.tomli-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          tomli-2_0_1-python311 = shared.devShell-for {
-            package = packages.tomli-2_0_1-python311;
+          tomli-python311 = shared.devShell-for {
+            package = packages.tomli-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          tomli-latest-python38 = tomli-2_0_1-python38;
-          tomli-latest-python39 = tomli-2_0_1-python39;
-          tomli-latest-python310 = tomli-2_0_1-python310;
-          tomli-latest-python311 = tomli-2_0_1-python311;
-          tomli-latest = tomli-latest-python311;
-          default = tomli-latest;
+          tomli-python312 = shared.devShell-for {
+            package = packages.tomli-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
+        packages = rec {
+          default = packages.tomli-python312;
+          tomli-python38 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python38;
+            python = pkgs.python38;
+          };
+          tomli-python39 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python39;
+            python = pkgs.python39;
+          };
+          tomli-python310 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python310;
+            python = pkgs.python310;
+          };
+          tomli-python311 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python311;
+            python = pkgs.python311;
+          };
+          tomli-python312 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python312;
+            python = pkgs.python312;
+          };
         };
       });
 }

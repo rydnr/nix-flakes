@@ -27,28 +27,34 @@
         "trove-classifiers": "trove-classifiers"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-bOi1QXteyhSXZLgeoAgmUql3sYJoUtoDmaikGDufS2U=",
-        "path": "../flit",
-        "type": "path"
+        "dir": "flit",
+        "lastModified": 1731750833,
+        "narHash": "sha256-3+LrZOKdY1F9GprW/fE4vKETSsWfQgrpStvsJV34OZk=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "a0ed3b55d4d4b1f47dbf3819475407f8fea2a80a",
+        "type": "github"
       },
       "original": {
-        "path": "../flit",
-        "type": "path"
+        "dir": "flit",
+        "owner": "rydnr",
+        "ref": "flit-3.9.0a",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     },
     "nixos": {
       "locked": {
-        "lastModified": 1686059680,
-        "narHash": "sha256-sp0WlCIeVczzB0G8f8iyRg3IYW7KG31mI66z7HIZwrI=",
+        "lastModified": 1717179513,
+        "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a558f7ac29f50c4b937fb5c102f587678ae1c9fb",
+        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-23.05",
+        "ref": "24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
