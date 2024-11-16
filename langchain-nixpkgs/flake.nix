@@ -20,7 +20,7 @@
   description = "Langchain from nixpkgs.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
@@ -62,7 +62,7 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = rydnr-nix-flakes-langchain-python310-cuda;
+          default = rydnr-nix-flakes-langchain-python312-cuda;
           rydnr-nix-flakes-langchain-python38 =
             pkgsNonCuda.python38.pkgs.langchain;
           rydnr-nix-flakes-langchain-python38-cuda =
@@ -75,6 +75,14 @@
             pkgsNonCuda.python310.pkgs.langchain;
           rydnr-nix-flakes-langchain-python310-cuda =
             pkgsCuda.python310.pkgs.langchain;
+          rydnr-nix-flakes-langchain-python311 =
+            pkgsNonCuda.python311.pkgs.langchain;
+          rydnr-nix-flakes-langchain-python311-cuda =
+            pkgsCuda.python311.pkgs.langchain;
+          rydnr-nix-flakes-langchain-python312 =
+            pkgsNonCuda.python312.pkgs.langchain;
+          rydnr-nix-flakes-langchain-python312-cuda =
+            pkgsCuda.python312.pkgs.langchain;
         };
       });
 }
