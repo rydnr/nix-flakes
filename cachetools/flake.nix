@@ -2,7 +2,7 @@
   description = "Flake for nixpkgs' cachetools.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
@@ -17,6 +17,7 @@
           cachetools-python39 = pkgs.python39.pkgs.cachetools;
           cachetools-python310 = pkgs.python310.pkgs.cachetools;
           cachetools-python311 = pkgs.python311.pkgs.cachetools;
+          cachetools-python312 = pkgs.python312.pkgs.cachetools;
         };
       });
 }
