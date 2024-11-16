@@ -1,9 +1,9 @@
 {
   description =
-    "Flit is a simple way to put Python packages and modules on PyPI";
+    "Nix flake for flit";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     trove-classifiers = {
       url = "path:../trove-classifiers";
@@ -68,11 +68,12 @@
           };
       in rec {
         packages = {
-          default = packages.flit-python311;
+          default = packages.flit-python312;
           flit-core-python38 = flit-core-for pkgs.python38;
           flit-core-python39 = flit-core-for pkgs.python39;
           flit-core-python310 = flit-core-for pkgs.python310;
           flit-core-python311 = flit-core-for pkgs.python311;
+          flit-core-python312 = flit-core-for pkgs.python312;
           flit-python38 = flit-for {
             flit-core = packages.flit-core-python38;
             python = pkgs.python38;
@@ -89,10 +90,14 @@
             flit-core = packages.flit-core-python311;
             python = pkgs.python311;
           };
+          flit-python312 = flit-for {
+            flit-core = packages.flit-core-python312;
+            python = pkgs.python312;
+          };
         };
         defaultPackage = packages.default;
         devShells = rec {
-          default = flit-python311;
+          default = flit-python312;
           flit-core-python38 = shared.devShell-for {
             package = packages.flit-core-python38;
             python = pkgs.python38;
@@ -113,6 +118,11 @@
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
+          flit-core-python312 = shared.devShell-for {
+            package = packages.flit-core-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
           flit-python38 = shared.devShell-for {
             package = packages.flit-python38;
             python = pkgs.python38;
@@ -131,6 +141,11 @@
           flit-python311 = shared.devShell-for {
             package = packages.flit-python311;
             python = pkgs.python311;
+            inherit pkgs nixpkgsRelease;
+          };
+          flit-python312 = shared.devShell-for {
+            package = packages.flit-python312;
+            python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
         };
