@@ -25,9 +25,9 @@
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0-0?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
     };
-    nixos.url = "github:NixOS/nixpkgs/23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -74,8 +74,7 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = readability-default;
-          readability-default = readability-python311;
+          default = readability-python312;
           readability-python38 = readability-for {
             flit = flit.packages.${system}.flit-python38;
             python = pkgs.python38;
@@ -91,6 +90,10 @@
           readability-python311 = readability-for {
             flit = flit.packages.${system}.flit-python311;
             python = pkgs.python311;
+          };
+          readability-python312 = readability-for {
+            flit = flit.packages.${system}.flit-python312;
+            python = pkgs.python312;
           };
         };
       });
