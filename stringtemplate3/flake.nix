@@ -2,7 +2,7 @@
   description = "Flake for Stringtemplate3 Python.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
