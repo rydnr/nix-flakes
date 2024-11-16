@@ -24,9 +24,9 @@
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0-0?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
     };
-    nixos.url = "github:NixOS/nixpkgs/23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -40,7 +40,7 @@
       let
         owner = "dvcoolarun";
         repo = "web2pdf";
-        version = "0.0.0";
+        version = "0.0.1";
         pname = "${owner}-${repo}";
         description = "CLI to convert webpages to PDFs";
         homepage = "https://github.com/${owner}/${repo}";
@@ -92,8 +92,8 @@
 
             src = pkgs.fetchFromGitHub {
               inherit owner repo;
-              rev = "main";
-              sha256 = "sha256-XlRPLNSxteFj88gbiWLyPX6FiPrEc2XjCl9xsEO5m8E=";
+              rev = "37c870e";
+              sha256 = "sha256-jNrpeBiJXP4TKzzbaGmsR6ISe/vTexk7KlDqLp71w/k=";
             };
             format = "pyproject";
 
@@ -142,7 +142,7 @@
       in rec {
         apps = rec {
           default = dvcoolarun-web2pdf-default;
-          dvcoolarun-web2pdf-default = dvcoolarun-web2pdf-python311;
+          dvcoolarun-web2pdf-default = dvcoolarun-web2pdf-python312;
           dvcoolarun-web2pdf-python38 = shared.app-for {
             entrypoint = "${pnameWithUnderscores}.sh";
             package = self.packages.${system}.dvcoolarun-web2pdf-python38;
@@ -159,11 +159,14 @@
             entrypoint = "${pnameWithUnderscores}.sh";
             package = self.packages.${system}.dvcoolarun-web2pdf-python311;
           };
+          dvcoolarun-web2pdf-python312 = shared.app-for {
+            entrypoint = "${pnameWithUnderscores}.sh";
+            package = self.packages.${system}.dvcoolarun-web2pdf-python312;
+          };
         };
         defaultPackage = packages.default;
         packages = rec {
-          default = dvcoolarun-web2pdf-default;
-          dvcoolarun-web2pdf-default = dvcoolarun-web2pdf-python311;
+          default = dvcoolarun-web2pdf-python312;
           dvcoolarun-web2pdf-python38 = dvcoolarun-web2pdf-for {
             flit = flit.packages.${system}.flit-python38;
             python = pkgs.python38;
@@ -179,6 +182,10 @@
           dvcoolarun-web2pdf-python311 = dvcoolarun-web2pdf-for {
             flit = flit.packages.${system}.flit-python311;
             python = pkgs.python311;
+          };
+          dvcoolarun-web2pdf-python312 = dvcoolarun-web2pdf-for {
+            flit = flit.packages.${system}.flit-python312;
+            python = pkgs.python312;
           };
         };
       });
