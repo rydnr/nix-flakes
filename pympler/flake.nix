@@ -3,7 +3,7 @@
     "Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = { self, ... }@inputs:
@@ -18,7 +18,7 @@
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
         shared = import ../shared.nix;
-        pympler-1_0_1-for = python:
+        pympler-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "Pympler";
             version = "1.0.1";
@@ -33,46 +33,42 @@
             };
           };
       in rec {
-        packages = {
-          pympler-1_0_1-python38 = pympler-1_0_1-for pkgs.python38;
-          pympler-1_0_1-python39 = pympler-1_0_1-for pkgs.python39;
-          pympler-1_0_1-python310 = pympler-1_0_1-for pkgs.python310;
-          pympler-1_0_1-python311 = pympler-1_0_1-for pkgs.python311;
-          pympler-latest-python38 = packages.pympler-1_0_1-python38;
-          pympler-latest-python39 = packages.pympler-1_0_1-python39;
-          pympler-latest-python310 = packages.pympler-1_0_1-python310;
-          pympler-latest-python311 = packages.pympler-1_0_1-python311;
-          pympler-latest = packages.pympler-latest-python311;
-          default = packages.pympler-latest;
-        };
-        defaultPackage = packages.default;
+        defaultPackage = packages.default-python312;
         devShells = rec {
-          pympler-1_0_1-python38 = shared.devShell-for {
-            package = packages.pympler-1_0_1-python38;
+          default = pympler-python312;
+          pympler-python38 = shared.devShell-for {
+            package = packages.pympler-python38;
             python = pkgs.python38;
             inherit pkgs nixpkgsRelease;
           };
-          pympler-1_0_1-python39 = shared.devShell-for {
-            package = packages.pympler-1_0_1-python39;
+          pympler-python39 = shared.devShell-for {
+            package = packages.pympler-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          pympler-1_0_1-python310 = shared.devShell-for {
-            package = packages.pympler-1_0_1-python310;
+          pympler-python310 = shared.devShell-for {
+            package = packages.pympler-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          pympler-1_0_1-python311 = shared.devShell-for {
-            package = packages.pympler-1_0_1-python311;
+          pympler-python311 = shared.devShell-for {
+            package = packages.pympler-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          pympler-latest-python38 = pympler-1_0_1-python38;
-          pympler-latest-python39 = pympler-1_0_1-python39;
-          pympler-latest-python310 = pympler-1_0_1-python310;
-          pympler-latest-python311 = pympler-1_0_1-python311;
-          pympler-latest = pympler-latest-python311;
-          default = pympler-latest;
+          pympler-python312 = shared.devShell-for {
+            package = packages.pympler-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
+        packages = {
+          default = packages.pympler-python312;
+          pympler-python38 = pympler-for pkgs.python38;
+          pympler-python39 = pympler-for pkgs.python39;
+          pympler-python310 = pympler-for pkgs.python310;
+          pympler-python311 = pympler-for pkgs.python311;
+          pympler-python312 = pympler-for pkgs.python312;
         };
       });
 }
