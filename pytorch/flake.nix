@@ -20,7 +20,7 @@
   description = "PyTorch from nixpkgs.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
@@ -65,7 +65,7 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = rydnr-nix-flakes-pytorch-python310-cuda;
+          default = rydnr-nix-flakes-pytorch-python312-cuda;
           rydnr-nix-flakes-pytorch-python38 =
             pkgsNonCuda.python38.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python38-cuda =
@@ -78,6 +78,14 @@
             pkgsNonCuda.python310.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python310-cuda =
             pkgsCuda.python310.pkgs.pytorchWithCuda;
+          rydnr-nix-flakes-pytorch-python311 =
+            pkgsNonCuda.python311.pkgs.pytorchWithoutCuda;
+          rydnr-nix-flakes-pytorch-python311-cuda =
+            pkgsCuda.python311.pkgs.pytorchWithCuda;
+          rydnr-nix-flakes-pytorch-python312 =
+            pkgsNonCuda.python312.pkgs.pytorchWithoutCuda;
+          rydnr-nix-flakes-pytorch-python312-cuda =
+            pkgsCuda.python312.pkgs.pytorchWithCuda;
         };
       });
 }
