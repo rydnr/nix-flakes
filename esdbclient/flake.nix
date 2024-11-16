@@ -3,7 +3,7 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -22,10 +22,10 @@
         esdbclient-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "esdbclient";
-            version = "1.0.14";
+            version = "1.1.3";
             src = python.pkgs.fetchPypi {
               inherit pname version;
-              sha256 = "sha256-vwOY9iCkZf1sYUgXxFK0HqL61f3iPjLW/K3qFvEaKZw=";
+              sha256 = "sha256-vkDtkU4yLKlU0nmlbssKK0SJRVS9sk/4F+lG6+2aicY=";
             };
             format = "pyproject";
 
@@ -49,6 +49,7 @@
       in rec {
         defaultPackage = packages.default;
         devShells = {
+          default = devShells.esdbclient-python312;
           esdbclient-python37 = pkgs.mkShell {
             buildInputs = [ packages.esdbclient-python37 ];
             shellHook = shellHook-for packages.esdbclient-python37;
@@ -69,7 +70,10 @@
             buildInputs = [ packages.esdbclient-python311 ];
             shellHook = shellHook-for packages.esdbclient-python311;
           };
-          default = devShells.esdbclient-python311;
+          esdbclient-python312 = pkgs.mkShell {
+            buildInputs = [ packages.esdbclient-python312 ];
+            shellHook = shellHook-for packages.esdbclient-python312;
+          };
         };
         packages = {
           esdbclient-python37 = esdbclient-for pkgs.python37;
@@ -77,7 +81,8 @@
           esdbclient-python39 = esdbclient-for pkgs.python39;
           esdbclient-python310 = esdbclient-for pkgs.python310;
           esdbclient-python311 = esdbclient-for pkgs.python311;
-          default = packages.esdbclient-python311;
+          esdbclient-python312 = esdbclient-for pkgs.python312;
+          default = packages.esdbclient-python312;
         };
       });
 }
