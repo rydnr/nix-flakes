@@ -2,7 +2,7 @@
   description = "Flake for nixpkgs' requests.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
   outputs = inputs:
@@ -12,11 +12,12 @@
       in rec {
         defaultPackage = packages.default;
         packages = rec {
-          default = requests-python311;
+          default = requests-python312;
           requests-python38 = pkgs.python38.pkgs.requests;
           requests-python39 = pkgs.python39.pkgs.requests;
           requests-python310 = pkgs.python310.pkgs.requests;
           requests-python311 = pkgs.python311.pkgs.requests;
+          requests-python312 = pkgs.python312.pkgs.requests;
         };
       });
 }
