@@ -17,11 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "Ollama from nixpkgs.";
+  description = "Nix flake for ollama in nixpkgs";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -31,6 +31,8 @@
         defaultSystems
       else
         defaultSystems ++ [ "armv6l-linux" ];
+        nixpkgsRelease = "nixos-24.05";
+        shared = import ../shared.nix;
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
         ollamaNonCudaOverlay = final: prev: {
@@ -61,6 +63,21 @@
         };
       in rec {
         defaultPackage = packages.default;
+        devShells = rec {
+          default = rydnr-nix-flakes-ollama-cuda;
+          rydnr-nix-flakes-ollama = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-ollama;
+            python = pkgsNonCuda.python;
+            pkgs = pkgsNonCuda;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-ollama-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-ollama-cuda;
+            python = pkgsCuda.python;
+            pkgs = pkgsCuda;
+            inherit nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = rydnr-nix-flakes-ollama-cuda;
           rydnr-nix-flakes-ollama-cuda = pkgsCuda.ollama;
