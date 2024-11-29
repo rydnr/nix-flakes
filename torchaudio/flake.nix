@@ -20,12 +20,12 @@
   description = "PyTorchAudio from nixpkgs.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     rydnr-nix-flakes-pytorch = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/pytorch-2.0.1-1?dir=pytorch";
+      url = "github:rydnr/nix-flakes/pytorch-2.3.0.0?dir=pytorch";
     };
   };
   outputs = inputs:
@@ -36,6 +36,8 @@
         defaultSystems
       else
         defaultSystems ++ [ "armv6l-linux" ];
+      nixpkgsRelease = "nixos-24.05";
+      shared = import ../shared.nix;
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
         pythonCudaOverlay = final: prev: {
@@ -67,12 +69,71 @@
         };
       in rec {
         defaultPackage = packages.default;
+        devShells = rec {
+          default = rydnr-nix-flakes-torchaudio-python312;
+          rydnr-nix-flakes-torchaudio-python39 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python39;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python39-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python39-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python310 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python310;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python310-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python310-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python311 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python311;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python311-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python311-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python312 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python312;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python312-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python312-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python313 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python313;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python313;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchaudio-python313-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchaudio-python313-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python313;
+            inherit nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = rydnr-nix-flakes-torchaudio-python310-cuda;
-          rydnr-nix-flakes-torchaudio-python38 =
-            pkgsNonCuda.python38.pkgs.torchaudio;
-          rydnr-nix-flakes-torchaudio-python38-cuda =
-            pkgsCuda.python38.pkgs.torchaudio;
           rydnr-nix-flakes-torchaudio-python39 =
             pkgsNonCuda.python39.pkgs.torchaudio;
           rydnr-nix-flakes-torchaudio-python39-cuda =
@@ -81,6 +142,18 @@
             pkgsNonCuda.python310.pkgs.torchaudio;
           rydnr-nix-flakes-torchaudio-python310-cuda =
             pkgsCuda.python310.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python311 =
+            pkgsNonCuda.python311.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python311-cuda =
+            pkgsCuda.python311.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python312 =
+            pkgsNonCuda.python312.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python312-cuda =
+            pkgsCuda.python312.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python313 =
+            pkgsNonCuda.python313.pkgs.torchaudio;
+          rydnr-nix-flakes-torchaudio-python313-cuda =
+            pkgsCuda.python313.pkgs.torchaudio;
         };
       });
 }
