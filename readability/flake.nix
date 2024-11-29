@@ -18,14 +18,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
   description =
-    "An implementation of traditional readability measures based on simple surface characteristics.";
+    "Nix flake for readability";
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
     };
     nixos.url = "github:NixOS/nixpkgs/24.05";
   };
@@ -73,12 +73,36 @@
           };
       in rec {
         defaultPackage = packages.default;
+        devShells = {
+          default = devShells.readability-python312;
+          readability-python39 = shared.devShell-for {
+            package = packages.readability-python39;
+            python = pkgs.python39;
+            inherit pkgs nixpkgsRelease;
+          };
+          readability-python310 = shared.devShell-for {
+            package = packages.readability-python310;
+            python = pkgs.python310;
+            inherit pkgs nixpkgsRelease;
+          };
+          readability-python311 = shared.devShell-for {
+            package = packages.readability-python311;
+            python = pkgs.python311;
+            inherit pkgs nixpkgsRelease;
+          };
+          readability-python312 = shared.devShell-for {
+            package = packages.readability-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+          readability-python313 = shared.devShell-for {
+            package = packages.readability-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = readability-python312;
-          readability-python38 = readability-for {
-            flit = flit.packages.${system}.flit-python38;
-            python = pkgs.python38;
-          };
           readability-python39 = readability-for {
             flit = flit.packages.${system}.flit-python39;
             python = pkgs.python39;
@@ -94,6 +118,10 @@
           readability-python312 = readability-for {
             flit = flit.packages.${system}.flit-python312;
             python = pkgs.python312;
+          };
+          readability-python313 = readability-for {
+            flit = flit.packages.${system}.flit-python313;
+            python = pkgs.python313;
           };
         };
       });
