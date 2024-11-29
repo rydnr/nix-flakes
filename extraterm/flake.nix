@@ -2,12 +2,12 @@
   description = "The swiss army chainsaw of terminal emulators";
 
   inputs = rec {
-    flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     extraterm-src = {
-      url = "github:sedwards2009/extraterm/v0.121.0";
+      url = "github:sedwards2009/extraterm/v0.79.0";
       flake = false;
     };
+    flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -18,7 +18,7 @@
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/sedwards2009/extraterm";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixos-24.05";
         shared = import ./nix/devShells.nix;
         yarn = pkgs.yarn;
         extraterm-for = { nodejs }:

@@ -3,16 +3,16 @@
     "extraterm-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1472156054,
-        "narHash": "sha256-TiKTKQ1mKcvbUY9vEYM+XjBspbJEjkBnt/maWwVSJy4=",
+        "lastModified": 1725094874,
+        "narHash": "sha256-rdPCP9W8JKU+66pUStR8PQrnD4tqnc2Wx/CC/RbNhiM=",
         "owner": "sedwards2009",
         "repo": "extraterm",
-        "rev": "03779b82cc5ef62695c074719d37a87892d495e0",
+        "rev": "b9b8e2d42fbc76429bff0be8bee80600f9831a6f",
         "type": "github"
       },
       "original": {
         "owner": "sedwards2009",
-        "ref": "v0.121.0",
+        "ref": "v0.79.0",
         "repo": "extraterm",
         "type": "github"
       }
