@@ -78,22 +78,7 @@
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          default = azure-functions-default;
-          azure-functions-default = azure-functions-python312;
-          azure-functions-python38 = shared.devShell-for {
-            banner = "${
-                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38
-              }/bin/banner.sh";
-            extra-namespaces = "";
-            nixpkgs-release = nixpkgsRelease;
-            package = packages.azure-functions-python38;
-            python = pkgs.python38;
-            pythoneda-shared-pythonlang-banner =
-              pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38;
-            pythoneda-shared-pythonlang-domain =
-              pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python38;
-            inherit archRole layer org pkgs repo space;
-          };
+          default = azure-functions-python312;
           azure-functions-python39 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39
@@ -150,12 +135,24 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
             inherit archRole layer org pkgs repo space;
           };
+          azure-functions-python313 = shared.devShell-for {
+            banner = "${
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313
+              }/bin/banner.sh";
+            extra-namespaces = "";
+            nixpkgs-release = nixpkgsRelease;
+            package = packages.azure-functions-python313;
+            python = pkgs.python313;
+            pythoneda-shared-pythonlang-banner =
+              pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313;
+            pythoneda-shared-pythonlang-domain =
+              pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python313;
+            inherit archRole layer org pkgs repo space;
+          };
         };
         packages = rec {
           default = azure-functions-default;
           azure-functions-default = azure-functions-python312;
-          azure-functions-python38 =
-            azure-functions-for { python = pkgs.python38; };
           azure-functions-python39 =
             azure-functions-for { python = pkgs.python39; };
           azure-functions-python310 =
@@ -164,6 +161,8 @@
             azure-functions-for { python = pkgs.python311; };
           azure-functions-python312 =
             azure-functions-for { python = pkgs.python312; };
+          azure-functions-python313 =
+            azure-functions-for { python = pkgs.python313; };
         };
       });
 }
