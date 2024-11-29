@@ -1,13 +1,13 @@
 {
-  description = "Hatch is a modern, extensible Python project manager.";
+  description = "Nix flake for hatch";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     trove-classifiers = {
-      url = "path:../trove-classifiers";
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      url = "github:rydnr/nix-flakes/trove-classifiers-2023.5.24.1?dir=trove-classifiers";
     };
   };
   outputs = inputs:
@@ -19,9 +19,9 @@
         license = pkgs.lib.licenses.mit;
         homepage = "https://hatch.pypa.io/latest/";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixos-24.05";
         shared = import ../shared.nix;
-        hatchling-1_17_1-for = { trove-classifiers, python }:
+        hatchling-for = { trove-classifiers, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "hatchling";
             version = "1.17.1";
@@ -42,61 +42,61 @@
           };
       in rec {
         packages = rec {
-          hatchling-1_17_1-python38 = hatchling-1_17_1-for {
+          default = hatchling-python312;
+          hatchling-python39 = hatchling-for {
             trove-classifiers =
-              trove-classifiers.packages.${system}.trove-classifiers-2023_5_24-python38;
-            python = pkgs.python38;
-          };
-          hatchling-1_17_1-python39 = hatchling-1_17_1-for {
-            trove-classifiers =
-              trove-classifiers.packages.${system}.trove-classifiers-2023_5_24-python39;
+              trove-classifiers.packages.${system}.trove-classifiers-python39;
             python = pkgs.python39;
           };
-          hatchling-1_17_1-python310 = hatchling-1_17_1-for {
+          hatchling-python310 = hatchling-for {
             trove-classifiers =
-              trove-classifiers.packages.${system}.trove-classifiers-2023_5_24-python310;
+              trove-classifiers.packages.${system}.trove-classifiers-python310;
             python = pkgs.python310;
           };
-          hatchling-1_17_1-python311 = hatchling-1_17_1-for {
+          hatchling-python311 = hatchling-for {
             trove-classifiers =
-              trove-classifiers.packages.${system}.trove-classifiers-2023_5_24-python311;
+              trove-classifiers.packages.${system}.trove-classifiers-python311;
             python = pkgs.python311;
           };
-          hatchling-latest-python38 = hatchling-1_17_1-python38;
-          hatchling-latest-python39 = hatchling-1_17_1-python39;
-          hatchling-latest-python310 = hatchling-1_17_1-python310;
-          hatchling-latest-python311 = hatchling-1_17_1-python311;
-          hatchling-latest = hatchling-latest-python311;
-          default = hatchling-latest;
+          hatchling-python312 = hatchling-for {
+            trove-classifiers =
+              trove-classifiers.packages.${system}.trove-classifiers-python312;
+            python = pkgs.python312;
+          };
+          hatchling-python313 = hatchling-for {
+            trove-classifiers =
+              trove-classifiers.packages.${system}.trove-classifiers-python313;
+            python = pkgs.python313;
+          };
         };
         defaultPackage = packages.default;
         devShells = rec {
-          hatchling-1_17_1-python38 = shared.devShell-for {
-            package = packages.hatchling-1_17_1-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
-          hatchling-1_17_1-python39 = shared.devShell-for {
-            package = packages.hatchling-1_17_1-python39;
+          default = hatchling-python312;
+          hatchling-python39 = shared.devShell-for {
+            package = packages.hatchling-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          hatchling-1_17_1-python310 = shared.devShell-for {
-            package = packages.hatchling-1_17_1-python310;
+          hatchling-python310 = shared.devShell-for {
+            package = packages.hatchling-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          hatchling-1_17_1-python311 = shared.devShell-for {
-            package = packages.hatchling-1_17_1-python311;
+          hatchling-python311 = shared.devShell-for {
+            package = packages.hatchling-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          hatchling-latest-python38 = hatchling-1_17_1-python38;
-          hatchling-latest-python39 = hatchling-1_17_1-python39;
-          hatchling-latest-python310 = hatchling-1_17_1-python310;
-          hatchling-latest-python311 = hatchling-1_17_1-python311;
-          hatchling-latest = hatchling-latest-python311;
-          default = hatchling-latest;
+          hatchling-python312 = shared.devShell-for {
+            package = packages.hatchling-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+          hatchling-python313 = shared.devShell-for {
+            package = packages.hatchling-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
       });
 }
