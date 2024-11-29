@@ -27,14 +27,20 @@
         "trove-classifiers": "trove-classifiers"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-bOi1QXteyhSXZLgeoAgmUql3sYJoUtoDmaikGDufS2U=",
-        "path": "../flit",
-        "type": "path"
+        "dir": "flit",
+        "lastModified": 1732904928,
+        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
+        "type": "github"
       },
       "original": {
-        "path": "../flit",
-        "type": "path"
+        "dir": "flit",
+        "owner": "rydnr",
+        "ref": "flit-3.9.0.1",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     },
     "flit-scm": {
@@ -51,28 +57,34 @@
         "tomli": "tomli"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-OPwrHLvqB001FCmgn/H8Mlbnytj5vDyDf+/Fr/61kd4=",
-        "path": "../flit-scm",
-        "type": "path"
+        "dir": "flit-scm",
+        "lastModified": 1732906923,
+        "narHash": "sha256-qNGCkNPrX3g3kHQ4KaAdEf5dV83p3kKkxDnHB7d7IJk=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "b7316574e4e6c9e55b9997e64be264ea4ad67184",
+        "type": "github"
       },
       "original": {
-        "path": "../flit-scm",
-        "type": "path"
+        "dir": "flit-scm",
+        "owner": "rydnr",
+        "ref": "flit-scm-1.7.0.0",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     },
     "nixos": {
       "locked": {
-        "lastModified": 1686059680,
-        "narHash": "sha256-sp0WlCIeVczzB0G8f8iyRg3IYW7KG31mI66z7HIZwrI=",
+        "lastModified": 1717179513,
+        "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a558f7ac29f50c4b937fb5c102f587678ae1c9fb",
+        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-23.05",
+        "ref": "24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -101,14 +113,20 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-sv4qQXos6b0EVNOSP9xfX4milwskdCkvpgwCknMBaJs=",
-        "path": "../tomli",
-        "type": "path"
+        "dir": "tomli",
+        "lastModified": 1732905007,
+        "narHash": "sha256-aWQp6uCGr4DC5qcEni0JUAIewzYAW72Zi23bugEZJI8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "752b4c81a3fd81231635d9fccae3069ff877a5e1",
+        "type": "github"
       },
       "original": {
-        "path": "../tomli",
-        "type": "path"
+        "dir": "tomli",
+        "owner": "rydnr",
+        "ref": "tomli-2.0.1.1",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     },
     "trove-classifiers": {
@@ -124,7 +142,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
+        "narHash": "sha256-HxEcM+9PUC4WBhwq3jDUj9qvnS/YFvHT/ETW9MCQ3fY=",
         "path": "../trove-classifiers",
         "type": "path"
       },
