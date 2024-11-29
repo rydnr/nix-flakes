@@ -1,9 +1,9 @@
 {
-  description = "Flake for Stringtemplate3 Python.";
+  description = "Flake for Stringtemplate3 Python";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -15,6 +15,7 @@
         homepage = "https://github.com/antlr/stringtemplate3";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-24.05";
+        shared = import ../shared.nix;
         stringtemplate3-for = { python }:
           python.pkgs.buildPythonPackage rec {
             pname = "stringtemplate3b";
@@ -34,10 +35,36 @@
           };
       in rec {
         defaultPackage = packages.default;
+        devShells = rec {
+          default = stringtemplate3-python312;
+          stringtemplate3-python39 = shared.devShell-for {
+            package = packages.stringtemplate3-python39;
+            python = pkgs.python39;
+            inherit pkgs nixpkgsRelease;
+          };
+          stringtemplate3-python310 = shared.devShell-for {
+            package = packages.stringtemplate3-python310;
+            python = pkgs.python310;
+            inherit pkgs nixpkgsRelease;
+          };
+          stringtemplate3-python311 = shared.devShell-for {
+            package = packages.stringtemplate3-python311;
+            python = pkgs.python311;
+            inherit pkgs nixpkgsRelease;
+          };
+          stringtemplate3-python312 = shared.devShell-for {
+            package = packages.stringtemplate3-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+          stringtemplate3-python313 = shared.devShell-for {
+            package = packages.stringtemplate3-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = stringtemplate3-python312;
-          stringtemplate3-python38 =
-            stringtemplate3-for { python = pkgs.python38; };
           stringtemplate3-python39 =
             stringtemplate3-for { python = pkgs.python39; };
           stringtemplate3-python310 =
@@ -46,6 +73,8 @@
             stringtemplate3-for { python = pkgs.python311; };
           stringtemplate3-python312 =
             stringtemplate3-for { python = pkgs.python312; };
+          stringtemplate3-python313 =
+            stringtemplate3-for { python = pkgs.python313; };
         };
       });
 }
