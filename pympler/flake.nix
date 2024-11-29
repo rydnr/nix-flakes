@@ -1,10 +1,10 @@
 {
   description =
-    "Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.";
+    "Nix flake for pympler";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = { self, ... }@inputs:
     with inputs;
@@ -36,11 +36,6 @@
         defaultPackage = packages.default-python312;
         devShells = rec {
           default = pympler-python312;
-          pympler-python38 = shared.devShell-for {
-            package = packages.pympler-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
           pympler-python39 = shared.devShell-for {
             package = packages.pympler-python39;
             python = pkgs.python39;
@@ -61,14 +56,19 @@
             python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
+          pympler-python313 = shared.devShell-for {
+            package = packages.pympler-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
         packages = {
           default = packages.pympler-python312;
-          pympler-python38 = pympler-for pkgs.python38;
           pympler-python39 = pympler-for pkgs.python39;
           pympler-python310 = pympler-for pkgs.python310;
           pympler-python311 = pympler-for pkgs.python311;
           pympler-python312 = pympler-for pkgs.python312;
+          pympler-python313 = pympler-for pkgs.python313;
         };
       });
 }
