@@ -28,17 +28,17 @@
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1731750833,
-        "narHash": "sha256-3+LrZOKdY1F9GprW/fE4vKETSsWfQgrpStvsJV34OZk=",
+        "lastModified": 1732904928,
+        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "a0ed3b55d4d4b1f47dbf3819475407f8fea2a80a",
+        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0a",
+        "ref": "flit-3.9.0.1",
         "repo": "nix-flakes",
         "type": "github"
       }

@@ -2,12 +2,12 @@
   description = "Nix flake for hukkin/tomli";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
     };
   };
   outputs = inputs:
@@ -41,11 +41,6 @@
         defaultPackage = packages.default;
         devShells = rec {
           default = tomli-python312;
-          tomli-python38 = shared.devShell-for {
-            package = packages.tomli-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
           tomli-python39 = shared.devShell-for {
             package = packages.tomli-python39;
             python = pkgs.python39;
@@ -66,13 +61,14 @@
             python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
+          tomli-python313 = shared.devShell-for {
+            package = packages.tomli-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
         packages = rec {
           default = packages.tomli-python312;
-          tomli-python38 = tomli-for {
-            flit-core = flit.packages.${system}.flit-core-python38;
-            python = pkgs.python38;
-          };
           tomli-python39 = tomli-for {
             flit-core = flit.packages.${system}.flit-core-python39;
             python = pkgs.python39;
@@ -88,6 +84,10 @@
           tomli-python312 = tomli-for {
             flit-core = flit.packages.${system}.flit-core-python312;
             python = pkgs.python312;
+          };
+          tomli-python313 = tomli-for {
+            flit-core = flit.packages.${system}.flit-core-python313;
+            python = pkgs.python313;
           };
         };
       });
