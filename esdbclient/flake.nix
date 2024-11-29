@@ -14,11 +14,7 @@
         license = pkgs.lib.licenses.bsd3;
         homepage = "https://github.com/pyeventsourcing/esdbclient";
         maintainers = with pkgs.lib.maintainers; [ ];
-        shellHook-for = package: ''
-          export PNAME="${package.pname}";
-          export PVERSION="${package.version}";
-          export PS1="\[\033[01;32m\][\$PNAME-\$PVERSION]\[\033[00m\] \[\033[01;34m\]\W \$\[\033[00m\] "
-        '';
+        shared = import ../shared.nix;
         esdbclient-for = python:
           python.pkgs.buildPythonPackage rec {
             pname = "esdbclient";
@@ -50,39 +46,39 @@
         defaultPackage = packages.default;
         devShells = {
           default = devShells.esdbclient-python312;
-          esdbclient-python37 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python37 ];
-            shellHook = shellHook-for packages.esdbclient-python37;
+          esdbclient-python39 = shared.devShell-for {
+            package = packages.esdbclient-python39;
+            python = pkgs.python39;
+            inherit pkgs nixpkgsRelease;
           };
-          esdbclient-python38 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python38 ];
-            shellHook = shellHook-for packages.esdbclient-python38;
+          esdbclient-python310 = shared.devShell-for {
+            package = packages.esdbclient-python310;
+            python = pkgs.python310;
+            inherit pkgs nixpkgsRelease;
           };
-          esdbclient-python39 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python39 ];
-            shellHook = shellHook-for packages.esdbclient-python39;
+          esdbclient-python311 = shared.devShell-for {
+            package = packages.esdbclient-python311;
+            python = pkgs.python311;
+            inherit pkgs nixpkgsRelease;
           };
-          esdbclient-python310 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python310 ];
-            shellHook = shellHook-for packages.esdbclient-python310;
+          esdbclient-python312 = shared.devShell-for {
+            package = packages.esdbclient-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
           };
-          esdbclient-python311 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python311 ];
-            shellHook = shellHook-for packages.esdbclient-python311;
-          };
-          esdbclient-python312 = pkgs.mkShell {
-            buildInputs = [ packages.esdbclient-python312 ];
-            shellHook = shellHook-for packages.esdbclient-python312;
+          esdbclient-python313 = shared.devShell-for {
+            package = packages.esdbclient-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
           };
         };
         packages = {
-          esdbclient-python37 = esdbclient-for pkgs.python37;
-          esdbclient-python38 = esdbclient-for pkgs.python38;
+          default = packages.esdbclient-python312;
           esdbclient-python39 = esdbclient-for pkgs.python39;
           esdbclient-python310 = esdbclient-for pkgs.python310;
           esdbclient-python311 = esdbclient-for pkgs.python311;
           esdbclient-python312 = esdbclient-for pkgs.python312;
-          default = packages.esdbclient-python312;
+          esdbclient-python313 = esdbclient-for pkgs.python313;
         };
       });
 }
