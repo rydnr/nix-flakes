@@ -1,9 +1,9 @@
 {
-  description = "Canonical source for classifiers on PyPI.";
+  description = "Nix flake for trove-classifiers";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -38,11 +38,7 @@
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          trove-classifiers-python38 = shared.devShell-for {
-            package = packages.trove-classifiers-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
+          default = trove-classifiers-python312;
           trove-classifiers-python39 = shared.devShell-for {
             package = packages.trove-classifiers-python39;
             python = pkgs.python39;
@@ -63,12 +59,14 @@
             python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
-          default = trove-classifiers-python312;
+          trove-classifiers-python313 = shared.devShell-for {
+            package = packages.trove-classifiers-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
         packages = {
           default = packages.trove-classifiers-python312;
-          trove-classifiers-python38 =
-            trove-classifiers-for pkgs.python38;
           trove-classifiers-python39 =
             trove-classifiers-for pkgs.python39;
           trove-classifiers-python310 =
@@ -77,6 +75,8 @@
             trove-classifiers-for pkgs.python311;
           trove-classifiers-python312 =
             trove-classifiers-for pkgs.python312;
+          trove-classifiers-python313 =
+            trove-classifiers-for pkgs.python313;
         };
       });
 }
