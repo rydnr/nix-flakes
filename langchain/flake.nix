@@ -2,8 +2,8 @@
   description = "A Flake that uses langchain as a dependency";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     poetry2nix.url = "github:nix-community/poetry2nix";
     aiohttp-flake.url =
       "github:rydnr/nix-flakes?dir=langchain/dependencies/aiohttp-3.8.4";
