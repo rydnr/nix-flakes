@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "HTML and XML parser";
+  description = "Nix flake for beautifulsoup4";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixos.url = "github:NixOS/nixpkgs/24.05";
@@ -103,20 +103,6 @@
         devShells = rec {
           default = beautifulsoup4-default;
           beautifulsoup4-default = beautifulsoup4-python312;
-          beautifulsoup4-python38 = shared.devShell-for {
-            banner = "${
-                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38
-              }/bin/banner.sh";
-            extra-namespaces = "";
-            nixpkgs-release = nixpkgsRelease;
-            package = packages.beautifulsoup4-python38;
-            python = pkgs.python38;
-            pythoneda-shared-pythonlang-banner =
-              pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38;
-            pythoneda-shared-pythonlang-domain =
-              pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python38;
-            inherit archRole layer org pkgs repo space;
-          };
           beautifulsoup4-python39 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39
@@ -173,12 +159,24 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
             inherit archRole layer org pkgs repo space;
           };
+          beautifulsoup4-python313 = shared.devShell-for {
+            banner = "${
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313
+              }/bin/banner.sh";
+            extra-namespaces = "";
+            nixpkgs-release = nixpkgsRelease;
+            package = packages.beautifulsoup4-python313;
+            python = pkgs.python313;
+            pythoneda-shared-pythonlang-banner =
+              pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313;
+            pythoneda-shared-pythonlang-domain =
+              pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python313;
+            inherit archRole layer org pkgs repo space;
+          };
         };
         packages = rec {
           default = beautifulsoup4-default;
           beautifulsoup4-default = beautifulsoup4-python312;
-          beautifulsoup4-python38 =
-            beautifulsoup4-for { python = pkgs.python38; };
           beautifulsoup4-python39 =
             beautifulsoup4-for { python = pkgs.python39; };
           beautifulsoup4-python310 =
@@ -187,6 +185,8 @@
             beautifulsoup4-for { python = pkgs.python311; };
           beautifulsoup4-python312 =
             beautifulsoup4-for { python = pkgs.python312; };
+          beautifulsoup4-python313 =
+            beautifulsoup4-for { python = pkgs.python313; };
         };
       });
 }
