@@ -1,9 +1,9 @@
 {
-  description = "A minimalist production ready plugin system ";
+  description = "Nix flake for pluggy";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -42,11 +42,6 @@
         defaultPackage = packages.default;
         devShells = rec {
           default = pluggy-python312;
-          pluggy-python38 = shared.devShell-for {
-            package = packages.pluggy-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
           pluggy-python39 = shared.devShell-for {
             package = packages.pluggy-python39;
             python = pkgs.python39;
@@ -67,14 +62,19 @@
             python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
+          pluggy-python313 = shared.devShell-for {
+            package = packages.pluggy-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
         packages = rec {
           default = pluggy-python312;
-          pluggy-python38 = pluggy-for pkgs.python38;
           pluggy-python39 = pluggy-for pkgs.python39;
           pluggy-python310 = pluggy-for pkgs.python310;
           pluggy-python311 = pluggy-for pkgs.python311;
           pluggy-python312 = pluggy-for pkgs.python312;
+          pluggy-python313 = pluggy-for pkgs.python313;
         };
       });
 }
