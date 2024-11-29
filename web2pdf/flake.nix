@@ -17,14 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "CLI to convert webpages to PDFs";
+  description = "Nix flake from web2pdf";
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0a?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
     };
     nixos.url = "github:NixOS/nixpkgs/24.05";
   };
@@ -143,10 +143,6 @@
         apps = rec {
           default = dvcoolarun-web2pdf-default;
           dvcoolarun-web2pdf-default = dvcoolarun-web2pdf-python312;
-          dvcoolarun-web2pdf-python38 = shared.app-for {
-            entrypoint = "${pnameWithUnderscores}.sh";
-            package = self.packages.${system}.dvcoolarun-web2pdf-python38;
-          };
           dvcoolarun-web2pdf-python39 = shared.app-for {
             entrypoint = "${pnameWithUnderscores}.sh";
             package = self.packages.${system}.dvcoolarun-web2pdf-python39;
@@ -163,14 +159,14 @@
             entrypoint = "${pnameWithUnderscores}.sh";
             package = self.packages.${system}.dvcoolarun-web2pdf-python312;
           };
+          dvcoolarun-web2pdf-python313 = shared.app-for {
+            entrypoint = "${pnameWithUnderscores}.sh";
+            package = self.packages.${system}.dvcoolarun-web2pdf-python313;
+          };
         };
         defaultPackage = packages.default;
         packages = rec {
           default = dvcoolarun-web2pdf-python312;
-          dvcoolarun-web2pdf-python38 = dvcoolarun-web2pdf-for {
-            flit = flit.packages.${system}.flit-python38;
-            python = pkgs.python38;
-          };
           dvcoolarun-web2pdf-python39 = dvcoolarun-web2pdf-for {
             flit = flit.packages.${system}.flit-python39;
             python = pkgs.python39;
@@ -186,6 +182,10 @@
           dvcoolarun-web2pdf-python312 = dvcoolarun-web2pdf-for {
             flit = flit.packages.${system}.flit-python312;
             python = pkgs.python312;
+          };
+          dvcoolarun-web2pdf-python313 = dvcoolarun-web2pdf-for {
+            flit = flit.packages.${system}.flit-python313;
+            python = pkgs.python313;
           };
         };
       });
