@@ -20,12 +20,12 @@
   description = "PyTorchVision from nixpkgs.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     rydnr-nix-flakes-pytorch = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/pytorch-2.0.1-1?dir=pytorch";
+      url = "github:rydnr/nix-flakes/pytorch-2.3.0.0?dir=pytorch";
     };
   };
   outputs = inputs:
@@ -36,6 +36,8 @@
         defaultSystems
       else
         defaultSystems ++ [ "armv6l-linux" ];
+      nixpkgsRelease = "nixos-24.05";
+      shared = import ../shared.nix;
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
         pythonCudaOverlay = final: prev: {
@@ -139,6 +141,69 @@
           };
       in rec {
         defaultPackage = packages.default;
+        devShells = rec {
+          default = rydnr-nix-flakes-torchvision-python312;
+          rydnr-nix-flakes-torchvision-python39 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python39;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python39-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python39-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python310 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python310;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python310-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python310-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python311 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python311;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python311-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python311-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python312 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python312;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python312-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python312-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python313 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python313;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python313;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-torchvision-python313-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-torchvision-python313-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python313;
+            inherit nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = rydnr-nix-flakes-torchvision-python310-cuda;
           rydnr-nix-flakes-torchvision-python38 =
