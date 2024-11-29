@@ -1,20 +1,19 @@
 {
-  description =
-    "A PEP 518 build backend that uses setuptools_scm to generate a version file from your version control system, then flit_core to build the package.";
+  description = "Nix flake for flit-scm";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
-      url = "path:../flit";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-    };
-    tomli = {
-      url = "path:../tomli";
       inputs.nixos.follows = "nixos";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
+    };
+    nixos.url = "github:NixOS/nixpkgs/24.05";
+    tomli = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.flit.follows = "flit";
+      inputs.nixos.follows = "nixos";
+      url = "github:rydnr/nix-flakes/tomli-2.0.1.1?dir=tomli";
     };
   };
   outputs = inputs:
@@ -29,7 +28,7 @@
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsRelease = "nixos-23.05";
         shared = import ../shared.nix;
-        flit-scm-1_7_0-for = { flit-core, tomli, python }:
+        flit-scm-for = { flit-core, tomli, python }:
           python.pkgs.buildPythonPackage rec {
             pname = "flit-scm";
             version = "1.7.0";
@@ -49,62 +48,62 @@
             };
           };
       in rec {
-        packages = {
-          flit-scm-1_7_0-python38 = flit-scm-1_7_0-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python38;
-            tomli = tomly.packages.${system}.tomli-2_0_1-python38;
-            python = pkgs.python38;
-          };
-          flit-scm-1_7_0-python39 = flit-scm-1_7_0-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python39;
-            tomli = tomli.packages.${system}.tomli-2_0_1-python39;
-            python = pkgs.python39;
-          };
-          flit-scm-1_7_0-python310 = flit-scm-1_7_0-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python310;
-            tomli = tomli.packages.${system}.tomli-2_0_1-python310;
-            python = pkgs.python310;
-          };
-          flit-scm-1_7_0-python311 = flit-scm-1_7_0-for {
-            flit-core = flit.packages.${system}.flit-core-3_9_0-python311;
-            tomli = tomli.packages.${system}.tomli-2_0_1-python311;
-            python = pkgs.python311;
-          };
-          flit-scm-latest-python38 = packages.flit-scm-1_7_0-python38;
-          flit-scm-latest-python39 = packages.flit-scm-1_7_0-python39;
-          flit-scm-latest-python310 = packages.flit-scm-1_7_0-python310;
-          flit-scm-latest-python311 = packages.flit-scm-1_7_0-python311;
-          flit-scm-latest = packages.flit-scm-latest-python311;
-          default = packages.flit-scm-latest;
-        };
         defaultPackage = packages.default;
         devShells = rec {
-          flit-scm-1_7_0-python38 = shared.devShell-for {
-            package = packages.flit-scm-1_7_0-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
-          flit-scm-1_7_0-python39 = shared.devShell-for {
-            package = packages.flit-scm-1_7_0-python39;
+          default = flit-scm-latest;
+          flit-scm-python39 = shared.devShell-for {
+            package = packages.flit-scm-python39;
             python = pkgs.python39;
             inherit pkgs nixpkgsRelease;
           };
-          flit-scm-1_7_0-python310 = shared.devShell-for {
-            package = packages.flit-scm-1_7_0-python310;
+          flit-scm-python310 = shared.devShell-for {
+            package = packages.flit-scm-python310;
             python = pkgs.python310;
             inherit pkgs nixpkgsRelease;
           };
-          flit-scm-1_7_0-python311 = shared.devShell-for {
-            package = packages.flit-scm-1_7_0-python311;
+          flit-scm-python311 = shared.devShell-for {
+            package = packages.flit-scm-python311;
             python = pkgs.python311;
             inherit pkgs nixpkgsRelease;
           };
-          flit-scm-latest-python38 = flit-scm-1_7_0-python38;
-          flit-scm-latest-python39 = flit-scm-1_7_0-python39;
-          flit-scm-latest-python310 = flit-scm-1_7_0-python310;
-          flit-scm-latest-python311 = flit-scm-1_7_0-python311;
-          flit-scm-latest = flit-scm-latest-python311;
-          default = flit-scm-latest;
+          flit-scm-python312 = shared.devShell-for {
+            package = packages.flit-scm-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+          flit-scm-python313 = shared.devShell-for {
+            package = packages.flit-scm-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
+        packages = {
+          default = packages.flit-scm-python312;
+          flit-scm-python39 = flit-scm-for {
+            flit-core = flit.packages.${system}.flit-core-python39;
+            tomli = tomli.packages.${system}.tomli-python39;
+            python = pkgs.python39;
+          };
+          flit-scm-python310 = flit-scm-for {
+            flit-core = flit.packages.${system}.flit-core-python310;
+            tomli = tomli.packages.${system}.tomli-python310;
+            python = pkgs.python310;
+          };
+          flit-scm-python311 = flit-scm-for {
+            flit-core = flit.packages.${system}.flit-core-python311;
+            tomli = tomli.packages.${system}.tomli-python311;
+            python = pkgs.python311;
+          };
+          flit-scm-python312 = flit-scm-for {
+            flit-core = flit.packages.${system}.flit-core-python312;
+            tomli = tomli.packages.${system}.tomli-python312;
+            python = pkgs.python312;
+          };
+          flit-scm-python313 = flit-scm-for {
+            flit-core = flit.packages.${system}.flit-core-python313;
+            tomli = tomli.packages.${system}.tomli-python313;
+            python = pkgs.python313;
+          };
         };
       });
 }
