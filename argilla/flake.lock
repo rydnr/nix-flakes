@@ -28,33 +28,33 @@
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1685991334,
-        "narHash": "sha256-0gczZBmMLAfSe10oaBYJU5c9/GzyPh6yWZWn+IRySFY=",
+        "lastModified": 1732904928,
+        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "32c48cac02173d20a60e2518e1dd714b15a45171",
+        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0",
+        "ref": "flit-3.9.0.1",
         "repo": "nix-flakes",
         "type": "github"
       }
     },
     "nixos": {
       "locked": {
-        "lastModified": 1685883127,
-        "narHash": "sha256-zPDaPNrAtBnO24rNqjHLINHsqTdRbgWy1c/TL3EdwlM=",
+        "lastModified": 1717179513,
+        "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d4a9ff82fc18723219b60c66fb2ccb0734c460eb",
+        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-22.11",
+        "ref": "24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -78,20 +78,14 @@
         ]
       },
       "locked": {
-        "dir": "trove-classifiers",
-        "lastModified": 1685905654,
-        "narHash": "sha256-+tm65GN8JsN2pHhsr4onRIV0cGZapaVJR090M24BKA8=",
-        "owner": "rydnr",
-        "repo": "nix-flakes",
-        "rev": "7ffdcfccbc56f7333cc6a2d6c0c4d6c6c7a98b52",
-        "type": "github"
+        "lastModified": 1,
+        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
+        "path": "../trove-classifiers",
+        "type": "path"
       },
       "original": {
-        "dir": "trove-classifiers",
-        "owner": "rydnr",
-        "ref": "trove-classifiers-2023.5.24",
-        "repo": "nix-flakes",
-        "type": "github"
+        "path": "../trove-classifiers",
+        "type": "path"
       }
     }
   },
