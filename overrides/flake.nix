@@ -36,11 +36,6 @@
         defaultPackage = packages.default;
         devShells = rec {
           default = overrides-python312;
-          overrides-python38 = shared.devShell-for {
-            package = packages.overrides-python38;
-            python = pkgs.python38;
-            inherit pkgs nixpkgsRelease;
-          };
           overrides-python39 = shared.devShell-for {
             package = packages.overrides-python39;
             python = pkgs.python39;
@@ -61,14 +56,47 @@
             python = pkgs.python312;
             inherit pkgs nixpkgsRelease;
           };
+          overrides-python313 = shared.devShell-for {
+            package = packages.overrides-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
         };
         packages = rec {
           default = overrides-python312;
-          overrides-python38 = overrides-for pkgs.python38;
+        devShells = rec {
+          default = overrides-python312;
+          overrides-python39 = shared.devShell-for {
+            package = packages.overrides-python39;
+            python = pkgs.python39;
+            inherit pkgs nixpkgsRelease;
+          };
+          overrides-python310 = shared.devShell-for {
+            package = packages.overrides-python310;
+            python = pkgs.python310;
+            inherit pkgs nixpkgsRelease;
+          };
+          overrides-python311 = shared.devShell-for {
+            package = packages.overrides-python311;
+            python = pkgs.python311;
+            inherit pkgs nixpkgsRelease;
+          };
+          overrides-python312 = shared.devShell-for {
+            package = packages.overrides-python312;
+            python = pkgs.python312;
+            inherit pkgs nixpkgsRelease;
+          };
+          overrides-python313 = shared.devShell-for {
+            package = packages.overrides-python313;
+            python = pkgs.python313;
+            inherit pkgs nixpkgsRelease;
+          };
+        };
           overrides-python39 = overrides-for pkgs.python39;
           overrides-python310 = overrides-for pkgs.python310;
           overrides-python311 = overrides-for pkgs.python311;
           overrides-python312 = overrides-for pkgs.python312;
+          overrides-python313 = overrides-for pkgs.python313;
         };
       });
 }
