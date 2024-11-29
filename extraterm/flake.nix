@@ -2,10 +2,10 @@
   description = "The swiss army chainsaw of terminal emulators";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     extraterm-src = {
-      url = "github:sedwards2009/extraterm/5e4b12e";
+      url = "github:sedwards2009/extraterm/v0.121.0";
       flake = false;
     };
   };
@@ -32,41 +32,36 @@
             meta = { inherit description homepage license maintainers; };
           };
       in rec {
-        packages = rec {
-          extraterm-0_121_0-nodejs10 =
-            extraterm-for { nodejs = pkgs.nodejs-10_x; };
-          extraterm-0_121_0-nodejs18 =
-            extraterm-for { nodejs = pkgs.nodejs-18_x; };
-          extraterm-0_121_0-nodejs19 =
-            extraterm-for { nodejs = pkgs.nodejs-19_x; };
-          extraterm-latest-nodejs10 = extraterm-0_121_0-nodejs10;
-          extraterm-latest-nodejs18 = extraterm-0_121_0-nodejs18;
-          extraterm-latest-nodejs19 = extraterm-0_121_0-nodejs19;
-          extraterm-latest = extraterm-latest-nodejs18;
-          default = extraterm-latest;
-        };
         defaultPackage = packages.default;
         devShells = rec {
-          extraterm-0_121_0-nodejs10 = shared.devShell-for {
-            package = packages.extraterm-0_121_0-nodejs10;
-            python = pkgs.nodejs-10_x;
+          default = extraterm-nodejs22;
+          extraterm-nodejs18 = shared.devShell-for {
+            package = packages.extraterm-nodejs18;
+            python = pkgs.python313;
             inherit pkgs nixpkgsRelease;
           };
-          extraterm-0_121_0-nodejs18 = shared.devShell-for {
-            package = packages.extraterm-0_121_0-nodejs18;
-            python = pkgs.nodejs-18_x;
+          extraterm-nodejs20 = shared.devShell-for {
+            package = packages.extraterm-nodejs20;
+            python = pkgs.python313;
             inherit pkgs nixpkgsRelease;
           };
-          extraterm-0_121_0-nodejs19 = shared.devShell-for {
-            package = packages.extraterm-0_121_0-nodejs19;
-            python = pkgs.nodejs-19_x;
+          extraterm-nodejs22 = shared.devShell-for {
+            package = packages.extraterm-nodejs22;
+            python = pkgs.python313;
             inherit pkgs nixpkgsRelease;
           };
-          extraterm-latest-nodejs10 = extraterm-0_121_0-nodejs10;
-          extraterm-latest-nodejs18 = extraterm-0_121_0-nodejs18;
-          extraterm-latest-nodejs19 = extraterm-0_121_0-nodejs19;
-          extraterm-latest = extraterm-latest-nodejs18;
-          default = extraterm-latest;
+        };
+        packages = rec {
+          default = extraterm-nodejs22;
+          extraterm-nodejs18 =
+            extraterm-for { nodejs = pkgs.nodejs_18; };
+          extraterm-nodejs20 =
+            extraterm-for { nodejs = pkgs.nodejs_20; };
+          extraterm-nodejs22 =
+            extraterm-for { nodejs = pkgs.nodejs_22; };
+          extraterm-latest-nodejs18 = extraterm-nodejs18;
+          extraterm-latest-nodejs20 = extraterm-nodejs20;
+          extraterm-latest-nodejs22 = extraterm-nodejs22;
         };
       });
 }
