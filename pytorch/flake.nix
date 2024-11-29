@@ -17,11 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "PyTorch from nixpkgs.";
+  description = "Nix flake for PyTorch in nixpkgs";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -31,6 +31,8 @@
         defaultSystems
       else
         defaultSystems ++ [ "armv6l-linux" ];
+      nixpkgsRelease = "nixos-24.05";
+      shared = import ../shared.nix;
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
         pythonNonCudaOverlay = final: prev: {
@@ -64,12 +66,71 @@
         };
       in rec {
         defaultPackage = packages.default;
+        devShells = rec {
+          default = rydnr-nix-flakes-pytorch-python312;
+          rydnr-nix-flakes-pytorch-python39 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python39;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python39-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python39-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python39;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python310 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python310;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python310-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python310-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python310;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python311 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python311;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python311-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python311-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python311;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python312 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python312;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python312-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python312-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python312;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python313 = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python313;
+            pkgs = pkgsNonCuda;
+            python = pkgsNonCuda.python313;
+            inherit nixpkgsRelease;
+          };
+          rydnr-nix-flakes-pytorch-python313-cuda = shared.devShell-for {
+            package = packages.rydnr-nix-flakes-pytorch-python313-cuda;
+            pkgs = pkgsCuda;
+            python = pkgsCuda.python313;
+            inherit nixpkgsRelease;
+          };
+        };
         packages = rec {
           default = rydnr-nix-flakes-pytorch-python312-cuda;
-          rydnr-nix-flakes-pytorch-python38 =
-            pkgsNonCuda.python38.pkgs.pytorchWithoutCuda;
-          rydnr-nix-flakes-pytorch-python38-cuda =
-            pkgsCuda.python38.pkgs.pytorchWithCuda;
           rydnr-nix-flakes-pytorch-python39 =
             pkgsNonCuda.python39.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python39-cuda =
@@ -86,6 +147,10 @@
             pkgsNonCuda.python312.pkgs.pytorchWithoutCuda;
           rydnr-nix-flakes-pytorch-python312-cuda =
             pkgsCuda.python312.pkgs.pytorchWithCuda;
+          rydnr-nix-flakes-pytorch-python313 =
+            pkgsNonCuda.python313.pkgs.pytorchWithoutCuda;
+          rydnr-nix-flakes-pytorch-python313-cuda =
+            pkgsCuda.python313.pkgs.pytorchWithCuda;
         };
       });
 }
