@@ -9,6 +9,7 @@
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixos { inherit system; };
+        shared = import ../shared.nix;
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
