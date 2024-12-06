@@ -3,18 +3,18 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "Canonical source for classifiers on PyPI.";
         license = pkgs.lib.licenses.asl20;
         homepage = "https://github.com/pypa/trove-classifiers";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-24.05";
+        nixpkgsRelease = "nixpkgs-24.05";
         shared = import ../shared.nix;
         trove-classifiers-for = python:
           python.pkgs.buildPythonPackage rec {
