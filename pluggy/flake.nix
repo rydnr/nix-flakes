@@ -3,18 +3,18 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "A minimalist production ready plugin system ";
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/pytest-dev/pluggy";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixpkgs-23.05";
         shared = import ../shared.nix;
         pluggy-for = python:
           python.pkgs.buildPythonPackage rec {
