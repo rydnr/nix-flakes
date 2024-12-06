@@ -3,13 +3,13 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "Python gRPC Client for EventStoreDB";
         license = pkgs.lib.licenses.bsd3;
         homepage = "https://github.com/pyeventsourcing/esdbclient";
