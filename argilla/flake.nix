@@ -6,7 +6,7 @@
     flit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/nix-flakes/flit-3.9.0.2?dir=flit";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.3?dir=flit";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };

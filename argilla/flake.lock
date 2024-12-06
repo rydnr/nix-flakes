@@ -28,17 +28,17 @@
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1733505831,
-        "narHash": "sha256-HxIOg00dRTVWYtzgfQAawz+h9gSdYBVPix7fj5kfO70=",
+        "lastModified": 1733507999,
+        "narHash": "sha256-eYzk+juA3c/CrwfpNwSqPRoqqaIh/S+yvaT/i5k1afQ=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "70a452694f3856d5f28a6de20700998893d87515",
+        "rev": "ad6509e1d90b396c5a34e6359ec784895ccfcfae",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0.2",
+        "ref": "flit-3.9.0.3",
         "repo": "nix-flakes",
         "type": "github"
       }
@@ -78,14 +78,20 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-GpUYoqvDl1OUZysUpHHcVWPD39vwCvTfZGGDKIeQztE=",
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
+        "type": "github"
       },
       "original": {
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "owner": "rydnr",
+        "ref": "trove-classifiers-2023.5.24.2",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     }
   },
