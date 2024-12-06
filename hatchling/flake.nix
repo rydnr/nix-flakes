@@ -3,23 +3,23 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     trove-classifiers = {
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:rydnr/nix-flakes/trove-classifiers-2023.5.24.1?dir=trove-classifiers";
+      url = "github:rydnr/nix-flakes/trove-classifiers-2023.5.24.2?dir=trove-classifiers";
     };
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "Hatch is a modern, extensible Python project manager.";
         license = pkgs.lib.licenses.mit;
         homepage = "https://hatch.pypa.io/latest/";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-24.05";
+        nixpkgsRelease = "nixpkgs-24.05";
         shared = import ../shared.nix;
         hatchling-for = { trove-classifiers, python }:
           python.pkgs.buildPythonPackage rec {

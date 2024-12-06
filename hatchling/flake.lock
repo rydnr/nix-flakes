@@ -16,7 +16,7 @@
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1717179513,
         "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
@@ -35,7 +35,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixos": "nixos",
+        "nixpkgs": "nixpkgs",
         "trove-classifiers": "trove-classifiers"
       }
     },
@@ -44,23 +44,23 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ]
       },
       "locked": {
         "dir": "trove-classifiers",
-        "lastModified": 1732904852,
-        "narHash": "sha256-gDCbEqXbQ6GRiXIOuFlszB5futUSjtMvIIYrQYkzxtU=",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "e14145d9fad60a474fb87aa3feabd1a61062d981",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
         "type": "github"
       },
       "original": {
         "dir": "trove-classifiers",
         "owner": "rydnr",
-        "ref": "trove-classifiers-2023.5.24.1",
+        "ref": "trove-classifiers-2023.5.24.2",
         "repo": "nix-flakes",
         "type": "github"
       }
