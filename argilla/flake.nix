@@ -4,17 +4,17 @@
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
-      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.2?dir=flit";
     };
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "Open-source data curation platform for LLMs";
         license = pkgs.lib.licenses.asl20;
         homepage = "https://www.argilla.io";

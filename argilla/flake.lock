@@ -21,29 +21,29 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "trove-classifiers": "trove-classifiers"
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1732904928,
-        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
+        "lastModified": 1733505831,
+        "narHash": "sha256-HxIOg00dRTVWYtzgfQAawz+h9gSdYBVPix7fj5kfO70=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
+        "rev": "70a452694f3856d5f28a6de20700998893d87515",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0.1",
+        "ref": "flit-3.9.0.2",
         "repo": "nix-flakes",
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1717179513,
         "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
@@ -63,7 +63,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "flit": "flit",
-        "nixos": "nixos"
+        "nixpkgs": "nixpkgs"
       }
     },
     "trove-classifiers": {
@@ -72,14 +72,14 @@
           "flit",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "flit",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
+        "narHash": "sha256-GpUYoqvDl1OUZysUpHHcVWPD39vwCvTfZGGDKIeQztE=",
         "path": "../trove-classifiers",
         "type": "path"
       },
