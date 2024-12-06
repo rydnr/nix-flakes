@@ -5,28 +5,28 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.3?dir=flit";
     };
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     tomli = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.flit.follows = "flit";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/tomli-2.0.1.1?dir=tomli";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/tomli-2.0.1.2?dir=tomli";
     };
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "A PEP 518 build backend that uses setuptools_scm to generate a version file from your version control system, then flit_core to build the package.";
         license = pkgs.lib.licenses.mit;
         homepage = "https://gitlab.com/WillDaSilva/flit_scm";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixpkgs-23.05";
         shared = import ../shared.nix;
         flit-scm-for = { flit-core, tomli, python }:
           python.pkgs.buildPythonPackage rec {
