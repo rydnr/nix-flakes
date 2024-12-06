@@ -3,10 +3,10 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     trove-classifiers = {
       url = "path:../trove-classifiers";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
@@ -14,13 +14,13 @@
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "Flit is a simple way to put Python packages and modules on PyPI";
         license = pkgs.lib.licenses.bsd3;
         homepage = "https://github.com/pypa/flit";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-24.05";
+        nixpkgsRelease = "nixpkgs-24.05";
         shared = import ../shared.nix;
         flit-core-for = python:
           python.pkgs.buildPythonPackage rec {
