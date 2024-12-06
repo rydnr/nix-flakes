@@ -23,10 +23,10 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.3?dir=flit";
     };
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -45,10 +45,10 @@
         description = "CLI to convert webpages to PDFs";
         homepage = "https://github.com/${owner}/${repo}";
         maintainers = [ "dvcoolarun" ];
-        nixosVersion = builtins.readFile "${nixos}/.version";
+        nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
         nixpkgsRelease =
-          builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
-        pkgs = import nixos { inherit system; };
+          builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
+        pkgs = import nixpkgs { inherit system; };
         shared = import ../shared.nix;
         pnameWithUnderscores = builtins.replaceStrings [ "-" ] [ "_" ] pname;
         dvcoolarun-web2pdf-for = { flit, python }:

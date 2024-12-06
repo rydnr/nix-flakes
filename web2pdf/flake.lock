@@ -21,29 +21,29 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "trove-classifiers": "trove-classifiers"
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1732904928,
-        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
+        "lastModified": 1733507999,
+        "narHash": "sha256-eYzk+juA3c/CrwfpNwSqPRoqqaIh/S+yvaT/i5k1afQ=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
+        "rev": "ad6509e1d90b396c5a34e6359ec784895ccfcfae",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0.1",
+        "ref": "flit-3.9.0.3",
         "repo": "nix-flakes",
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1717179513,
         "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
@@ -63,7 +63,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "flit": "flit",
-        "nixos": "nixos"
+        "nixpkgs": "nixpkgs"
       }
     },
     "trove-classifiers": {
@@ -72,20 +72,26 @@
           "flit",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "flit",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-Kd+sAwrZXz54ST/jxNGGrfvijrfJGuro4o0oIl7SZKs=",
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
+        "type": "github"
       },
       "original": {
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "owner": "rydnr",
+        "ref": "trove-classifiers-2023.5.24.2",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     }
   },
