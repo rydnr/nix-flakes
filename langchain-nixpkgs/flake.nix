@@ -21,7 +21,7 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
@@ -31,7 +31,7 @@
         defaultSystems
       else
         defaultSystems ++ [ "armv6l-linux" ];
-      nixpkgsRelease = "nixos-24.05";
+      nixpkgsRelease = "nixpkgs-24.05";
       shared = import ../shared.nix;
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
@@ -48,11 +48,11 @@
               ++ [ prev.cudatoolkit prev.git ];
           });
         };
-        pkgsNonCuda = import nixos {
+        pkgsNonCuda = import nixpkgs {
           overlays = [ langchainNonCudaOverlay ];
           inherit system;
         };
-        pkgsCuda = import nixos {
+        pkgsCuda = import nixpkgs {
           config = {
             allowUnfree = true;
             allowUnfreePredicate = pkg:
