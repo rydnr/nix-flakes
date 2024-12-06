@@ -4,19 +4,19 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = { self, ... }@inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.";
         license = pkgs.lib.licenses.asl20;
         homepage = "https://github.com/pympler/pympler";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixpkgs-23.05";
         shared = import ../shared.nix;
         pympler-for = python:
           python.pkgs.buildPythonPackage rec {
