@@ -3,12 +3,12 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixos { inherit system; };
+      let pkgs = import nixpkgs { inherit system; };
       in rec {
         defaultPackage = packages.default;
         packages = rec {
