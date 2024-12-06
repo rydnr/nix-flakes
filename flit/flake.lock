@@ -49,14 +49,20 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-GpUYoqvDl1OUZysUpHHcVWPD39vwCvTfZGGDKIeQztE=",
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
+        "type": "github"
       },
       "original": {
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "owner": "rydnr",
+        "ref": "trove-classifiers-2023.5.24.2",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     }
   },

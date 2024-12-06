@@ -5,7 +5,7 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     trove-classifiers = {
-      url = "path:../trove-classifiers";
+      url = "github:rydnr/nix-flakes/trove-classifiers-2023.5.24.2?dir=trove-classifiers";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
