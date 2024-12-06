@@ -3,20 +3,20 @@
     "A decorator @override that verifies that a method that should override an inherited method actually does it.";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = { self, ... }@inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "A decorator @override that verifies that a method that should override an inherited method actually does it.";
         license = pkgs.lib.licenses.asl20;
         homepage = "https://github.com/mkorpela/overrides";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixpkgs-23.05";
         shared = import ../shared.nix;
         overrides-for = python:
           python.pkgs.buildPythonPackage rec {
