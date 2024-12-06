@@ -3,23 +3,23 @@
 
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.3?dir=flit";
     };
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "A lil' TOML parser";
         license = pkgs.lib.licenses.mit;
         homepage = "https://github.com/hukkin/tomli";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-24.05";
+        nixpkgsRelease = "nixpkgs-24.05";
         shared = import ../shared.nix;
         tomli-for = { flit-core, python }:
           python.pkgs.buildPythonPackage rec {
