@@ -2,14 +2,14 @@
   description = "Nix flake for grpcio in nixpkgs";
 
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixos { inherit system; };
-          nixpkgsRelease = "nixos-24.05";
+      let pkgs = import nixpkgs { inherit system; };
+          nixpkgsRelease = "nixpkgs-24.05";
           shared = import ../shared;
       in rec {
         defaultPackage = packages.default;
