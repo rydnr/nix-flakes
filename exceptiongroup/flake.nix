@@ -5,28 +5,28 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     flit = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-3.9.0.1?dir=flit";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-3.9.0.3?dir=flit";
     };
     flit-scm = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.flit.follows = "flit";
-      inputs.nixos.follows = "nixos";
-      url = "github:rydnr/nix-flakes/flit-scm-1.7.0.0?dir=flit-scm";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:rydnr/nix-flakes/flit-scm-1.7.0.1?dir=flit-scm";
     };
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
   };
   outputs = inputs:
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "This is a backport of the BaseExceptionGroup and ExceptionGroup classes from Python 3.11.";
         license = pkgs.lib.licenses.mit;
         homepage = "https://github.com/agronholm/exceptiongroup";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixos-23.05";
+        nixpkgsRelease = "nixpkgs-23.05";
         shared = import ../shared.nix;
         exceptiongroup-for = { flit, flit-scm, python }:
           python.pkgs.buildPythonPackage rec {

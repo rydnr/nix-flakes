@@ -21,24 +21,24 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "trove-classifiers": "trove-classifiers"
       },
       "locked": {
         "dir": "flit",
-        "lastModified": 1732904928,
-        "narHash": "sha256-/4AK+h4ujY7GaV78fU1PdMEmie/4XUyULoNgP2eVp5E=",
+        "lastModified": 1733507999,
+        "narHash": "sha256-eYzk+juA3c/CrwfpNwSqPRoqqaIh/S+yvaT/i5k1afQ=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "9ae7a358b0e7f4278dd3f69b9bdb615fecc31c2c",
+        "rev": "ad6509e1d90b396c5a34e6359ec784895ccfcfae",
         "type": "github"
       },
       "original": {
         "dir": "flit",
         "owner": "rydnr",
-        "ref": "flit-3.9.0.1",
+        "ref": "flit-3.9.0.3",
         "repo": "nix-flakes",
         "type": "github"
       }
@@ -51,29 +51,29 @@
         "flit": [
           "flit"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "tomli": "tomli"
       },
       "locked": {
         "dir": "flit-scm",
-        "lastModified": 1732906923,
-        "narHash": "sha256-qNGCkNPrX3g3kHQ4KaAdEf5dV83p3kKkxDnHB7d7IJk=",
+        "lastModified": 1733508303,
+        "narHash": "sha256-ooc5pexYA4NamLy9B5cjB7eF8f5P4AYSUJD4ryj+Xq0=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "b7316574e4e6c9e55b9997e64be264ea4ad67184",
+        "rev": "6269636201264049378f95b66c7bea4cb0a7bb96",
         "type": "github"
       },
       "original": {
         "dir": "flit-scm",
         "owner": "rydnr",
-        "ref": "flit-scm-1.7.0.0",
+        "ref": "flit-scm-1.7.0.1",
         "repo": "nix-flakes",
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1717179513,
         "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
@@ -94,7 +94,7 @@
         "flake-utils": "flake-utils",
         "flit": "flit",
         "flit-scm": "flit-scm",
-        "nixos": "nixos"
+        "nixpkgs": "nixpkgs"
       }
     },
     "tomli": {
@@ -107,24 +107,24 @@
           "flit-scm",
           "flit"
         ],
-        "nixos": [
+        "nixpkgs": [
           "flit-scm",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
         "dir": "tomli",
-        "lastModified": 1732905007,
-        "narHash": "sha256-aWQp6uCGr4DC5qcEni0JUAIewzYAW72Zi23bugEZJI8=",
+        "lastModified": 1733508193,
+        "narHash": "sha256-jpRnwjLTgDPxPVThwOsxy/ywo6hIIQx+Wea8rKtN0yQ=",
         "owner": "rydnr",
         "repo": "nix-flakes",
-        "rev": "752b4c81a3fd81231635d9fccae3069ff877a5e1",
+        "rev": "f37bb8a5baf3546a7752eac045cfb078ade2fa1b",
         "type": "github"
       },
       "original": {
         "dir": "tomli",
         "owner": "rydnr",
-        "ref": "tomli-2.0.1.1",
+        "ref": "tomli-2.0.1.2",
         "repo": "nix-flakes",
         "type": "github"
       }
@@ -135,20 +135,26 @@
           "flit",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "flit",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-HxEcM+9PUC4WBhwq3jDUj9qvnS/YFvHT/ETW9MCQ3fY=",
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
+        "type": "github"
       },
       "original": {
-        "path": "../trove-classifiers",
-        "type": "path"
+        "dir": "trove-classifiers",
+        "owner": "rydnr",
+        "ref": "trove-classifiers-2023.5.24.2",
+        "repo": "nix-flakes",
+        "type": "github"
       }
     }
   },
