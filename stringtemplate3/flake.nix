@@ -9,25 +9,43 @@
     with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
+        org = "fcarne";
+        repo = "stringtemplate3-python3-runtime";
+        version = "3.1";
+        rev = "cf31a2d9366b1a809cf9c2ce2ee5ab0171aa5d4f";
+        sha256 = "sha256-j/T6bIkQu0Ij6Ly9yZcByR49ekZpzNZDTEWLGMGIAaQ=";
+        pname = "stringtemplate3";
         pkgs = import nixpkgs { inherit system; };
         description = "Python port of Stringtemplate3 template engine.";
         license = pkgs.lib.licenses.bsd3;
         homepage = "https://github.com/antlr/stringtemplate3";
         maintainers = with pkgs.lib.maintainers; [ ];
-        nixpkgsRelease = "nixpkgs-24.05";
+        nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
+        nixpkgsRelease =
+          builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import ../shared.nix;
         stringtemplate3-for = { python }:
-          python.pkgs.buildPythonPackage rec {
-            pname = "stringtemplate3b";
-            version = "3.1";
+          let
+            pnameWithUnderscores =
+              builtins.replaceStrings [ "-" ] [ "_" ] pname;
+            pythonVersionParts = builtins.splitVersion python.version;
+            pythonMajorVersion = builtins.head pythonVersionParts;
+            pythonMajorMinorVersion =
+              "${pythonMajorVersion}.${builtins.elemAt pythonVersionParts 1}";
+            wheelName =
+              "${pnameWithUnderscores}-${version}-py${pythonMajorVersion}-none-any.whl";
+          in python.pkgs.buildPythonPackage rec {
+            inherit pname version;
             src = pkgs.fetchFromGitHub {
-              owner = "fcarne";
-              repo = "stringtemplate3-python3-runtime";
-              rev = "cf31a2d";
-              sha256 = "sha256-j/T6bIkQu0Ij6Ly9yZcByR49ekZpzNZDTEWLGMGIAaQ=";
+              owner = org;
+              inherit repo rev sha256;
             };
             format = "setuptools";
 
+            postInstall = ''
+              command mkdir -p $out/dist
+              command cp dist/${wheelName} $out/dist
+              '';
             doCheck = false;
             meta = with lib; {
               inherit description license homepage maintainers;
