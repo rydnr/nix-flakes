@@ -20,7 +20,7 @@
   description = "Nix flake for azure-functions Python package";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,10 +44,10 @@
         defaultSystems ++ [ "armv6l-linux" ];
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
-        version = "1.21.3";
-        sha256 = "sha256-w1m529KZjITYWV4xoo/61OjKjc+0o3mDJ/d2pn+WQ1E=";
         org = "microsoft";
         repo = "azure-functions";
+        version = "1.21.3";
+        sha256 = "sha256-w1m529KZjITYWV4xoo/61OjKjc+0o3mDJ/d2pn+WQ1E=";
         pname = "azure-functions";
         pkgs = import nixpkgs { inherit system; };
         description = "Azure Functions Python Library";
@@ -62,7 +62,16 @@
           builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
         azure-functions-for = { python }:
-          python.pkgs.buildPythonPackage rec {
+          let
+            pnameWithUnderscores =
+              builtins.replaceStrings [ "-" ] [ "_" ] pname;
+            pythonVersionParts = builtins.splitVersion python.version;
+            pythonMajorVersion = builtins.head pythonVersionParts;
+            pythonMajorMinorVersion =
+              "${pythonMajorVersion}.${builtins.elemAt pythonVersionParts 1}";
+            wheelName =
+              "${pnameWithUnderscores}-${version}-py${pythonMajorVersion}-none-any.whl";
+          in python.pkgs.buildPythonPackage rec {
 
             inherit pname version;
             format = "pyproject";
@@ -70,6 +79,10 @@
 
             nativeBuildInputs = with python.pkgs; [ setuptools ];
             propagatedBuildInputs = with python.pkgs; [ requests ];
+            postInstall = ''
+              command mkdir -p $out/dist
+              command cp dist/${wheelName} $out/dist
+              '';
             meta = with pkgs.lib; {
               description = "Azure Functions Python Library";
               license = licenses.mit;
