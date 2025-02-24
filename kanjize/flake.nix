@@ -47,7 +47,7 @@
         org = "nagataaaas";
         repo = "Kanjize";
         version = "1.6.0";
-        sha256 = "";
+        sha256 = "sha256-2I5kiSYRrfgn4FOma8BhXfcnV3AFEvIF7qx27ggEf1Y=";
         pname = "kanjize";
         pkgs = import nixpkgs { inherit system; };
         description = "Easy converter between Kanki-Number and Integer";
@@ -77,40 +77,28 @@
             format = "pyproject";
             src = python.pkgs.fetchPypi { inherit pname version sha256; };
 
-            nativeBuildInputs = with python.pkgs; [ pip poetry-core ];
-            propagatedBuildInputs = with python.pkgs; [
-              gradio
-              huggingface-hub
-              inflect
-              kanjize
-              numpy
-              phonemizer
-              sudachidct-full
-              sudachipy
-              soundfile
-              torch
-              torchaudio
-            ];
+            nativeBuildInputs = with python.pkgs; [ hatchling pip poetry-core ];
+            propagatedBuildInputs = with python.pkgs; [ ];
             postInstall = ''
               command mkdir -p $out/dist
               command cp dist/${wheelName} $out/dist
               '';
             meta = with pkgs.lib; {
-              description = "Leading open-weight text-to-speech model";
+              description = "Easy converter between Kanki-Number and Integer";
               license = licenses.mit;
             };
           };
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          default = zonos-python312;
-          zonos-python39 = shared.devShell-for {
+          default = kanjize-python312;
+          kanjize-python39 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39
               }/bin/banner.sh";
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
-            package = packages.zonos-python39;
+            package = packages.kanjize-python39;
             python = pkgs.python39;
             pythoneda-shared-pythonlang-banner =
               pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39;
@@ -118,13 +106,13 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python39;
             inherit archRole layer org pkgs repo space;
           };
-          zonos-python310 = shared.devShell-for {
+          kanjize-python310 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310
               }/bin/banner.sh";
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
-            package = packages.zonos-python310;
+            package = packages.kanjize-python310;
             python = pkgs.python310;
             pythoneda-shared-pythonlang-banner =
               pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310;
@@ -132,13 +120,13 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python310;
             inherit archRole layer org pkgs repo space;
           };
-          zonos-python311 = shared.devShell-for {
+          kanjize-python311 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311
               }/bin/banner.sh";
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
-            package = packages.zonos-python311;
+            package = packages.kanjize-python311;
             python = pkgs.python311;
             pythoneda-shared-pythonlang-banner =
               pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
@@ -146,13 +134,13 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
             inherit archRole layer org pkgs repo space;
           };
-          zonos-python312 = shared.devShell-for {
+          kanjize-python312 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312
               }/bin/banner.sh";
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
-            package = packages.zonos-python312;
+            package = packages.kanjize-python312;
             python = pkgs.python312;
             pythoneda-shared-pythonlang-banner =
               pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
@@ -160,13 +148,13 @@
               pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
             inherit archRole layer org pkgs repo space;
           };
-          zonos-python313 = shared.devShell-for {
+          kanjize-python313 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313
               }/bin/banner.sh";
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
-            package = packages.zonos-python313;
+            package = packages.kanjize-python313;
             python = pkgs.python313;
             pythoneda-shared-pythonlang-banner =
               pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python313;
@@ -176,17 +164,17 @@
           };
         };
         packages = rec {
-          default = zonos-default;
-          zonos-default = zonos-python312;
-          zonos-python39 =
+          default = kanjize-default;
+          kanjize-default = kanjize-python312;
+          kanjize-python39 =
             kanjize-for { python = pkgs.python39; };
-          zonos-python310 =
+          kanjize-python310 =
             kanjize-for { python = pkgs.python310; };
-          zonos-python311 =
+          kanjize-python311 =
             kanjize-for { python = pkgs.python311; };
-          zonos-python312 =
+          kanjize-python312 =
             kanjize-for { python = pkgs.python312; };
-          zonos-python313 =
+          kanjize-python313 =
             kanjize-for { python = pkgs.python313; };
         };
       });
