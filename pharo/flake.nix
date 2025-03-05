@@ -17,14 +17,15 @@
         description = "Pharo VM";
         license = pkgs.lib.licenses.mit;
         homepage = "https://pharo.org";
-        maintainers = with pkgs.lib.maintainers; [ ];
+        maintainers = with pkgs.lib.maintainers; [ ehmry ];
         nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import ../shared.nix;
-        pharo = stdenv.mkDerivation (finalAttrs: {
+        pharo-for = { }:
+          pkgs.stdenv.mkDerivation (finalAttrs: {
             inherit pname version;
-            src = fetchzip {
+            src = pkgs.fetchzip {
               inherit url hash;
             };
 
@@ -42,7 +43,7 @@
               SDL2
             ];
 
-            nativeBuildInputs = [
+            nativeBuildInputs = with pkgs; [
               cmake
               makeBinaryWrapper
             ];
@@ -75,48 +76,46 @@
 
             preFixup =
               let
-                libPath = lib.makeLibraryPath (
+                libPath = pkgs.lib.makeLibraryPath (
                   finalAttrs.buildInputs
                   ++ [
-                    stdenv.cc.cc
+                    pkgs.stdenv.cc.cc
                     "$out"
                   ]
                 );
               in
                 ''
                 patchelf --allowed-rpath-prefixes "$NIX_STORE" --shrink-rpath "$out/bin/pharo"
-                ln -s "${libgit2}/lib/libgit2.so" $out/lib/libgit2.so.1.1
+                ln -s "${pkgs.libgit2}/lib/libgit2.so" $out/lib/libgit2.so.1.1
                 wrapProgram "$out/bin/pharo" --argv0 $out/bin/pharo --prefix LD_LIBRARY_PATH ":" "${libPath}"
                 '';
 
             meta = {
-              description = "Clean and innovative Smalltalk-inspired environment";
-              homepage = "https://pharo.org";
               changelog = "https://github.com/pharo-project/pharo/releases/";
-              license = lib.licenses.mit;
               longDescription = ''
                     Pharo's goal is to deliver a clean, innovative, free open-source
                     Smalltalk-inspired environment. By providing a stable and small core
                     system, excellent dev tools, and maintained releases, Pharo is an
                     attractive platform to build and deploy mission critical applications.
               '';
-              maintainers = with lib.maintainers; [ ehmry ];
+              inherit description homepage license maintainers;
               mainProgram = "pharo";
-              platforms = lib.platforms.linux;
+              platforms = pkgs.lib.platforms.linux;
             };
-
+        });
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
           default = pharo;
           pharo = shared.devShell-for {
             package = packages.pharo;
+            python = pkgs.python3;
             inherit pkgs nixpkgsRelease;
           };
         };
         packages = rec {
           default = pharo;
-          pharo = pharo;
+          pharo = pharo-for {};
         };
       });
 }
