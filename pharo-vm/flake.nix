@@ -41,6 +41,30 @@
               inherit sha256;
               fetchSubmodules = true;
             };
+            smacc = pkgs.fetchFromGitHub {
+              owner = "guillep";
+              repo = "smacc";
+              rev = "1b9a1ecab7870a8f2a276916b52c504af9bd992c";
+              sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
+            };
+            pharo-opal-simd-bytecode = pkgs.fetchFromGitHub {
+              owner = "evref-inria";
+              repo = "pharo-opal-simd-bytecode";
+              rev = "fcf681d950ace4e23055af76a1df25545452e72a";
+              sha256 = "sha256-XGLbN/JdMgFOZltHhpRRZl5xpdv6GpDhsk3OnPyIKKc=";
+            };
+            pharo-unicorn = pkgs.fetchFromGitHub {
+              owner = "pharo-project";
+              repo = "pharo-unicorn";
+              rev = "bfc3e22535d057306b0bf5353defdf1c50aaf7fd";
+              sha256 = "sha256-ce0KxrXqPzUMcGIuAG5QykbgmIxuaLe3dD7RqZZFd8g=";
+            };
+            pharo-llvmDisassembler = pkgs.fetchFromGitHub {
+              owner = "pharo-project";
+              repo = "pharo-llvmDisassembler";
+              rev = "/7116291e783c0977bd08dfc936c203828e2c5b98";
+              sha256 = "sha256-clwUvmYqjUXVEBz1YVPumqdwCzl2ExWpSxAMgFwrBco=";
+            };
           in pkgs.stdenv.mkDerivation (finalAttrs: {
             inherit pname src version;
 
@@ -91,6 +115,33 @@
               mv ../image build/build/vmmaker/image
               cp ${bootstrap-image} build/build/${bootstrap-image-zip}
               cp ${bootstrap-image} ../repository/build/build/${bootstrap-image-zip}
+              mkdir -p build/build/vmmaker/image/pharo-local/package-cache \
+                       build/build/vmmaker/image/pharo-local/iceberg/guillep \
+                       build/build/vmmaker/image/pharo-local/iceberg/evref-inria \
+                       build/build/vmmaker/image/pharo-local/iceberg/pharo-project
+              cp -r ${smacc}/src build/build/vmmaker/image/pharo-local/iceberg/guillep/SmaCC
+              cp -r ${pharo-opal-simd-bytecode} build/build/vmmaker/image/pharo-local/iceberg/evref-inria/pharo-opal-simd-bytecode
+              cp -r ${pharo-unicorn}/src build/build/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-unicorn
+              cp -r ${pharo-llvmDisassembler}/src build/build/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-llvmDissassembler
+              cp ${./mcz/BaselineOfLLVMDisassembler-CompatibleUserName.1726470951.mcz} build/build/vmmaker/image/pharo-local/package-cache/BaselineOfLLVMDisassembler-CompatibleUserName.1726470951.mcz
+              cp ${./mcz/BaselineOfOpalSimdBytecode-CompatibleUserName.1719927752.mcz} build/build/vmmaker/image/pharo-local/package-cache/BaselineOfOpalSimdBytecode-CompatibleUserName.1719927752.mcz
+              cp ${./mcz/BaselineOfSmaCC-CompatibleUserName.1671020579.mcz} build/build/vmmaker/image/pharo-local/package-cache/BaselineOfSmaCC-CompatibleUserName.1671020579.mcz
+              cp ${./mcz/BaselineOfUnicorn-CompatibleUserName.1723474457.mcz} build/build/vmmaker/image/pharo-local/package-cache/BaselineOfUnicorn-CompatibleUserName.1723474457.mcz
+              cp ${./mcz/BaselineOfVMMaker-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/BaselineOfVMMaker-tonel.1.mcz
+              cp ${./mcz/CAST-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/CAST-tonel.1.mcz
+              cp ${./mcz/LLVMDisassembler-CompatibleUserName.1726470951.mcz} build/build/vmmaker/image/pharo-local/package-cache/LLVMDisassembler-CompatibleUserName.1726470951.mcz
+              cp ${./mcz/LLVMDisassembler-Tests-CompatibleUserName.1726470951.mcz} build/build/vmmaker/image/pharo-local/package-cache/LLVMDisassembler-Tests-CompatibleUserName.1726470951.mcz
+              cp ${./mcz/Melchor-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/Melchor-tonel.1.mcz
+              cp ${./mcz/Opal-Simd-Bytecode-CompatibleUserName.1719927752.mcz} build/build/vmmaker/image/pharo-local/package-cache/Opal-Simd-Bytecode-CompatibleUserName.1719927752.mcz
+              cp ${./mcz/Opal-Simd-Bytecode-Tests-CompatibleUserName.1719927752.mcz} build/build/vmmaker/image/pharo-local/package-cache/Opal-Simd-Bytecode-Tests-CompatibleUserName.1719927752.mcz
+              cp ${./mcz/Printf-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/Printf-tonel.1.mcz
+              cp ${./mcz/Slang-Tests-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/Slang-Tests-tonel.1.mcz
+              cp ${./mcz/Slang-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/Slang-tonel.1.mcz
+              cp ${./mcz/SmaCC-GLR-Runtime-CompatibleUserName.1671020579.mcz} build/build/vmmaker/image/pharo-local/package-cache/SmaCC-GLR-Runtime-CompatibleUserName.1671020579.mcz
+              cp ${./mcz/SmaCC-Runtime-CompatibleUserName.1671020579.mcz} build/build/vmmaker/image/pharo-local/package-cache/SmaCC-Runtime-CompatibleUserName.1671020579.mcz
+              cp ${./mcz/Unicorn-CompatibleUserName.1723474457.mcz} build/build/vmmaker/image/pharo-local/package-cache/Unicorn-CompatibleUserName.1723474457.mcz
+              cp ${./mcz/VMMakerLoadingDependencies-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/VMMakerLoadingDependencies-tonel.1.mcz
+              cp ${./mcz/VMMaker-tonel.1.mcz} build/build/vmmaker/image/pharo-local/package-cache/VMMaker-tonel.1.mcz
             '';
 
             patchPhase = ''
@@ -153,7 +204,7 @@
                 -DFEATURE_LIB_SDL2=ON \
                 -S . -B build
 
-              cmake --build build --target generate-sources
+              cmake --build build --target=generate-sources
 
               runHook postBuild
             '';
