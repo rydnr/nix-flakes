@@ -1,0 +1,10 @@
+--- pharo	2025-03-12 13:44:04.696134424 +0100
++++ pharo.new	2025-03-12 13:47:56.488574955 +0100
+@@ -63,4 +63,7 @@
+ /lib|/usr/lib)  SVMLLP=/lib:/usr/lib;;
+ *)              SVMLLP="$PLATFORMLIBDIR:/lib:/usr$PLATFORMLIBDIR:/usr/lib"
+ esac
++LD_LIBRARY_PATH="/build/repository/build/build/vmmaker/vm/lib:$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" ldd "$BIN/pharo"
++echo "LD_LIBRARY_PATH=$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH} exec $GDB $BIN/pharo $@"
++ls -lrtlhia $BIN/pharo
+ LD_LIBRARY_PATH="$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
