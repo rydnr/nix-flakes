@@ -1,0 +1,19 @@
+--- BaselineOfVMMaker.class.st	2025-03-14 13:23:56.068268636 +0100
++++ BaselineOfVMMaker.class.st.new	2025-03-22 18:44:14.888363178 +0100
+@@ -8,6 +8,16 @@
+ { #category : 'baselines' }
+ BaselineOfVMMaker >> baseline: spec [
+ 	<baseline>
++    | smaccRepo |
++	Iceberg enableMetacelloIntegration.
++	smaccRepo := MetacelloPlatform current
++		createRepository: (MetacelloRepositorySpec new description: ('tonel://', (Smalltalk imageDirectory / 'pharo-local' / 'iceberg' / 'guillep' / 'SmaCC') fullName); yourself).
++	IceRepository registry add: smaccRepo.
++    Stdio stdout nextPutAll: 'Test!!!'; cr; flush.
++    Stdio stdout nextPutAll: smaccRepo directory fullName; cr; flush.
++    Stdio stderr nextPutAll: smaccRepo directory fullName; cr; flush.
++    Smalltalk exit: 1.
++    smaccRepo directory exists ifFalse: [ Smalltalk exit: 1 ].
+ 	spec
+ 		for: #common
+ 		do: [

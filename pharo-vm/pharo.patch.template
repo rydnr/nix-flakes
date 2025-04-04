@@ -1,8 +1,8 @@
 --- pharo	2025-03-12 13:44:04.696134424 +0100
-+++ pharo.new	2025-03-12 19:06:20.160285367 +0100
++++ pharo.new.template	2025-03-13 19:34:04.842327677 +0100
 @@ -63,4 +63,4 @@
  /lib|/usr/lib)  SVMLLP=/lib:/usr/lib;;
  *)              SVMLLP="$PLATFORMLIBDIR:/lib:/usr$PLATFORMLIBDIR:/usr/lib"
  esac
 -LD_LIBRARY_PATH="$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
-+LD_LIBRARY_PATH="/build/repository/build/build/vmmaker/vm/lib:$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
++LD_LIBRARY_PATH="@out@/lib:$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
