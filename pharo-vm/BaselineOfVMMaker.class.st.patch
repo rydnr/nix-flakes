@@ -1,73 +1,10 @@
 --- BaselineOfVMMaker.class.st	2025-03-14 13:23:56.068268636 +0100
 +++ BaselineOfVMMaker.class.st.new	2025-03-22 18:44:14.888363178 +0100
-@@ -8,6 +8,70 @@
+@@ -8,6 +8,7 @@
  { #category : 'baselines' }
  BaselineOfVMMaker >> baseline: spec [
  	<baseline>
-+    | smaccRepoDirectory sourceDir children |
-+	smaccRepoDirectory := Smalltalk imageDirectory / 'pharo-local' / 'iceberg' / 'guillep' / 'SmaCC'.
-+	
-+	"Define source and destination FileReferences"
-+	sourceDir := 'SMACCSRC' asFileReference.
-+	
-+	"   Pharo's 'copyAllTo:' copies the *contents* of the receiver directory"
-+	"   into the destination directory."
-+	"   First, ensure the final destination directory itself is created."
-+	Stdio stdout 
-+	    nextPutAll: 'Creating final destination directory: '; 
-+	    nextPutAll: smaccRepoDirectory fullName; cr; flush.
-+	[ smaccRepoDirectory ensureCreateDirectory ]
-+	    on: Error do: [ :ex |
-+	        Stdio stdout 
-+	            nextPutAll: 'ERROR: Could not create final destination directory: '; 
-+	            print: ex; cr; flush.
-+	        Smalltalk exit: 1.
-+	    ].
-+	
-+	Stdio stdout 
-+	    nextPutAll: 'Starting recursive copy...'; cr; flush.
-+	[ sourceDir copyAllTo: smaccRepoDirectory ]
-+	    on: Error do: [ :ex |
-+	        Stdio stdout 
-+	            nextPutAll: 'ERROR: Failed during recursive copy: '; 
-+	            print: ex; cr; flush.
-+	        Smalltalk exit: 1.
-+	    ].
-+	
-+	"--- NEW: List contents of destination directory after copy ---"
-+	Stdio stdout nextPutAll: '--- Listing contents of destination directory ---'; cr; flush.
-+	Stdio stdout nextPutAll: 'Listing: '; nextPutAll: smaccRepoDirectory fullName; cr; flush.
-+	
-+	[ children := smaccRepoDirectory children.
-+	
-+	children isEmpty ifTrue: [
-+	    Stdio stdout nextPutAll: '  (Directory is empty)'; cr; flush.
-+	] ifFalse: [
-+	    children do: [ :eachChild |
-+	        | entryType |
-+	        entryType := eachChild isDirectory ifTrue: [ '[DIR]' ] ifFalse: [ '[FILE]' ].
-+	        Stdio stdout 
-+	            nextPutAll: '  - ';
-+	            nextPutAll: eachChild basename; "Show just the file/folder name"
-+	            nextPutAll: entryType;
-+	            cr; flush.
-+	        "Optional: You could add more details like size for files"
-+	        "eachChild isDirectory ifFalse: [ "
-+	        "    Stdio stdout nextPutAll: '      Size: '; print: eachChild size; nextPutAll: ' bytes'; cr; flush."
-+	        "]"
-+	    ].
-+	].
-+	] on: Error do: [ :ex |
-+	    Stdio stdout 
-+	        nextPutAll: 'ERROR: Could not list contents of destination directory: '; 
-+	        print: ex; cr; flush.
-+	    "Decide if this error is fatal for the build"
-+	    "Smalltalk exit: 1." 
-+	].
-+	Stdio stdout nextPutAll: '--- End of listing ---'; cr; flush.
-+	"--- End of listing code ---"
 +	Iceberg enableMetacelloIntegration.
-+    smaccRepoDirectory exists ifFalse: [ Smalltalk exit: 1 ].
  	spec
  		for: #common
  		do: [

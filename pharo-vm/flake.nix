@@ -131,8 +131,8 @@
                 --replace-fail "/usr/bin/dirname" "${pkgs.coreutils}/bin/dirname" \
                 --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
                 --replace-fail "/bin/fgrep" "${pkgs.gnugrep}/bin/fgrep" \
-                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="/build/buildDirectory/vmmaker/vm/lib:'
-#                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
+                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
+              #  --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="/build/buildDirectory/vmmaker/vm/lib:'
               patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 --add-rpath /build/buildDirectory/vmmaker/vm/lib /build/buildDirectory/vmmaker/vm/lib/pharo
 
               # pushd /build/buildDirectory/vmmaker/src
@@ -162,14 +162,15 @@
             buildPhase = ''
               runHook preBuild
 
-              echo "Step 0"
               pushd /build/buildDirectory/vmmaker/vm/lib/
               rm -f libgit*
               ln -s ${pkgs.libgit2}/lib/libgit2.so libgit2.so
               ln -s libgit2.so libgit2.so.1.4.4
               popd
+              pushd /build/pharo-vm
               cmake \
                 --debug-output \
+                -DCMAKE_BUILD_TYPE=Debug \
                 -DFLAVOUR=CoInterpreter \
                 -DALWAYS_INTERACTIVE=ON \
                 -DGENERATE_VMMAKER=ON \
@@ -184,34 +185,42 @@
                 -DFEATURE_LIB_FREETYPE2=ON \
                 -DFEATURE_LIB_CAIRO=ON \
                 -DFEATURE_LIB_SDL2=ON \
-                 -S /build/pharo-vm -B /build/buildDirectory
+                -S /build/pharo-vm -B /build/buildDirectory
+
+              patch -p0 -d ./smalltalksrc/BaselineOfVMMaker < ${./BaselineOfVMMaker.class.st.patch}
+              substituteInPlace smalltalksrc/BaselineOfVMMaker/BaselineOfVMMaker.class.st \
+                --replace-fail "github://guillep/SmaCC" "filetree://${smacc}" \
+                --replace-fail "github://pharo-project/pharo-unicorn:unicorn2" "tonel://${pharo-unicorn}/src" \
+                --replace-fail "github://pharo-project/pharo-llvmDisassembler" "tonel://${pharo-llvmDisassembler}/src" \
+                --replace-fail "github://evref-inria/pharo-opal-simd-bytecode:main" "tonel://${pharo-opal-simd-bytecode}"
+
+              cmake --build /build/buildDirectory --target install
+              popd
+
+              substituteInPlace /build/buildDirectory/build/dist/bin/pharo \
+                --replace-fail "/usr/bin/dirname" "${pkgs.coreutils}/bin/dirname" \
+                --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
+                --replace-fail "/bin/fgrep" "${pkgs.gnugrep}/bin/fgrep" \
+                --replace-fail " grep " " ${pkgs.gnugrep}/bin/grep " \
+                --replace-fail " sed " " ${pkgs.gnused}/bin/sed " \
+                --replace-fail "uname" "${pkgs.coreutils}/bin/uname" \
+                --replace-fail "gdb" "${pkgs.gdb}/bin/gdb" \
+                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
+              patchelf --remove-rpath /build/buildDirectory/build/dist/lib/pharo
+              patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \
+                       --add-rpath $out/lib:${pkgs.libffi}/lib:${pkgs.cairo}/lib:${pkgs.freetype}/lib:${pkgs.libgit2}/lib:${pkgs.libpng}/lib:${pkgs.libuuid}/lib:${pkgs.openssl}/lib:${pkgs.pixman}/lib:${pkgs.SDL2}/lib \
+                       /build/buildDirectory/build/dist/lib/pharo
+              rm -f /build/buildDirectory/build/dist/pharo
               runHook postBuild
             '';
 
             installPhase = ''
               runHook preInstall
 
-              echo "Step 1"
-              cd /build/pharo-vm
-              # mkdir -p /build/buildDirectory/build/vmmaker/image/pharo-local/package-cache \
-              #          /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/guillep \
-              #          /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/evref-inria \
-              #          /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/pharo-project
-              #cp -r ${smacc} /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/guillep/SmaCC
-              #cp -r ${pharo-opal-simd-bytecode} /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/evref-inria/pharo-opal-simd-bytecode
-              #cp -r ${pharo-unicorn}/src /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-unicorn
-              #cp -r ${pharo-llvmDisassembler}/src /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-llvmDissassembler
-              # ls /build/buildDirectory/build/vmmaker/image/pharo-local/iceberg/guillep/SmaCC # doesn't fail!
-              patch -p0 -d ./smalltalksrc/BaselineOfVMMaker < ${./BaselineOfVMMaker.class.st.patch}
-              substituteInPlace smalltalksrc/BaselineOfVMMaker/BaselineOfVMMaker.class.st \
-                --replace-fail "SMACCSRC" "${smacc}" \
-                --replace-fail "'github://guillep/SmaCC'" "'filetree://', smaccRepoDirectory fullName"
-              #  --replace-fail "github://pharo-project/pharo-unicorn:unicorn2" "tonel:///build/pharo-vm/build/buildDirectory/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-unicorn" \
-              #  --replace-fail "github://pharo-project/pharo-llvmDisassembler" "tonel:///build/pharo-vm/build/buildDirectory/vmmaker/image/pharo-local/iceberg/pharo-project/pharo-llvmDisassembler" \
-              #  --replace-fail "github://evref-inria/pharo-opal-simd-bytecode:main" "tonel:///build/pharo-vm/build/buildDirectory/vmmaker/image/pharo-local/iceberg/evref-inria/pharo-opal-simd-bytecode"
-
-              cat smalltalksrc/BaselineOfVMMaker/BaselineOfVMMaker.class.st
-              cmake --build /build/buildDirectory --target install
+              mkdir -p $out
+              cp -r /build/buildDirectory/build/dist/lib $out/
+              cp -r /build/buildDirectory/build/dist/bin $out/
+              cp -r /build/buildDirectory/build/dist/include $out/
               runHook postInstall
              '';
 
