@@ -12,6 +12,9 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
+        version = "12.0.0";
+        sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
+        commit = "56a36ecab69530898a76551091f0c233769e51ae";
         pkgs = import nixpkgs { inherit system; };
         description = "Pharo VM";
         license = pkgs.lib.licenses.mit;
@@ -21,7 +24,7 @@
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import ../shared.nix;
-        pharo-vm-for = { version, sha256, commit, c-sources-url, c-sources-zip, c-sources-sha256, headless-bin-url, headless-bin-zip, headless-bin-sha256, bootstrap-image-url, bootstrap-image-zip, bootstrap-image-sha256 }:
+        pharo-vm-for = { c-sources-url, c-sources-zip, c-sources-sha256, headless-bin-url, headless-bin-zip, headless-bin-sha256, bootstrap-image-url, bootstrap-image-zip, bootstrap-image-sha256 }:
           let
             c-sources = pkgs.fetchurl {
               url = c-sources-url;
@@ -107,9 +110,7 @@
             prePatch = ''
               for file in macros.cmake ../repository/macros.cmake; do
                sed -i '/download_project(PROJ /,/)$/s/^/#/' $file
-              # sed -i '/file(GLOB DOWNLOADED_THIRD_PARTY_LIBRARIES/,/)$/s/^/#/' $file
               done
-              # sed -i '/ExternalProject_Add(/,/)$/s/^/#/' cmake/vmmaker.cmake
               mkdir -p /build/buildDirectory/vmmaker/src
               mv ../headless /build/buildDirectory/vmmaker/vm
               cp ${bootstrap-image} /build/buildDirectory/vmmaker/src
@@ -121,7 +122,6 @@
               runHook prePatch
               patch -p0 -d ../repository/cmake < ${./repository_cmake_vmmaker_cmake.patch}
               patch -p0 -d ./cmake < ${./pharo-vm_cmake_vmmaker_cmake.patch}
-              # mkdir -p /build/buildDirectory/vmmaker/vm
               cp ${./pharo.patch.template} /build/buildDirectory/vmmaker/vm/pharo.patch.template
               substituteInPlace /build/buildDirectory/vmmaker/vm/pharo.patch.template \
                 --replace-fail "@out@" "$out"
@@ -132,20 +132,9 @@
                 --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
                 --replace-fail "/bin/fgrep" "${pkgs.gnugrep}/bin/fgrep" \
                 --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
-              #  --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="/build/buildDirectory/vmmaker/vm/lib:'
               patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 --add-rpath /build/buildDirectory/vmmaker/vm/lib /build/buildDirectory/vmmaker/vm/lib/pharo
 
-              # pushd /build/buildDirectory/vmmaker/src
-              # unzip zjm9mf3wwic6hmmfxxiki77m1livq217-Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip
-              # ls -lrthila
-              # exit 1
               runHook postPatch
-            '';
-
-            unusedPreConfigure = ''
-              mkdir -p /build/buildDirectory/vmmaker
-              touch /build/buildDirectory/vmmaker/CMakeLists.txt  # Fake it so CMake is happy
-              echo "set(VMMAKER_PLACEHOLDER ON)" > /build/buildDirectory/vmmaker/CMakeLists.txt
             '';
 
             configurePhase = ''
@@ -155,7 +144,6 @@
               echo "${version}-${commit}" >> version.info
               date '+%Y-%m-%d' >> version.info
 
-              # sed -i "s|set_target_properties(PharoVMCore PROPERTIES LINK_INTERFACE_MULTIPLICITY 1)|set_target_properties(PharoVMCore PROPERTIES INTERFACE pharo)|g" CMakeLists.txt
               runHook postConfigure
               '';
 
@@ -240,44 +228,26 @@
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          default = pharo-vm-12;
-          pharo-vm-12 = shared.devShell-for {
-            package = packages.pharo-vm-12;
-            python = pkgs.python3;
-            inherit pkgs nixpkgsRelease;
-          };
-          pharo-vm-10 = shared.devShell-for {
-            package = packages.pharo-vm-10;
-            python = pkgs.python3;
-            inherit pkgs nixpkgsRelease;
-          };
-          pharo-vm-9 = shared.devShell-for {
-            package = packages.pharo-vm-9;
+          default = pharo-vm;
+          pharo-vm = shared.devShell-for {
+            package = packages.pharo-vm;
             python = pkgs.python3;
             inherit pkgs nixpkgsRelease;
           };
         };
         packages = rec {
-          default = pharo-vm-12;
-          pharo-vm-12 = pharo-vm-for rec {
-            version = "12.0.0";
-            sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
-            commit = "56a36ecab69530898a76551091f0c233769e51ae";
+          default = pharo-vm;
+          pharo-vm = pharo-vm-for rec {
             c-sources-zip = "PharoVM-10.2.1-d417aeb-Linux-x86_64-c-src.zip";
             c-sources-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/source/${c-sources-zip}";
             c-sources-sha256 = "sha256-gbDhV1Y04GZvdlYLXEQBlnnewoXnPoGah5DmInEvKXI=";
             headless-bin-zip = "PharoVM-10.3.1-6cdb1e5-Linux-x86_64-bin.zip";
             headless-bin-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/${headless-bin-zip}";
             headless-bin-sha256 = "sha256-oS+VX1U//tTWabTbpvTBbowJQ0YlPY8+vR/jd+Up+lU=";
-            # bootstrap-image-zip = "Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip";
             bootstrap-image-zip = "Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip";
-            # bootstrap-image-url = "https://files.pharo.org/image/120/${bootstrap-image-zip}";
             bootstrap-image-url = "https://files.pharo.org/image/120/${bootstrap-image-zip}";
-            # bootstrap-image-sha256 = "sha256-sSJwYx/8DGrcsLZElWW5q/2OiKhjqJSnMg9mDAWgrx4=";
             bootstrap-image-sha256 = "sha256-sSJwYx/8DGrcsLZElWW5q/2OiKhjqJSnMg9mDAWgrx4=";
           };
-          pharo-vm-10 = pharo-vm-for { version = "10.3.3"; sha256 = ""; };
-          pharo-vm-9 = pharo-vm-for { version = "9.0.22"; sha256 = ""; };
         };
       });
 }
