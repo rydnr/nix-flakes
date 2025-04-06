@@ -35,34 +35,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
-        "rydnr-ld_preload": "rydnr-ld_preload"
-      }
-    },
-    "rydnr-ld_preload": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "nix",
-        "lastModified": 1741890625,
-        "narHash": "sha256-p62c2Nl84Vlwo6qp6Jt6nTcEUbdCLXzNetnIMj2qUlc=",
-        "owner": "rydnr",
-        "repo": "ld_preload",
-        "rev": "35da02f6edae6cf05c26aace456296ab3b77039a",
-        "type": "github"
-      },
-      "original": {
-        "dir": "nix",
-        "owner": "rydnr",
-        "ref": "0.0.1",
-        "repo": "ld_preload",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
