@@ -12,7 +12,7 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
-        version = "12.0.1519.1";
+        version = "12.0.1519.2";
         sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
         commit = "2a0a66393d627d95f064fefa4aba576004452e01";
         pkgs = import nixpkgs { inherit system; };
@@ -106,7 +106,7 @@
             };
             pharoPatchTemplate = ./pharo.patch.template;
             isDarwin = pkgs.stdenv.isDarwin;
-            libuuidRpath = if isDarwin then "" else "${pkgs.libuuid}/lib";
+            libuuidRpath = if isDarwin then "" else "${pkgs.libuuid.lib}/lib";
             pharoVmCmakeVmmakerCmakePatch = pkgs.substituteAll {
               bootstrapImageZip = bootstrap-image-zip;
               src = ./patches/pharo-vm/cmake/vmmaker.cmake.patch.template;
@@ -245,7 +245,7 @@
                   "${pkgs.libgit2}/lib"
                   "${pkgs.libpng}/lib"
                   "${libuuidRpath}"
-                  "${pkgs.openssl}/lib"
+                  "${pkgs.openssl.out}/lib"
                   "${pkgs.pixman}/lib"
                   "${pkgs.SDL2}/lib"
                 ])} /build/buildDirectory/build/dist/lib/pharo
@@ -260,6 +260,20 @@
               cp -r /build/buildDirectory/build/dist/lib $out/
               cp -r /build/buildDirectory/build/dist/bin $out/
               cp -r /build/buildDirectory/build/dist/include $out/
+              pushd $out/lib
+              for dep in "${pkgs.libffi}/lib/libffi.so" \
+                         "${pkgs.cairo}/lib/libcairo.so" \
+                         "${pkgs.freetype}/lib/libfreetype.so" \
+                         "${pkgs.libgit2}/lib/libgit2.so" \
+                         "${pkgs.libpng}/lib/libpng.so" \
+                         "${libuuidRpath}/libuuid.so" \
+                         "${pkgs.openssl.out}/lib/libcrypto.so" \
+                         "${pkgs.pixman}/lib/libpixman-1.so" \
+                         "${pkgs.SDL2}/lib/libSDL2.so"; do \
+                ln -s $dep .
+              done
+              ln -s libgit2.so libgit2.so.1.4.4
+              popd
               runHook postInstall
              '';
 
