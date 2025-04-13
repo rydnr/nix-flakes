@@ -12,7 +12,7 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
-        version = "12.0.1519.0";
+        version = "12.0.1519.1";
         sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
         commit = "2a0a66393d627d95f064fefa4aba576004452e01";
         pkgs = import nixpkgs { inherit system; };
@@ -27,6 +27,7 @@
         bootstrap-image-zip = "Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip";
         bootstrap-image-url = "https://files.pharo.org/image/120/${bootstrap-image-zip}";
         bootstrap-image-sha256 = "sha256-sSJwYx/8DGrcsLZElWW5q/2OiKhjqJSnMg9mDAWgrx4=";
+        bootstrap-image-name = "Pharo12.0-SNAPSHOT-64bit-aa50f9c.image"; # unzip ${bootstrap-image-zip} to find out he image name.
         pharoVMParams =
           if system == "x86_64-linux" then rec {
             c-sources-zip = "PharoVM-10.2.1-d417aeb-Linux-x86_64-c-src.zip";
@@ -292,7 +293,7 @@
         resources = {
           inherit c-sources-zip c-sources-url c-sources-sha256;
           inherit headless-bin-zip headless-bin-url headless-bin-sha256;
-          inherit bootstrap-image-zip bootstrap-image-url bootstrap-image-sha256;
+          inherit bootstrap-image-zip bootstrap-image-url bootstrap-image-sha256 bootstrap-image-name;
         };
       });
 }
