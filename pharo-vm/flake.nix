@@ -24,6 +24,41 @@
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import ../shared.nix;
+        bootstrap-image-zip = "Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip";
+        bootstrap-image-url = "https://files.pharo.org/image/120/${bootstrap-image-zip}";
+        bootstrap-image-sha256 = "sha256-sSJwYx/8DGrcsLZElWW5q/2OiKhjqJSnMg9mDAWgrx4=";
+        pharoVMParams =
+          if system == "x86_64-linux" then rec {
+            c-sources-zip = "PharoVM-10.2.1-d417aeb-Linux-x86_64-c-src.zip";
+            c-sources-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/source/${c-sources-zip}";
+            c-sources-sha256 = "sha256-gbDhV1Y04GZvdlYLXEQBlnnewoXnPoGah5DmInEvKXI=";
+
+            headless-bin-zip = "PharoVM-10.3.1-6cdb1e5-Linux-x86_64-bin.zip";
+            headless-bin-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/${headless-bin-zip}";
+            headless-bin-sha256 = "sha256-oS+VX1U//tTWabTbpvTBbowJQ0YlPY8+vR/jd+Up+lU=";
+
+            inherit bootstrap-image-url bootstrap-image-zip bootstrap-image-sha256;
+          } else if system == "x86_64-darwin" then rec {
+            c-sources-zip = "PharoVM-v12.0.1-alpha%2B4.e9d1d652-Darwin-x86_64-c-src.zip";
+            c-sources-url = "https://files.pharo.org/vm/pharo-spur64-headless/Darwin-x86_64/source/${c-sources-zip}";
+            c-sources-sha256 = "";
+
+            headless-bin-zip = "PharoVM-v12.0.1-alpha%2B4.e9d1d652-Darwin-x86_64-StackVM-bin.zip";
+            headless-bin-url = "https://files.pharo.org/vm/pharo-spur64-headless/Darwin-x86_64/${headless-bin-zip}";
+            headless-bin-sha256 = "";
+
+            inherit bootstrap-image-url bootstrap-image-zip bootstrap-image-sha256;
+          } else if system == "aarch-linux" then rec {
+            c-sources-zip = "PharoVM-9.0.9-d910e1d-d910e1d-Linux-aarch64-c-src.zip";
+            c-sources-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-aarch64/source/${c-sources-zip}";
+            c-sources-sha256 = "";
+
+            headless-bin-zip = "PharoVM-9.0.9-d910e1d-d910e1d-Linux-aarch64-bin.zip";
+            headless-bin-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-aarch64/${headless-bin-zip}";
+            headless-bin-sha256 = "";
+
+            inherit bootstrap-image-url bootstrap-image-zip bootstrap-image-sha256;
+          } else throw "Unsupported system: ${system}";
         pharo-vm-for = { c-sources-url, c-sources-zip, c-sources-sha256, headless-bin-url, headless-bin-zip, headless-bin-sha256, bootstrap-image-url, bootstrap-image-zip, bootstrap-image-sha256 }:
           let
             c-sources = pkgs.fetchurl {
@@ -69,6 +104,8 @@
               leaveDotGit = true;
             };
             pharoPatchTemplate = ./pharo.patch.template;
+            isDarwin = pkgs.stdenv.isDarwin;
+            libuuidRpath = if isDarwin then "" else "${pkgs.libuuid}/lib";
           in pkgs.stdenv.mkDerivation (finalAttrs: {
             inherit pname src version;
 
@@ -195,9 +232,20 @@
                 --replace-fail "gdb" "${pkgs.gdb}/bin/gdb" \
                 --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
               patchelf --remove-rpath /build/buildDirectory/build/dist/lib/pharo
-              patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \
-                       --add-rpath $out/lib:${pkgs.libffi}/lib:${pkgs.cairo}/lib:${pkgs.freetype}/lib:${pkgs.libgit2}/lib:${pkgs.libpng}/lib:${pkgs.libuuid}/lib:${pkgs.openssl}/lib:${pkgs.pixman}/lib:${pkgs.SDL2}/lib \
-                       /build/buildDirectory/build/dist/lib/pharo
+
+              patchelf \
+                --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \
+                --add-rpath $out/lib:${pkgs.lib.concatStringsSep ":" (pkgs.lib.filter (s: s != "") [
+                  "${pkgs.libffi}/lib"
+                  "${pkgs.cairo}/lib"
+                  "${pkgs.freetype}/lib"
+                  "${pkgs.libgit2}/lib"
+                  "${pkgs.libpng}/lib"
+                  "${libuuidRpath}"
+                  "${pkgs.openssl}/lib"
+                  "${pkgs.pixman}/lib"
+                  "${pkgs.SDL2}/lib"
+                ])} /build/buildDirectory/build/dist/lib/pharo
               rm -f /build/buildDirectory/build/dist/pharo
               runHook postBuild
             '';
@@ -237,17 +285,12 @@
         };
         packages = rec {
           default = pharo-vm;
-          pharo-vm = pharo-vm-for rec {
-            c-sources-zip = "PharoVM-10.2.1-d417aeb-Linux-x86_64-c-src.zip";
-            c-sources-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/source/${c-sources-zip}";
-            c-sources-sha256 = "sha256-gbDhV1Y04GZvdlYLXEQBlnnewoXnPoGah5DmInEvKXI=";
-            headless-bin-zip = "PharoVM-10.3.1-6cdb1e5-Linux-x86_64-bin.zip";
-            headless-bin-url = "https://files.pharo.org/vm/pharo-spur64-headless/Linux-x86_64/${headless-bin-zip}";
-            headless-bin-sha256 = "sha256-oS+VX1U//tTWabTbpvTBbowJQ0YlPY8+vR/jd+Up+lU=";
-            bootstrap-image-zip = "Pharo12.0-SNAPSHOT.build.1519.sha.aa50f9c.arch.64bit.zip";
-            bootstrap-image-url = "https://files.pharo.org/image/120/${bootstrap-image-zip}";
-            bootstrap-image-sha256 = "sha256-sSJwYx/8DGrcsLZElWW5q/2OiKhjqJSnMg9mDAWgrx4=";
-          };
+          pharo-vm = pharo-vm-for pharoVMParams;
+        };
+        resources = {
+          inherit c-sources-zip c-sources-url c-sources-sha256;
+          inherit headless-bin-zip headless-bin-url headless-bin-sha256;
+          inherit bootstrap-image-zip bootstrap-image-url bootstrap-image-sha256;
         };
       });
 }
