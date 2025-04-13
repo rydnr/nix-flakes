@@ -12,9 +12,9 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
-        version = "12.0.0";
+        version = "12.0.1519.0";
         sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
-        commit = "56a36ecab69530898a76551091f0c233769e51ae";
+        commit = "2a0a66393d627d95f064fefa4aba576004452e01";
         pkgs = import nixpkgs { inherit system; };
         description = "Pharo VM";
         license = pkgs.lib.licenses.mit;
@@ -106,6 +106,10 @@
             pharoPatchTemplate = ./pharo.patch.template;
             isDarwin = pkgs.stdenv.isDarwin;
             libuuidRpath = if isDarwin then "" else "${pkgs.libuuid}/lib";
+            pharoVmCmakeVmmakerCmakePatch = pkgs.substituteAll {
+              bootstrapImageZip = bootstrap-image-zip;
+              src = ./patches/pharo-vm/cmake/vmmaker.cmake.patch.template;
+            };
           in pkgs.stdenv.mkDerivation (finalAttrs: {
             inherit pname src version;
 
@@ -157,13 +161,11 @@
 
             patchPhase = ''
               runHook prePatch
-              patch -p0 -d ../repository/cmake < ${./repository_cmake_vmmaker_cmake.patch}
-              patch -p0 -d ./cmake < ${./pharo-vm_cmake_vmmaker_cmake.patch}
-              cp ${./pharo.patch.template} /build/buildDirectory/vmmaker/vm/pharo.patch.template
+              patch -p0 -d ./cmake < ${pharoVmCmakeVmmakerCmakePatch}
+              cp ${./patches/pharo.patch.template} /build/buildDirectory/vmmaker/vm/pharo.patch.template
               substituteInPlace /build/buildDirectory/vmmaker/vm/pharo.patch.template \
                 --replace-fail "@out@" "$out"
               patch -p0 -d /build/buildDirectory/vmmaker/vm < /build/buildDirectory/vmmaker/vm/pharo.patch.template
-
               substituteInPlace /build/buildDirectory/vmmaker/vm/pharo \
                 --replace-fail "/usr/bin/dirname" "${pkgs.coreutils}/bin/dirname" \
                 --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
