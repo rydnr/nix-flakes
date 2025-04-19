@@ -12,7 +12,7 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
-        version = "12.0.1519.2";
+        version = "12.0.1519.3";
         sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
         commit = "2a0a66393d627d95f064fefa4aba576004452e01";
         pkgs = import nixpkgs { inherit system; };
@@ -165,13 +165,22 @@
               patch -p0 -d ./cmake < ${pharoVmCmakeVmmakerCmakePatch}
               cp ${./patches/pharo.patch.template} /build/buildDirectory/vmmaker/vm/pharo.patch.template
               substituteInPlace /build/buildDirectory/vmmaker/vm/pharo.patch.template \
-                --replace-fail "@out@" "$out"
+                --replace-fail "@libffi@" "${pkgs.libffi}" \
+                --replace-fail "@cairo@" "${pkgs.cairo}" \
+                --replace-fail "@freetype@" "${pkgs.freetype}" \
+                --replace-fail "@libgit2@" "${pkgs.libgit2}" \
+                --replace-fail "@libpng@" "${pkgs.libpng}" \
+                --replace-fail "@libuuid@" "${libuuidRpath}" \
+                --replace-fail "@openssl@" "${pkgs.openssl.out}" \
+                --replace-fail "@pixman@" "${pkgs.pixman}" \
+                --replace-fail "@sdl2@" "${pkgs.SDL2}" \
+                --replace-fail "@harfbuzz@" "${pkgs.harfbuzz}" \
+                --replace-fail "@out@" "$(realpath "$out")"
               patch -p0 -d /build/buildDirectory/vmmaker/vm < /build/buildDirectory/vmmaker/vm/pharo.patch.template
               substituteInPlace /build/buildDirectory/vmmaker/vm/pharo \
                 --replace-fail "/usr/bin/dirname" "${pkgs.coreutils}/bin/dirname" \
                 --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
-                --replace-fail "/bin/fgrep" "${pkgs.gnugrep}/bin/fgrep" \
-                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
+                --replace-fail "/bin/fgrep" "${pkgs.gnugrep}/bin/fgrep"
               patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 --add-rpath /build/buildDirectory/vmmaker/vm/lib /build/buildDirectory/vmmaker/vm/lib/pharo
 
               runHook postPatch
@@ -197,8 +206,6 @@
               popd
               pushd /build/pharo-vm
               cmake \
-                --debug-output \
-                -DCMAKE_BUILD_TYPE=Debug \
                 -DFLAVOUR=CoInterpreter \
                 -DALWAYS_INTERACTIVE=ON \
                 -DGENERATE_VMMAKER=ON \
@@ -225,6 +232,7 @@
               cmake --build /build/buildDirectory --target install
               popd
 
+              patch -p0 -d /build/buildDirectory/build/dist/bin < /build/buildDirectory/vmmaker/vm/pharo.patch.template
               substituteInPlace /build/buildDirectory/build/dist/bin/pharo \
                 --replace-fail "/usr/bin/dirname" "${pkgs.coreutils}/bin/dirname" \
                 --replace-fail "/usr/bin/ldd" "${pkgs.glibc.bin}/bin/ldd" \
@@ -232,13 +240,12 @@
                 --replace-fail " grep " " ${pkgs.gnugrep}/bin/grep " \
                 --replace-fail " sed " " ${pkgs.gnused}/bin/sed " \
                 --replace-fail "uname" "${pkgs.coreutils}/bin/uname" \
-                --replace-fail "gdb" "${pkgs.gdb}/bin/gdb" \
-                --replace-fail 'LD_LIBRARY_PATH="' 'LD_LIBRARY_PATH="$out/lib:'
+                --replace-fail "gdb" "${pkgs.gdb}/bin/gdb"
               patchelf --remove-rpath /build/buildDirectory/build/dist/lib/pharo
 
               patchelf \
                 --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \
-                --add-rpath $out/lib:${pkgs.lib.concatStringsSep ":" (pkgs.lib.filter (s: s != "") [
+                --add-rpath $(realpath $out)/lib:${pkgs.lib.concatStringsSep ":" (pkgs.lib.filter (s: s != "") [
                   "${pkgs.libffi}/lib"
                   "${pkgs.cairo}/lib"
                   "${pkgs.freetype}/lib"
@@ -248,6 +255,7 @@
                   "${pkgs.openssl.out}/lib"
                   "${pkgs.pixman}/lib"
                   "${pkgs.SDL2}/lib"
+                  "${pkgs.harfbuzz}/lib"
                 ])} /build/buildDirectory/build/dist/lib/pharo
               rm -f /build/buildDirectory/build/dist/pharo
               runHook postBuild

@@ -5,4 +5,4 @@
  *)              SVMLLP="$PLATFORMLIBDIR:/lib:/usr$PLATFORMLIBDIR:/usr/lib"
  esac
 -LD_LIBRARY_PATH="$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
-+LD_LIBRARY_PATH="@out@/lib:$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
++LD_LIBRARY_PATH="@libffi@/lib:@cairo@/lib:@freetype@/lib:@libgit2@/lib:@libpng@/lib:@libuuid@:@openssl@/lib:@pixman@/lib:@sdl2@/lib:@harfbuzz@/lib:@out@/lib:$PLUGINS:$SVMLLP:${LD_LIBRARY_PATH}" exec $GDB "$BIN/pharo" "$@"
