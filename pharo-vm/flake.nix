@@ -12,7 +12,7 @@
         org = "pharo-project";
         repo = "pharo-vm";
         pname = "${repo}";
-        version = "12.0.1519.3";
+        version = "12.0.1519.4";
         sha256 = "sha256-0FE39wsZt8P/oimBxrPMC+bIJdLJPInavJH1R2d3mpU=";
         commit = "2a0a66393d627d95f064fefa4aba576004452e01";
         pkgs = import nixpkgs { inherit system; };
@@ -104,7 +104,6 @@
               sha256 = "sha256-clwUvmYqjUXVEBz1YVPumqdwCzl2ExWpSxAMgFwrBco=";
               leaveDotGit = true;
             };
-            pharoPatchTemplate = ./pharo.patch.template;
             isDarwin = pkgs.stdenv.isDarwin;
             libuuidRpath = if isDarwin then "" else "${pkgs.libuuid.lib}/lib";
             pharoVmCmakeVmmakerCmakePatch = pkgs.substituteAll {
@@ -222,7 +221,7 @@
                 -DFEATURE_LIB_SDL2=ON \
                 -S /build/pharo-vm -B /build/buildDirectory
 
-              patch -p0 -d ./smalltalksrc/BaselineOfVMMaker < ${./BaselineOfVMMaker.class.st.patch}
+              patch -p0 -d ./smalltalksrc/BaselineOfVMMaker < ${./patches/BaselineOfVMMaker.class.st.patch}
               substituteInPlace smalltalksrc/BaselineOfVMMaker/BaselineOfVMMaker.class.st \
                 --replace-fail "github://guillep/SmaCC" "filetree://${smacc}" \
                 --replace-fail "github://pharo-project/pharo-unicorn:unicorn2" "tonel://${pharo-unicorn}/src" \
