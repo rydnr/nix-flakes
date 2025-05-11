@@ -16,7 +16,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         description = "Reusable core utilities for various Python Packaging interoperability specifications.";
-        license = pkgs.lib.licenses.bsd;
+        license = pkgs.lib.licenses.bsd3;
         homepage = "https://packaging.pypa.io/";
         maintainers = with pkgs.lib.maintainers; [ ];
         nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
@@ -28,11 +28,11 @@
             pname = "packaging";
             version = "25.0";
             format = "pyproject";
-            src = fetchPypi {
+            src = python.pkgs.fetchPypi {
               inherit pname version;
               sha256 = "sha256-1EOHLJjWd79g9qHy+MHLdI6P52LSv50xSLVZkpWw/E8=";
             };
-            nativeBuildInputs = [ setuptools wheel ];
+            nativeBuildInputs = with python.pkgs; [ setuptools wheel ];
             propagatedBuildInputs = with python.pkgs; [
               flit-core
             ];

@@ -1,0 +1,100 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "v1.0.0",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flit": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "trove-classifiers": "trove-classifiers"
+      },
+      "locked": {
+        "dir": "flit",
+        "lastModified": 1733507999,
+        "narHash": "sha256-eYzk+juA3c/CrwfpNwSqPRoqqaIh/S+yvaT/i5k1afQ=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "ad6509e1d90b396c5a34e6359ec784895ccfcfae",
+        "type": "github"
+      },
+      "original": {
+        "dir": "flit",
+        "owner": "rydnr",
+        "ref": "flit-3.9.0.3",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1731603435,
+        "narHash": "sha256-CqCX4JG7UiHvkrBTpYC3wcEurvbtTADLbo3Ns2CEoL8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8b27c1239e5c421a2bbc2c65d52e4a6fbf2ff296",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "flit": "flit",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "trove-classifiers": {
+      "inputs": {
+        "flake-utils": [
+          "flit",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "flit",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "trove-classifiers",
+        "lastModified": 1733507900,
+        "narHash": "sha256-SfUJVcnYvuPW9pzfFBjslyJuc3nru6u8QTTh6gL4rF8=",
+        "owner": "rydnr",
+        "repo": "nix-flakes",
+        "rev": "f63f8dc59791dc10adb7d34bd695113df503347a",
+        "type": "github"
+      },
+      "original": {
+        "dir": "trove-classifiers",
+        "owner": "rydnr",
+        "ref": "trove-classifiers-2023.5.24.2",
+        "repo": "nix-flakes",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
