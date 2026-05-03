@@ -3,7 +3,7 @@
     "Multi-agent orchestration system for Claude Code with persistent work tracking";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     beads = {
       url = "github:gastownhall/beads";
@@ -21,7 +21,7 @@
           gt = pkgs.buildGoModule rec {
             pname = "gt";
             version = "a3b272e";
-            vendorHash = "sha256-V5n/rPzHmnX16gF8E2Wz67BArYRjUetmb73KWnz7lXc=";
+            vendorHash = "sha256-PQT/Xq9na3vI8Oy9INBYJf3GsiN5IxAVCxrNLhyIpO8=";
             src = pkgs.fetchFromGitHub {
               owner = "gastownhall";
               repo = "gastown";
