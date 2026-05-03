@@ -26,7 +26,7 @@
               owner = "gastownhall";
               repo = "gastown";
               rev = version;
-              sha256 = vendorHash;
+              sha256 = "sha256-V5n/rPzHmnX16gF8E2Wz67BArYRjUetmb73KWnz7lXc=";
             };
 
             ldflags = [
