@@ -18,16 +18,16 @@
         beadsPkg = beads.packages.${system}.default;
       in {
         packages = {
-          gt = pkgs.buildGoModule {
+          gt = pkgs.buildGoModule rec {
             pname = "gt";
             version = "a3b272e";
+            vendorHash = "sha256-V5n/rPzHmnX16gF8E2Wz67BArYRjUetmb73KWnz7lXc=";
             src = pkgs.fetchFromGitHub {
               owner = "gastownhall";
               repo = "gastown";
-              rev = "a3b272e";
-              sha256 = "sha256-PQT/Xq9na3vI8Oy9INBYJf3GsiN5IxAVCxrNLhyIpO8=";
+              rev = version;
+              sha256 = vendorHash;
             };
-            vendorHash = "sha256-PQT/Xq9na3vI8Oy9INBYJf3GsiN5IxAVCxrNLhyIpO8=";
 
             ldflags = [
               "-X github.com/gastownhall/gastown/internal/cmd.Build=nix"
